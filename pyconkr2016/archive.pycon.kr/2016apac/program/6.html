@@ -1,0 +1,656 @@
+
+
+<!DOCTYPE html>
+<html>
+
+
+<head>
+  <title>PyCon APAC 2016 Program | 파이썬을 활용한 똑똑한 주식투자 (시스템 트레이딩)</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=0.85">
+
+  <!-- Opengraph tag -->
+  <meta property="og:site_name" content="PyCon APAC 2016">
+  <meta property="og:title" content="파이썬을 활용한 똑똑한 주식투자 (시스템 트레이딩)">
+  <meta property="og:image" content="../static/image/pyconkr-2016-tag.jpg">
+  <meta property="og:url" content="6.html">
+  <meta property="og:description" content=" 안녕하세요 저는 파이낸서피를 개발한&nbsp;김대현이라고 합니다.&nbsp;좋아하는 일을 직장으로 하는 호사를 누리고 있는 사람입니다.&nbsp;몇 년째 금융데이터를 가공하여 투자자에게 도움이 되는 정보로 가공하는 일을 하고 있으며, 전 직장에서는 ETF/ETN 과 같은 금융상품을 관리하고 설계하는 일을 담당하였습니다. 개인적으로는 시스템트레이딩을 오랜기간 진행해 오고 있으며 관련된 노하우가 있다고 자부합니다.&nbsp;개발을 함에 있어 여러 언어를 경험하였지만 결과적으로 현재는 파이썬을 주로 사용하고 있습니다. 저는 전형적인 1인 개발자이기 때문에 파이썬의 가장 큰 장점인 생산성이 저에게 큰 매력으로 다가오기 때문입니다. 이번 기회에 파이썬을 통해서 우리 삶과 아주 밀접하게 연관되어 있는 '주식'을 어떻게 하면 효율적으로 할 수 있을지에 대해서 함께 이야기하고 싶습니다. &nbsp;파이썬을 통해서 주식 투자를 접근한다고 하면 어떤 목표를 추구하던 세가지 단계로 생각해 볼 수 있습니다.&nbsp;1. 데이터모든 프로세스의 기초가 되는 데이터를 확보해야 합니다.&nbsp;우리는 아주 운이 좋은 세상에 살고 있어서&nbsp;파이썬의 몇 가지 라이브러리를 사용하여 쉽게 수취가 가능합니다.&nbsp;네이버, KRX(거래소) 사이트의 데이터를 수취할 수 있습니다. 데이터를 어떤 방식으로 구성할 것인가, 투자에 필요한 데이터는 어떤 것인지 정리하고 금융데이터가 실제로 어떤 방식으로 저장되고 관리되는지 알아봅니다.2. 전략데이터가 확보 되었다면 이를 잘 요리해서 우리의 의사결정에 도움을 주는 결과물들로 만들어야 합니다.&nbsp;“매주 금요일 종가 기준으로 가장 저평가 되어 있는 (저PER) 종목 5개을 크기 비중으로 매수”“현재 SNS상에서 가장 이슈가 되고 있는 종목을 가장 사이즈 큰 순서대로 10종목 매수”전략에서 가장 중요한 것은 과연 이 전략이 좋은 전략인가? 에 대한 정보를 얻는 것입니다. 즉, 전략을 포트폴리오 수익률로 변환시켜줄 프로그램이 필요합니다. 파이낸서피에는 이미 제가 종목과 시점을 입력하면 포트폴리오 수익률을 레포트 형식으로 보여주는 프로그램을 만들어 놓았습니다.&nbsp;이런 프로그램이 어떻게 동작하는지에 대해서 얘기해 봅시다. 파이썬의 막강한 라이브러리를 사용하면 쉽게 위의 내용을 쉽게 성취할 수 있습니다.&nbsp;[파이낸서피 전략 시뮬레이터 : http://www.financipe.com/simul/input]&nbsp;3) 이행전략이 수립되었다면 이를 실제로 우리에게 도움을 주도록 만들어야 합니다.&nbsp;이행은 여러 가지 방식이 될 수 있는데요. 로직의 결과물을 자동으로 메일로 보낼수도 있고, Flask를 활용하여 간단한 웹사이트로 투자정보를 공유할 수 있습니다. 몇 가지 예시를 들어보겠습니다.“나는 내가 만든 프로그램으로 외국인이 제일 매수한 종목과 개인들이 제일 많이 매도한 종목을 엑셀파일 보고서 형식으로 참고한다.”“내가 만든 프로그램인 ‘투자비서’ 은 장중에 상한가 종목을 나에게 수시로 알려준다. ">
+
+  <!-- Include basic items -->
+  <link href="../static/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/components/bootstrap-social/bootstrap-social.css" rel="stylesheet">
+  <link href="../static/components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- Override bootstrap css -->
+  <link href="../static/css/pyconkr.css" rel="stylesheet">
+  <link href="../static/css/pyconkr-media.css" rel="stylesheet">
+
+  <!-- Google fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='../../../fonts.googleapis.com/earlyaccess/nanumgothic.css' rel='stylesheet' type='text/css'>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../static/image/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../static/image/favicon.ico" type="image/x-icon">
+
+  <!-- Scripts -->
+  <!--[if lt IE 9]>
+    <script src="/2016apac/static/components/html5shiv/dist/html5shiv.min.js"></script>
+    <script src="/2016apac/static/components/respond/dest/respond.min.js"></script>
+  <![endif]-->
+  <script src="../static/components/jquery/jquery.min.js"></script>
+  <script src="../static/components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="../static/js/rgb-hsv.js"></script>
+  
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-translucent" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="glyphicon glyphicon-python"></span>
+      </button>
+      
+      <a class="navbar-logo" href="../index.html">
+        <img src="../static/image/pyconkr-logo-small.png" alt="PyCon Korea">
+      </a>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-python"></span> About <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../about/pyconkr/index.html">About PyCon APAC 2016</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/coc/index.html">Code of Conduct</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/announcements/index.html">Announcements</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/sponsor/index.html">Sponsors</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/patron/index.html">Patrons</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/sponsorship/index.html">Sponsorship</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/staff/index.html">Staff</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/contact/index.html">Contact</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-calendar"></span> Programs <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="schedule/index.html">Schedule</a>
+            </li>
+          
+            <li class="">
+              <a href="list/index.html">Program list</a>
+            </li>
+          
+            <li class="">
+              <a href="preference/index.html">Preference survey</a>
+            </li>
+          
+            <li class="">
+              <a href="keynote/index.html">Keynotes</a>
+            </li>
+          
+            <li class="">
+              <a href="speaker/index.html">Speakers</a>
+            </li>
+          
+            <li class="">
+              <a href="tutorials/index.html">Sprint and Tutorial</a>
+            </li>
+          
+            <li class="">
+              <a href="lightning_talk/index.html">Lightning talk</a>
+            </li>
+          
+            <li class="">
+              <a href="ost/index.html">Open Spaces</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-map-marker"></span> Venue <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../venue/map/index.html">Venue Map</a>
+            </li>
+          
+            <li class="">
+              <a href="../venue/transportation/index.html">Transportation</a>
+            </li>
+          
+            <li class="">
+              <a href="../venue/hotels/index.html">Hotels</a>
+            </li>
+          
+            <li class="">
+              <a href="../venue/restaurants/index.html">Restaurants</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-edit"></span> Proposal <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../cfp/cfp/index.html">Call for proposals</a>
+            </li>
+          
+            <li class="">
+              <a href="../cfp/howto/index.html">How to propose</a>
+            </li>
+          
+            <li class="">
+              <a href="../cfp/propose/index.html">Propose</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-book"></span> Registration <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../registration/information/index.html">Information</a>
+            </li>
+          
+            <li class="">
+              <a href="../registration/purchase/index.html">Purchase a ticket</a>
+            </li>
+          
+            <li class="">
+              <a href="../registration/finacial-aid/index.html">Financial Aid</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+      </ul>
+      <!-- Right menu -->
+      <ul class="nav navbar-nav navbar-right">
+      <!-- Authenticate -->
+      
+        <li class="">
+          <a href="../login/index.html"><span class="glyphicon glyphicon-user"></span> Login</a>
+        </li>
+      
+      <!-- Language -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-globe"></span>
+            Language <span class="caret"></span></a>
+          <ul id="language-menu" class="dropdown-menu" role="menu">
+            
+            
+            <li><a href="#" data-code="ko">한국어</a></li>
+            
+            <li><a href="#" data-code="en">English</a></li>
+            
+          </ul>
+          <form id="language-form" action="https://archive.pycon.kr/2016apac/i18n/setlang/" method="post">
+            <input type='hidden' name='csrfmiddlewaretoken' value='whNLgna2o4ZauHTnpnSPnsboHyVsDpex' />
+            <input name="next" type="hidden" value="/2016apac/program/6" />
+            <input name="language" type="hidden" />
+          </form>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
+<script>
+$(function() {
+  $("#language-menu a").click(function() {
+      var form = $("#language-form");
+      form.find("input[name='language']").val($(this).data("code"));
+      form.submit();
+  });
+
+  
+  var d = new Date();
+  $(".navbar").css("background", getSkyColorAt(d.getHours(), d.getMinutes()));
+  
+});
+</script>
+
+
+<div class="container">
+    
+    <div class="row wrap">
+        <div class="col-md-9 content">
+            <h1>파이썬을 활용한 똑똑한 주식투자 (시스템 트레이딩)</h1>
+            
+            
+            
+<div class="social-badges">
+  <span>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </span>
+  <span>
+    <script>
+    var s = '<div class="fb-like" data-href="'+document.location+'" data-width="450" data-layout="button_count"></div>';
+    document.write(s);
+</script>
+
+  </span>
+  <span>
+    <script type="text/javascript" src="../../../apis.google.com/js/plusone.js"></script>
+<div class="g-plusone" data-size="medium"></div>
+
+  </span>
+  <div class="clear"></div>
+</div>
+
+<ul class="list-group">
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-tag"></span> Python basic and Application
+  </li>
+  
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-time"></span> 2016-08-13 (Sat) 14:40 - 15:20
+  </li>
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-volume-up"></span> Korean
+  </li>
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-map-marker"></span> 103
+  </li>
+  
+  
+  <li class="list-group-item">
+    
+    <div class="speaker-small">
+    <a href="speaker/reinitiate.html">
+        <img class="image" src="../media/profile/%e1%84%89%e1%85%b3%e1%84%8f%e1%85%b3%e1%84%85%e1%85%b5%e1%86%ab%e1%84%89%e1%85%a3%e1%86%ba_2016-05-31_12.58.02_f5WLozH.png" alt="photo of reinitiate">
+        <span class="name">김대현 / reinitiate</span>
+    </a>
+    </div>
+    
+  </li>
+  
+  <li class="list-group-item">
+  
+    <span class="glyphicon glyphicon-eye-open"></span> Photography and recording is allowed
+  
+  </li>
+</ul>
+
+
+<h3>Video</h3>
+<a href="https://www.youtube.com/watch?v=ED04jGkp4Sg" rel="nofollow">https://www.youtube.com/watch?v=ED04jGkp4Sg</a>
+
+
+<h3>PDF</h3>
+<a href="https://github.com/pythonkr/pyconapac-2016-files/raw/master/20160813-103-6-KimDaehyun.pdf" rel="nofollow">https://github.com/pythonkr/pyconapac-2016-files/raw/master/20160813-103-6-KimDaehyun.pdf</a>
+
+
+<h3>Description</h3>
+<p> </p><p class="p1"><span style="line-height: 27.52px; font-size: 1rem;">안녕하세요 저는 <a href="http://www.financipe.com/">파이낸서피</a>를 개발한&nbsp;</span><a href="http://www.financipe.com/me" target="_blank" style="line-height: 27.52px; font-size: 1rem; background-color: rgb(255, 255, 255);">김대현</a><span style="line-height: 27.52px; font-size: 1rem;">이라고 합니다.&nbsp;</span><span style="line-height: 27.52px; font-size: 1rem;">좋아하는 일을 직장으로 하는 호사를 누리고 있는 사람입니다.</span><span style="font-size: 1rem; line-height: 27.52px;">&nbsp;몇 년째 금융데이터를 가공하여 투자자에게 도움이 되는 정보로 가공하는 일을 하고 있으며, 전 직장에서는 ETF/ETN 과 같은 금융상품을 관리하고 설계하는 일을 담당하였습니다. 개인적으로는 시스템트레이딩을 오랜기간 진행해 오고 있으며 관련된 노하우가 있다고 자부합니다.&nbsp;</span><span style="line-height: 27.52px; font-size: 1rem;">개발을 함에 있어 여러 언어를 경험하였지만 결과적으로 현재는 파이썬을 주로 사용하고 있습니다. 저는 전형적인 1인 개발자이기 때문에 파이썬의 가장 큰 장점인 생산성이 저에게 큰 매력으로 다가오기 때문입니다. 이번 기회에 파이썬을 통해서 우리 삶과 아주 밀접하게 연관되어 있는 '주식'을 어떻게 하면 효율적으로 할 수 있을지에 대해서 함께 이야기하고 싶습니다. &nbsp;</span><span style="line-height: 27.52px; font-size: 1rem;">파이썬을 통해서 주식 투자를 접근한다고 하면 어떤 목표를 추구하던 세가지 단계로 생각해 볼 수 있습니다</span><span class="s1" style="line-height: 27.52px; font-size: 1rem;">.</span><span style="line-height: 27.52px; font-size: 1rem;">&nbsp;</span></p><p class="p1"><b>1. 데이터</b></p><p class="p1">모든 프로세스의 기초가 되는 데이터를 확보해야 합니다<span class="s1">.</span>&nbsp;우리는 아주 운이 좋은 세상에 살고 있어서&nbsp;파이썬의 몇 가지 라이브러리를 사용하여 쉽게 수취가 가능합니다<span class="s1">.</span>&nbsp;네이버<span class="s1">,</span> KRX(거래소) 사이트의 데이터를 수취할 수 있습니다<span class="s1">. 데이터를 어떤 방식으로 구성할 것인가, 투자에 필요한 데이터는 어떤 것인지 정리하고 금융데이터가 실제로 어떤 방식으로 저장되고 관리되는지 알아봅니다.</span></p><p class="p1"><span class="s1"><b>2. 전략</b></span></p><p></p><p class="p1">데이터가 확보 되었다면 이를 잘 요리해서 우리의 의사결정에 도움을 주는 결과물들로 만들어야 합니다<span class="s1">.</span>&nbsp;</p><pre><span class="s1">“</span>매주 금요일 종가 기준으로 가장 저평가 되어 있는 (저PER) 종목 5개을 크기 비중으로 매수<span class="s1">”<br></span><span class="s1"><span class="s1" style="line-height: 27.52px;">“현재 SNS상에서 가장 이슈가 되고 있는 종목을 가장 사이즈 큰 순서대로 10종목 매수</span><span class="s1" style="line-height: 27.52px;">”</span></span></pre><p class="p1"><img src="../media/django-summernote/2016-05-31/cb39c65b-1613-4574-a027-b9f6fb3e1282.blob" style="width: 438px; height: 306.309px;"><span style="line-height: 27.52px; font-size: 1rem;"><br></span></p><p class="p1"><span style="line-height: 27.52px; font-size: 1rem;">전략에서 가장 중요한 것은 과연 이 전략이 좋은 전략인가? 에 대한 정보를 얻는 것입니다</span><span class="s1" style="line-height: 27.52px; font-size: 1rem;">.</span><span style="line-height: 27.52px; font-size: 1rem;"> 즉</span><span class="s1" style="line-height: 27.52px; font-size: 1rem;">,</span><span style="line-height: 27.52px; font-size: 1rem;"> 전략을 포트폴리오 수익률로 변환시켜줄 프로그램이 필요합니다</span><span class="s1" style="line-height: 27.52px; font-size: 1rem;">.</span><span style="line-height: 27.52px; font-size: 1rem;"> 파이낸서피에는 이미 제가 종목과 시점을 입력하면 포트폴리오 수익률을 레포트 형식으로 보여주는 프로그램을 만들어 놓았습니다</span><span class="s1" style="line-height: 27.52px; font-size: 1rem;">.</span><span style="line-height: 27.52px; font-size: 1rem;">&nbsp;이런 프로그램이 어떻게 동작하는지에 대해서 얘기해 봅시다. 파이썬의 막강한 라이브러리를 사용하면 쉽게 위의 내용을 쉽게 성취할 수 있습니다.&nbsp;</span><span style="line-height: 27.52px; font-size: 1rem;">[파이낸서피 전략 시뮬레이터 : </span><a href="http://www.financipe.com/simul/input" style="line-height: 27.52px; font-size: 1rem; background-color: rgb(255, 255, 255);"><span class="s3">http://www.financipe.com/simul/input</span></a><span style="line-height: 27.52px; font-size: 1rem;">]&nbsp;</span></p><p class="p1"><b>3) 이행</b></p><p class="p1">전략이 수립되었다면 이를 실제로 우리에게 도움을 주도록 만들어야 합니다<span class="s1">.</span>&nbsp;이행은 여러 가지 방식이 될 수 있는데요. 로직의 결과물을 자동으로 메일로 보낼수도 있고, Flask를 활용하여 간단한 웹사이트로 투자정보를 공유할 수 있습니다. 몇 가지 예시를 들어보겠습니다.</p><pre><span class="s1">“</span>나는 내가 만든 프로그램으로 외국인이 제일 매수한 종목과 개인들이 제일 많이 매도한 종목을 엑셀파일 보고서 형식으로 참고한다<span class="s1">.”<br></span><span class="s1">“</span>내가 만든 프로그램인 ‘투자비서’ 은 장중에 상한가 종목을 나에게 수시로 알려준다.</pre><p class="p1"> </p>
+
+
+
+<h3>Comments</h3>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'pyconapac2016';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </div>
+        <div class="col-md-3">
+            <div class="submenu list-group hidden-xs hidden-sm">
+
+<a href="../../program/schedule/index.html" class="list-group-item">Schedule</a>
+
+<a href="../../program/list/index.html" class="list-group-item">Program list</a>
+
+<a href="../../program/preference/index.html" class="list-group-item">Preference survey</a>
+
+<a href="../../program/keynote/index.html" class="list-group-item">Keynotes</a>
+
+<a href="../../program/speaker/index.html" class="list-group-item">Speakers</a>
+
+<a href="../../program/tutorials/index.html" class="list-group-item">Sprint and Tutorial</a>
+
+<a href="../../program/lightning_talk/index.html" class="list-group-item">Lightning talk</a>
+
+<a href="../../program/ost/index.html" class="list-group-item">Open Spaces</a>
+
+</div>
+
+            <ul class="banners">
+
+</ul>
+
+        </div>
+    </div>
+    
+    
+    <hr>
+    <div class="row wrap">
+        <div class="col-md-12 sponsors">
+        <h2>Sponsors</h2>
+        
+<div class="sponsors">
+  
+  <h3>Keystone</h3>
+  <ul>
+    
+    <li class="sponsor-1">
+      <a href="../about/sponsor/kakao.html">
+        <img src="../media/sponsor/sponsor-kakao_KsLn6RS.png" alt="Kakao">
+        
+      </a>
+    </li>
+    
+  </ul>
+  
+  <h3>Diamond</h3>
+  <ul>
+    
+    <li class="sponsor-2">
+      <a href="../about/sponsor/psf.html">
+        <img src="../media/sponsor/sponsor-psf_PiqlM6v.png" alt="Python Software Foundation">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-2">
+      <a href="../about/sponsor/microsoft.html">
+        <img src="../media/sponsor/sponsor-microsoft.png" alt="Microsoft">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-2">
+      <a href="../about/sponsor/ibm.html">
+        <img src="../media/sponsor/sponsor-ibm.png" alt="IBM">
+        
+      </a>
+    </li>
+    
+  </ul>
+  
+  <h3>Platinum</h3>
+  <ul>
+    
+    <li class="sponsor-3">
+      <a href="../about/sponsor/hyperconnect.html">
+        <img src="../media/sponsor/sponsor-hyperconnect.png" alt="Hyperconnect">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-3">
+      <a href="../about/sponsor/kosslab.html">
+        <img src="../media/sponsor/sponsor-kosslab.png" alt="KossLab">
+        
+      </a>
+    </li>
+    
+  </ul>
+  
+  <h3>Gold</h3>
+  <ul>
+    
+    <li class="sponsor-4">
+      <a href="../about/sponsor/devsisters.html">
+        <img src="../media/sponsor/sponsor-devsisters.png" alt="Devsisters">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-4">
+      <a href="../about/sponsor/spoqa.html">
+        <img src="../media/sponsor/spoqa_logotype_rgb_color_400px.png" alt="Spoqa">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-4">
+      <a href="../about/sponsor/jetbrains.html">
+        <img src="../media/sponsor/sponsor-jetbrain.png" alt="JetBrains">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-4">
+      <a href="../about/sponsor/elastic.html">
+        <img src="../media/sponsor/sponsor-elastic.png" alt="Elastic">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-4">
+      <a href="../about/sponsor/rgpkorea.html">
+        <img src="../media/sponsor/sponsor-rgpkorea.png" alt="RGPKorea">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-4">
+      <a href="../about/sponsor/smartstudy.html">
+        <img src="../media/sponsor/sponsor-smartstudy.png" alt="SMARTSTUDY">
+        
+      </a>
+    </li>
+    
+  </ul>
+  
+  <h3>Startup</h3>
+  <ul>
+    
+    <li class="sponsor-5">
+      <a href="../about/sponsor/wanted.html">
+        <img src="../media/sponsor/KakaoTalk_20160622_142701957.png" alt="Wanted Lab">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-5">
+      <a href="../about/sponsor/ebrain.html">
+        <img src="../media/sponsor/sponsor-ebrain.png" alt="eBrain">
+        
+      </a>
+    </li>
+    
+  </ul>
+  
+  <h3>Silver</h3>
+  <ul>
+    
+    <li class="sponsor-6">
+      <a href="../about/sponsor/chocolab.html">
+        <img src="../media/sponsor/sponsor-chocolab.png" alt="Alex &amp; Company">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-6">
+      <a href="../about/sponsor/treenod.html">
+        <img src="../media/sponsor/sponsor-treenod.png" alt="Treenod">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-6">
+      <a href="../about/sponsor/akamai.html">
+        <img src="../media/sponsor/sponsor-akamai.png" alt="Akamai">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-6">
+      <a href="../about/sponsor/skplanet.html">
+        <img src="../media/sponsor/sponsor-skp.png" alt="SK Planet">
+        
+      </a>
+    </li>
+    
+  </ul>
+  
+  <h3>Media</h3>
+  <ul>
+    
+    <li class="sponsor-9">
+      <a href="../about/sponsor/hanbit.html">
+        <img src="../media/sponsor/sponsor-hanbit.png" alt="Hanbit Media">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-9">
+      <a href="../about/sponsor/insight.html">
+        <img src="../media/sponsor/sponsor-insight.png" alt="Insight">
+        
+      </a>
+    </li>
+    
+  </ul>
+  
+</div>
+
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+<div class="footer">
+    <div class="container">
+        <div class="row wrap">
+            <div class="col col-sm-2 pyconkr-badge">
+                <img src="../static/image/pyconkr-badge.png" alt="PyCon Korea badge">
+            </div>
+            <div class="col col-sm-7 credit">
+                <h4>
+                Respect, Diversity at PyCon APAC 2016
+                </h4>
+                <p>
+                PyCon APAC 2016 is a product of PyCon Korea Organizing Team
+                </p>
+                <p>
+                Powered by Django
+                </p>
+                <p>
+                  Hosted on <a href="http://d2.naver.com/">Naver D2</a>
+                  <img class="hosting" src="../static/image/naver-d2.png" alt="Hosted on Naver D2">
+                </p>
+            </div>
+            <div class="col col-sm-3 info">
+                <h4>Stay connected</h4>
+                <a class="btn btn-social-icon btn-twitter" href="https://twitter.com/pyconkr">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="btn btn-social-icon btn-facebook" href="https://facebook.com/pyconkorea">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="btn btn-social-icon btn-github" href="https://github.com/pythonkr/pyconapac-2016">
+                    <i class="fa fa-github"></i>
+                </a>
+                <a class="btn btn-social-icon btn-flickr" href="https://www.flickr.com/photos/126829363@N08/sets/">
+                    <i class="fa fa-flickr"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75675713-1', 'pycon.kr');
+  ga('send', 'pageview');
+
+</script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "../../../connect.facebook.net/en_US/all.js#xfbml=1&appId=194162310738860";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</body>
+
+
+</html>

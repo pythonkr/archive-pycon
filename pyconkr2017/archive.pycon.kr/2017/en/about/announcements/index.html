@@ -1,0 +1,723 @@
+
+
+<!DOCTYPE html>
+<html>
+
+
+<head>
+  <title>PyCon Korea 2017 </title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=0.85">
+
+  <!-- Opengraph tag -->
+  <meta property="og:site_name" content="PyCon Korea 2017 ">
+  <meta property="og:title" content="PyCon Korea 2017 ">
+  <meta property="og:image" content="../../../static/image/pyconkr-2017-cover.png">
+  <meta property="og:url" content="index.html">
+  <meta property="og:description" content="PyCon Korea Opengraph Description">
+
+  <!-- Include basic items -->
+  <link href="../../../static/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../static/components/bootstrap-social/bootstrap-social.css" rel="stylesheet">
+  <link href="../../../static/components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../../../static/components/montserrat-webfont/css/montserrat-webfont.min.css" rel="stylesheet">
+
+  <!-- Override bootstrap css -->
+  <link href="../../../static/css/pyconkr.css" rel="stylesheet">
+  <link href="../../../static/css/pyconkr-media.css" rel="stylesheet">
+
+  <!-- Google fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='../../../../../fonts.googleapis.com/earlyaccess/nanumgothic.css' rel='stylesheet' type='text/css'>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../../../static/image/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../../../static/image/favicon.ico" type="image/x-icon">
+
+  <!-- Scripts -->
+  <!--[if lt IE 9]>
+    <script src="/2017/static/components/html5shiv/dist/html5shiv.min.js"></script>
+    <script src="/2017/static/components/respond/dest/respond.min.js"></script>
+  <![endif]-->
+  <script src="../../../static/components/jquery/dist/jquery.min.js"></script>
+  <script src="../../../static/components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="../../../static/js/rgb-hsv.js"></script>
+  <script src="../../../static/components/js-cookie/src/js.cookie.js" charset="utf-8"></script>
+  <script src="../../../static/components/handlebars/handlebars.min.js" charset="utf-8"></script>
+  <script>
+  function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+  </script>
+  
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-translucent" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="glyphicon glyphicon-python"></span>
+      </button>
+      
+      <a class="navbar-logo" href="../../index.html">
+        <img src="../../../static/image/pycon2017-logo-yellow.png" alt="PyCon Korea">
+      </a>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-python"></span> About <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../pyconkr/index.html">About PyCon Korea 2017</a>
+            </li>
+          
+            <li class="">
+              <a href="../coc/index.html">Code of Conduct</a>
+            </li>
+          
+            <li class="">
+              <a href="../blog/index.html">PyCon.KR 2017 Blog</a>
+            </li>
+          
+            <li class="">
+              <a href="index.html">Announcements</a>
+            </li>
+          
+            <li class="">
+              <a href="../sponsor/index.html">Sponsors</a>
+            </li>
+          
+            <li class="">
+              <a href="../patron/index.html">Patrons</a>
+            </li>
+          
+            <li class="">
+              <a href="../sponsorship/index.html">Sponsorship</a>
+            </li>
+          
+            <li class="">
+              <a href="../staff/index.html">Staff</a>
+            </li>
+          
+            <li class="">
+              <a href="../contact/index.html">Contact</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-calendar"></span> Programs <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../../program/schedule/index.html">Schedule</a>
+            </li>
+          
+            <li class="">
+              <a href="../../program/list/index.html">Program list</a>
+            </li>
+          
+            <li class="">
+              <a href="../../program/keynote/index.html">Keynotes</a>
+            </li>
+          
+            <li class="">
+              <a href="../../program/speaker/index.html">Speakers</a>
+            </li>
+          
+            <li class="">
+              <a href="../../program/tutorials/index.html">Sprint and Tutorial</a>
+            </li>
+          
+            <li class="">
+              <a href="../../program/young_coder/index.html">Young Coder</a>
+            </li>
+          
+            <li class="">
+              <a href="../../program/child_care/index.html">Child Care</a>
+            </li>
+          
+            <li class="">
+              <a href="../../program/lightning_talk/index.html">Lightning talk</a>
+            </li>
+          
+            <li class="">
+              <a href="../../program/ost/index.html">Open Spaces</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-map-marker"></span> Venue <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../../venue/map/index.html">Venue Map</a>
+            </li>
+          
+            <li class="">
+              <a href="../../venue/transportation/index.html">Transportation</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-edit"></span> Proposal <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../../cfp/cfp/index.html">Call for proposals</a>
+            </li>
+          
+            <li class="">
+              <a href="../../cfp/howto/index.html">How to propose</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-book"></span> Registration <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../../registration/information/index.html">Information</a>
+            </li>
+          
+            <li class="">
+              <a href="../../registration/purchase/index.html">Purchase a ticket</a>
+            </li>
+          
+            <li class="">
+              <a href="../../registration/finacial-aid/index.html">Financial Aid</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+      </ul>
+      <!-- Right menu -->
+      <ul class="nav navbar-nav navbar-right">
+      <!-- Authenticate -->
+      
+        <li class="">
+          <a href="../../login/index.html"><span class="glyphicon glyphicon-user"></span> Login</a>
+        </li>
+      
+      <!-- Language -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-globe"></span>
+            Language <span class="caret"></span></a>
+          <ul id="language-menu" class="dropdown-menu" role="menu">
+            
+            
+            
+            <li><a href="../../../index.html">한국어</a></li>
+            
+            
+            
+            <li><a href="../../index.html">English</a></li>
+            
+            
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+    
+    <div class="row wrap">
+        <div class="col-md-9 content">
+            <h1>None</h1>
+            
+            
+            
+    
+
+
+<dl class="announcements">
+<dt>
+  <h4>
+    <a href="../announcement/10.html">공지 메일 수신 안내</a>
+    <span class="datetime">2017-07-31</span>
+  </h4>
+</dt>
+<dd>
+  행사가 다가오면서 참가자 대상으로 공지 메일을 상시 발송하고 있습니다.아직 메일을 한번도 받아보지 못하신 분들은 아래 내용을 확인하시고, 메일함을 확인해주시기 바랍니다.- gmail 사용자 : 프로모션 탭 혹은 스팸 메일 함- 일반 메일 사용자 : 스팸 메일함mailchimp 를 이용하여 메일 발송을 하다 보니 메일 시스템에 따라 받은 편지함으로 보내지지 않는 경우가 있습니다.수시로 메일을 확인해주시기 바랍니다 ^^&nbsp;:)
+  <a href="../announcement/10.html">
+    <span class="continue">Read more</span>
+  </a>
+</dd>
+</dl>
+
+<dl class="announcements">
+<dt>
+  <h4>
+    <a href="../announcement/9.html">파이콘 한국 2017 영코더 프로그램 오픈</a>
+    <span class="datetime">2017-07-30</span>
+  </h4>
+</dt>
+<dd>
+  # 여러분, 안녕하세요!여러분의 부모님, 삼촌, 이모께서 오랜 시간 동안 컴퓨터 앞에 앉아있으시는 이유가 궁금했던 적이 있나요?&nbsp;혹은 즐겨하는 게임이나 자주 방문하는 웹사이트, 스마트폰의 애플리케이션이 어떻게 동작하는 지 궁금하지 않으세요?초등학교 5학년부터 고등학생까지 소프트웨어란 무엇이고, 어떻게 동작하는 지, 모두가 사랑하는 "파이썬"이라는 언어를 통해 함께 알아봅시다!# 왜 프로그래밍을 배우나요?여러분들이 모두 개발자가 될 필요는 없어요. 하지만 오늘날 프로그래밍 언어를 이해하는 것은 영어를 잘하는 것만큼 여러...
+  <a href="../announcement/9.html">
+    <span class="continue">Read more</span>
+  </a>
+</dd>
+</dl>
+
+<dl class="announcements">
+<dt>
+  <h4>
+    <a href="../announcement/8.html">파이콘 한국 2017 아이 돌봄 프로그램 오픈 예정</a>
+    <span class="datetime">2017-07-28</span>
+  </h4>
+</dt>
+<dd>
+  안녕하세요, 파이써니스타 여러분!파이콘 본 세션이 있는 8월 12일 토요일과 13일 일요일에 육아로 인해 파이콘에 참여가 어려운 분들을 위해 위해 아이 돌봄을 운영합니다. 연령별로 나누어 운영되며, 참가 신청은 온오프믹스로 받습니다. 올해 파이콘은 아이와 함께 참석하세요&nbsp;:)아이돌봄 신청 오픈 : 2017년 7월 31일 월요일 정오(낮 12시)아이돌봄 운영 일정 : 2017년 8월 12일(토) 10:00~ 17:00, 13일(일) 10:00~ 17:00아이돌봄 자세히 보기 :&nbsp;https://www.pycon....
+  <a href="../announcement/8.html">
+    <span class="continue">Read more</span>
+  </a>
+</dd>
+</dl>
+
+<dl class="announcements">
+<dt>
+  <h4>
+    <a href="../announcement/7.html">스프린트 참가자 모집 일정 안내</a>
+    <span class="datetime">2017-07-21</span>
+  </h4>
+</dt>
+<dd>
+  기존 오늘 9시에 시작예정이었던, 스프린트 참가자 모집을 아래와 같이 진행합니다.스프린트 참가비는 무료이며, 파이콘 한국 2017 티켓 구매 여부 상관없이 누구나 참여 가능합니다.튜토리얼도 신청하셨다면!? 스프린트 도중에 튜토리얼을 듣고 오셔도 됩니다 ^^- 일시 : 2017년 7월 22일 (토요일)- 시간 : 오후 2시- 참가 신청 방법- 파이콘 스프린트 페이지에 들어간다. (https://www.pycon.kr/2017/program/tutorials/)- 원하는 스프린트 페이지로 들어간다.- 신청 링크를 클릭한다 (온오...
+  <a href="../announcement/7.html">
+    <span class="continue">Read more</span>
+  </a>
+</dd>
+</dl>
+
+<dl class="announcements">
+<dt>
+  <h4>
+    <a href="../announcement/6.html">파이콘 한국 2017 일반 티켓 추가 수량 매진</a>
+    <span class="datetime">2017-07-21</span>
+  </h4>
+</dt>
+<dd>
+  여러분들의 성원에 힘입어 추가 오픈한 수량 또한 전량 매진되었습니다!&nbsp;🎉&nbsp;추가적인 티켓 수량 오픈은 더 이상 없을 예정입니다.파이써니스타 여러분의 관심 속에 준비위원회는 더욱 더 행사 준비에 열을 올리고 있습니다. 파이콘에서 뵙겠습니다&nbsp;:-)추가로, 현재 튜토리얼 참가자 신청을 받고 있습니다. 컨퍼런스 티켓 구매 여부와는 무관하게 참가가 가능합니다.아래 링크에서 참여하고 싶은 프로그램을 찾아보세요&nbsp;💡튜토리얼 보기 :&nbsp;https://www.pycon.kr/2017/program/tut...
+  <a href="../announcement/6.html">
+    <span class="continue">Read more</span>
+  </a>
+</dd>
+</dl>
+
+<dl class="announcements">
+<dt>
+  <h4>
+    <a href="../announcement/5.html">파이콘 한국 2017 튜토리얼 참가 신청</a>
+    <span class="datetime">2017-07-20</span>
+  </h4>
+</dt>
+<dd>
+  오래 기다리셨습니다. 파이콘 한국 2017 튜토리얼 참가 신청이 오늘!! 진행됩니다. 여러분의 많은 참가 부탁드립니다.&nbsp;:)- 튜토리얼은 유료로 진행되며 선착순으로 모집합니다.- 튜토리얼 프로그램은 계속 추가될 예정입니다. 제안하고 싶은 튜토리얼이 있다면 지금 바로 제안해주세요&nbsp;:-)&nbsp;!- 스프린트 참가자 모집은 7월 21일 오후 9시에 진행됩니다.== 튜토리얼 참가 신청 ==오픈 일시 : 2017년 7월 20일 오후 9시신청 방법 :1.&nbsp;https://www.pycon.kr/2017/pro...
+  <a href="../announcement/5.html">
+    <span class="continue">Read more</span>
+  </a>
+</dd>
+</dl>
+
+<dl class="announcements">
+<dt>
+  <h4>
+    <a href="../announcement/4.html">파이콘 한국 2017 자원봉사자 모집 공지</a>
+    <span class="datetime">2017-07-18</span>
+  </h4>
+</dt>
+<dd>
+  안녕하세요, 파이콘을 기다리고 있는 멋진 파이써니스타 여러분!현재 파이콘 한국 2017의 자원봉사자를 모집중입니다.다양한 참가자들과 교류하며, 파이썬 커뮤니티에 기여하는 흔치 않은 기회를 잡으세요!파이콘은 파이썬 커뮤니티에서 많은 분들의 자발적인 도움으로 만들어가는 행사입니다.&nbsp;올해도 다양한 곳에서 많은 분들의 도움이 필요 합니다. 파이콘 KR 2017 에 참가하시는 분들이라면 누구나 지원하실 수 있습니다.&nbsp;언제나 여러분들의 도움에 감사드립니다.* 파이콘 한국 2017에 등록을 완료하신 분에 한해 자원봉사자로...
+  <a href="../announcement/4.html">
+    <span class="continue">Read more</span>
+  </a>
+</dd>
+</dl>
+
+<dl class="announcements">
+<dt>
+  <h4>
+    <a href="../announcement/3.html">파이콘 한국 2017 튜토리얼/스프린트 프로그램 공개</a>
+    <span class="datetime">2017-07-17</span>
+  </h4>
+</dt>
+<dd>
+  파이콘 한국 2017의 튜토리얼/스프린트 프로그램을 공개합니다!프로그램 별, 진행 날짜와 시간은 참가자 모집때 공개됩니다.튜토리얼/스프린트 참가자 신청은 시간표와 함께 곧 공개되니 조금만 기다려주세요!https://www.pycon.kr/2017/program/tutorials/=== 튜토리얼 / 스프린트 진행자 모집 ===진행자 모집은 계속됩니다. 파이콘 홈페이지에 로그인 후 튜토리얼/스프린트 페이지에서 제안서를 작성해주세요!기타 문의는 페이스북 메세지나 program@pycon.kr 로 연락주시기 바랍니다.
+  <a href="../announcement/3.html">
+    <span class="continue">Read more</span>
+  </a>
+</dd>
+</dl>
+
+<dl class="announcements">
+<dt>
+  <h4>
+    <a href="../announcement/2.html">Regular Ticket Open Additional</a>
+    <span class="datetime">2017-07-12</span>
+  </h4>
+</dt>
+<dd>
+  추가티켓 오픈 일시 : 2017년 7월 13일 오전 0시 (KST)추가티켓 오픈 수량 : 400장티켓 가격 : 6만원구매 링크 :&nbsp;https://www.pycon.kr/2017/registration/purchase/컨퍼런스 일정 :&nbsp;https://www.pycon.kr/2017/program/schedule/파이콘 한국 2017 일반 티켓에 보여준 관심에 깊이 감사드리며, 추가적으로 오픈을 하기로 결정하였습니다.기쁜 마음으로 추가티켓 오픈 일정을 안내해 드립니다.티켓 오픈에 앞서, 원활한 구매를 위해 아래의...
+  <a href="../announcement/2.html">
+    <span class="continue">Read more</span>
+  </a>
+</dd>
+</dl>
+
+
+        </div>
+        <div class="col-md-3">
+            <div class="submenu list-group hidden-xs hidden-sm">
+
+</div>
+
+            <ul class="banners">
+
+</ul>
+
+        </div>
+    </div>
+    
+    
+    <hr>
+    <div class="row wrap">
+        <div class="col-md-12 sponsors">
+        <h2>Sponsors</h2>
+        
+<div class="sponsors">
+  
+  <h3>Platinum</h3>
+  <ul>
+    
+      
+      <li class="sponsor-3">
+        <a href="../sponsor/psf.html">
+          <img src="../../../media/sponsor/psf-crop_mfeUXJT.png" alt="Python Software Foundation">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-3">
+        <a href="../sponsor/asan.html">
+          <img src="../../../media/sponsor/asan-logo.png" alt="The Asan Nanum Foundation">
+          
+        </a>
+      </li>
+      
+    
+  </ul>
+  
+  <h3>Gold</h3>
+  <ul>
+    
+      
+      <li class="sponsor-4">
+        <a href="../sponsor/whatap.html">
+          <img src="../../../media/sponsor/Logo_a4_rearrange_iMjtz0i.png" alt="WhaTap">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../sponsor/lezhin.html">
+          <img src="../../../media/sponsor/The_red_tag_logo_SgqoF3m.png" alt="Lezhin Entertainment">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../sponsor/smartstudy.html">
+          <img src="../../../media/sponsor/smartstudy_ci_J2inMmh.png" alt="SMARTSTUDY">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../sponsor/ifunfactory.html">
+          <img src="../../../media/sponsor/ifun_logo_crop.png" alt="iFunFactory">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../sponsor/elastic.html">
+          <img src="../../../media/sponsor/elastic-logo-crop.png" alt="elastic">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../sponsor/buzzvil.html">
+          <img src="../../../media/sponsor/buzzvil_logo_crop_IU1NjTv.png" alt="Buzzvil">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../sponsor/codigm.html">
+          <img src="../../../media/sponsor/logo_codigm.png" alt="Codigm">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../sponsor/jetbrains.html">
+          <img src="../../../media/sponsor/logo_JetBrains_crop.png" alt="JetBrains">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../sponsor/nhnent.html">
+          <img src="../../../media/sponsor/nhnent.png" alt="NHN Entertainment">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../sponsor/line.html">
+          <img src="../../../media/sponsor/LINE_Text_Logo_TypeA.png" alt="LINE">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../sponsor/coupang.html">
+          <img src="../../../media/sponsor/COUPANG-CROP.png" alt="Coupang">
+          
+        </a>
+      </li>
+      
+    
+  </ul>
+  
+  <h3>Silver</h3>
+  <ul>
+    
+      
+      <li class="sponsor-5">
+        <a href="../sponsor/lablup.html">
+          <img src="../../../media/sponsor/Lablup-logo-crop_zSIfV7U.png" alt="Lablup">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-5">
+        <a href="../sponsor/intake.html">
+          <img src="../../../media/sponsor/intake_ci-crop.png" alt="INTAKE">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-5">
+        <a href="../sponsor/ab180.html">
+          <img src="../../../media/sponsor/ab180_logo.png" alt="ab180">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-5">
+        <a href="../sponsor/ibm.html">
+          <img src="../../../media/sponsor/ibm-logo.png" alt="IBM">
+          
+        </a>
+      </li>
+      
+    
+  </ul>
+  
+  <h3>Bronze</h3>
+  <ul>
+    
+      
+      <li class="sponsor-6">
+        <a href="../sponsor/skplanet.html">
+          <img src="../../../media/sponsor/skplanet.png" alt="SK Planet">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-6">
+        <a href="../sponsor/haezoom.html">
+          <img src="../../../media/sponsor/haezoom_crop.png" alt="HAEZOOM">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-6">
+        <a href="../sponsor/peoplefund.html">
+          <img src="../../../media/sponsor/pf_logo.png" alt="PEOPLEFUND">
+          
+        </a>
+      </li>
+      
+    
+  </ul>
+  
+</div>
+
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+<div class="footer">
+    <div class="container">
+        <div class="row wrap">
+            <div class="col col-sm-2 pyconkr-badge">
+                <img src="../../../static/image/pyconkr-badge.png" alt="PyCon Korea badge">
+            </div>
+            <div class="col col-sm-7 credit">
+                <h4>
+                PyCon Korea 2017 
+                </h4>
+                <p>
+                PyCon Korea 2017 is a product of PyCon Korea Organizing Team
+                </p>
+                <p>
+                Powered by Django
+                </p>
+                <p>
+                  Hosted on <a href="http://d2.naver.com/">Naver D2</a>
+                  <img class="hosting" src="../../../static/image/naver-d2.png" alt="Hosted on Naver D2">
+                </p>
+            </div>
+            <div class="col col-sm-3 info">
+                <h4>Stay connected</h4>
+                <a class="btn btn-social-icon btn-twitter" href="https://twitter.com/pyconkr">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="btn btn-social-icon btn-facebook" href="https://facebook.com/pyconkorea">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="btn btn-social-icon btn-github" href="https://github.com/pythonkr/pyconkr-2017">
+                    <i class="fa fa-github"></i>
+                </a>
+                <a class="btn btn-social-icon btn-flickr" href="https://www.flickr.com/photos/126829363@N08/sets/">
+                    <i class="fa fa-flickr"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../../../www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75675713-1', 'pycon.kr');
+  ga('send', 'pageview');
+
+</script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "../../../../../connect.facebook.net/en_US/all.js#xfbml=1&appId=194162310738860";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</body>
+
+
+</html>

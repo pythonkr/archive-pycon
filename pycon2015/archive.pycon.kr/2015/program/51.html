@@ -1,0 +1,575 @@
+
+
+<!DOCTYPE html>
+<html>
+
+
+<head>
+<title>PyCon Korea 2015 Program | R이 판치는 세상에 Python 데이터 분석가로 사는 법</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=0.85">
+
+  <!-- Opengraph tag -->
+  <meta property="og:site_name" content="PyCon Korea 2015">
+  <meta property="og:title" content="R이 판치는 세상에 Python 데이터 분석가로 사는 법">
+  <meta property="og:image" content="../../../archive.pycon.kr_443/2015/static/image/pyconkr-badge.png">
+  <meta property="og:url" content="http://www.pycon.kr/2015/program/51">
+  <meta property="og:description" content="데이터 분석의 시대라고 합니다. 그런데 서점에 가서 데이터 분석 관련 책들을 찾아보면 전부 R로 되어 있어요. 나의 파이썬이 이럴리가 없어. 외국에서는 데이터분석할 때 파이썬 많이 쓴다고 하는데, 어째서 우리나라에서는 이렇게 R만 보이는거냐! R쓰는 친구가, 이제 그만 반항하고 R을 배우라고 말해온다해도 우리는 질 수 없습니다. Python은 훌륭해요. 멋져요. 아름다워요. 우리는 R이 안되는 걸 합시다. Python으로 데이터 분석하면서 아. R이 아니라 Python이라서 다행이야. 라고 느낄만한 순간들을 만나봅시다. 요즘 뜨는 Spark과 ipython notebook을 붙여서, interactive하게 클러스터를 다뤄 봅시다. spark과 pandas를 오가며 R은 로딩도 꿈꾸지 못할 애들을 주물러 봅시다. &nbsp;솔직히 R의 차트가 더 이쁜거 같다구요? 더이상 구린 컬러의 matplotlib은 이제 그만. 여러 그래픽 라이브러리들로 R의 ggplot보다 더 멋지게 그래프를 그려봅시다. 이제 친구에게 말할 시간입니다. ‘어? R은 이거 안되냐?’==================================================================토크쇼 공지3시에 예정되었던 'R이 판치는 세상에 Python 분석가' 세션은 좀 더 작고, 친밀하게 이야기 할 수 있는 장소에서 자유롭게 질문과 답변과 드립이 오고가는 따뜻하고 이상한 토크&amp;차력소 타임으로 변경합니다.후보 주제들은 아래와 같으나, 언제든 여러분께서 라이브로 투척할 수 있습니다.- 10분만에 이해하는 머신러닝- 빅데이터란 단어는 부끄러워요. 쓰지마 ㅠ- ggplot2 부러워요- 그래도 R 보다 Python이 짱이야.">
+
+  <!-- Include basic items -->
+  <link href="../static/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/components/bootstrap-social/bootstrap-social.css" rel="stylesheet">
+  <link href="../static/components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- Override bootstrap css -->
+  <link href="../static/css/pyconkr.css" rel="stylesheet">
+  <link href="../static/css/pyconkr-media.css" rel="stylesheet">
+
+  <!-- Google fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='../../../fonts.googleapis.com/earlyaccess/nanumgothic.css' rel='stylesheet' type='text/css'>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../static/image/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../static/image/favicon.ico" type="image/x-icon">
+
+  <!-- Scripts -->
+  <!--[if lt IE 9]>
+    <script src="/2015/static/components/html5shiv/dist/html5shiv.min.js"></script>
+    <script src="/2015/static/components/respond/dest/respond.min.js"></script>
+  <![endif]-->
+  <script src="../static/components/jquery/jquery.min.js"></script>
+  <script src="../static/components/bootstrap/dist/js/bootstrap.min.js"></script>
+  
+</head>
+
+<body>
+
+
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="glyphicon glyphicon-python"></span>
+      </button>
+      <a class="navbar-brand" href="../index.html">
+        <img src="../static/image/pyconkr-logo-small.png" alt="PyCon Korea">
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-python"></span> About <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../about/pyconkr/index.html">About PyCon Korea 2015</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/coc/index.html">Code of Conduct</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/announcements/index.html">Announcements</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/sponsors/index.html">Sponsors</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/staff/index.html">Staff</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/contact/index.html">Contact</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-calendar"></span> Programs <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../programs/cfp/index.html">Call for proposals</a>
+            </li>
+          
+            <li class="">
+              <a href="../programs/schedule/index.html">Schedule</a>
+            </li>
+          
+            <li class="">
+              <a href="../programs/list/index.html">Program list</a>
+            </li>
+          
+            <li class="">
+              <a href="../programs/speakers/index.html">Speakers</a>
+            </li>
+          
+            <li class="">
+              <a href="../programs/ost/index.html">Open Spaces</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-map-marker"></span> Getting Here <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../venue/map/index.html">Venue Map</a>
+            </li>
+          
+            <li class="">
+              <a href="../venue/transportation/index.html">Transportation</a>
+            </li>
+          
+            <li class="">
+              <a href="../venue/hotels/index.html">Hotels</a>
+            </li>
+          
+            <li class="">
+              <a href="../venue/restaurants/index.html">Restaurants</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="">
+          <a href="../registration/index.html"><span class="glyphicon glyphicon-pencil"></span> Registration</a>
+        </li>
+        
+        
+      </ul>
+      <!-- Right menu -->
+      <ul class="nav navbar-nav navbar-right">
+      <!-- Authenticate -->
+      
+        <li class="">
+          <a href="../login/index.html"><span class="glyphicon glyphicon-user"></span> Login</a>
+        </li>
+      
+      <!-- Language -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-globe"></span>
+            Language <span class="caret"></span></a>
+          <ul id="language-menu" class="dropdown-menu" role="menu">
+            
+            
+            <li><a href="#" data-code="ko">한국어</a></li>
+            
+            <li><a href="#" data-code="en">English</a></li>
+            
+            <li><a href="#" data-code="ja">日本語</a></li>
+            
+          </ul>
+          <form id="language-form" action="https://archive.pycon.kr/2015/i18n/setlang/" method="post">
+            <input type='hidden' name='csrfmiddlewaretoken' value='L3UVhiXDMrE6IocOme2HywUWuNY9aA6c' />
+            <input name="next" type="hidden" value="/2015/program/51" />
+            <input name="language" type="hidden" />
+          </form>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
+<script>
+$("#language-menu a").click(function() {
+    var form = $("#language-form");
+    form.find("input[name='language']").val($(this).data("code"));
+    form.submit();
+});
+</script>
+
+
+
+
+
+
+<div class="titlebar">
+  <div class="container">
+    <h1>
+      R이 판치는 세상에 Python 데이터 분석가로 사는 법
+    </h1>
+    <img class="halftone halftone-red" src="../static/image/halftone-red.png" alt="PyCon Korea Red">
+    <img class="halftone halftone-blue" src="../static/image/halftone-blue.png" alt="PyCon Korea Blue">
+  </div>
+</div>
+<script type="text/javascript">
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+$(".halftone").each(function() {
+    $(this).css({'marginTop' : getRandomInt(-10,10)+'%', 'marginRight' : getRandomInt(-20,0)+'%'});
+    $(this).css({'width' : getRandomInt(30,50)+'%'});
+});
+</script>
+
+
+
+
+<div class="container">
+    
+    <div class="row wrap">
+        <div class="col-md-9 content">
+            
+            
+<div class="social-badges">
+  <span>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </span>
+  <span>
+    <script>
+    var s = '<div class="fb-like" data-href="'+document.location+'" data-width="450" data-layout="button_count"></div>';
+    document.write(s);
+</script>
+
+  </span>
+  <span>
+    <script type="text/javascript" src="../../../apis.google.com/js/plusone.js"></script>
+<div class="g-plusone" data-size="medium"></div>
+
+  </span>
+  <div class="clear"></div>
+</div>
+
+<ul class="list-group">
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-tag"></span> Data / Analysis / Machine Learning
+  </li>
+  
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-volume-up"></span> Korean
+  </li>
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-map-marker"></span> 국제회의실
+  </li>
+  
+  
+  <li class="list-group-item">
+    
+    <div class="speaker-small">
+    <a href="../programs/speaker/yongho.html">
+        <img class="image" src="../media/speaker/yongho_0l1XxXa.jpg" alt="photo of yongho">
+        <span class="name">하용호 / yongho</span>
+    </a>
+    </div>
+    
+  </li>
+  
+  <li class="list-group-item">
+  
+    <span class="glyphicon glyphicon-eye-close"></span> Photography and recording is not allowed
+  
+  </li>
+</ul>
+
+
+
+
+<h3>Description</h3>
+<p></p><p>데이터 분석의 시대라고 합니다. 그런데 서점에 가서 데이터 분석 관련 책들을 찾아보면 전부 R로 되어 있어요. 나의 파이썬이 이럴리가 없어. 외국에서는 데이터분석할 때 파이썬 많이 쓴다고 하는데, 어째서 우리나라에서는 이렇게 R만 보이는거냐! R쓰는 친구가, 이제 그만 반항하고 R을 배우라고 말해온다해도 우리는 질 수 없습니다. Python은 훌륭해요. 멋져요. 아름다워요. 우리는 R이 안되는 걸 합시다. Python으로 데이터 분석하면서 아. R이 아니라 Python이라서 다행이야. 라고 느낄만한 순간들을 만나봅시다. 요즘 뜨는 Spark과 ipython notebook을 붙여서, interactive하게 클러스터를 다뤄 봅시다. <span style="line-height: 27.520000457763672px;">spark과 pandas를 오가며 </span>R은 로딩도 꿈꾸지 못할 애들을 주물러 봅시다. &nbsp;솔직히 R의 차트가 더 이쁜거 같다구요? 더이상 구린 컬러의 matplotlib은 이제 그만. 여러 그래픽 라이브러리들로 R의 ggplot보다 더 멋지게 그래프를 그려봅시다. 이제 친구에게 말할 시간입니다. ‘어? R은 이거 안되냐?’</p><p>==================================================================</p><p>토크쇼 공지</p><p>3시에 예정되었던 'R이 판치는 세상에 Python 분석가' 세션은 좀 더 작고, 친밀하게 이야기 할 수 있는 장소에서 자유롭게 질문과 답변과 드립이 오고가는 따뜻하고 이상한 토크&amp;차력소 타임으로 변경합니다.</p><p><br></p><p>후보 주제들은 아래와 같으나, 언제든 여러분께서 라이브로 투척할 수 있습니다.</p><p>- 10분만에 이해하는 머신러닝</p><p>- 빅데이터란 단어는 부끄러워요. 쓰지마 ㅠ</p><p>- ggplot2 부러워요</p><p>- 그래도 R 보다 Python이 짱이야.</p><p><br></p><p></p>
+
+
+
+<h3>Comments</h3>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'pyconkorea2015';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </div>
+        <div class="col-md-3 sponsors">
+            
+<h3>Sponsor list</h3>
+<div class="sponsors">
+  
+  <hr>
+  <h4>Diamond</h4>
+  <ul>
+    
+    <li class="sponsor-1">
+      <a href="../about/sponsor/microsoft.html">
+        <img src="../media/sponsor/sponsor-microsoft.png" alt="Microsoft">
+        
+      </a>
+    </li>
+    
+  </ul>
+  
+  <hr>
+  <h4>Platinum</h4>
+  <ul>
+    
+    <li class="sponsor-2">
+      <a href="../about/sponsor/google.html">
+        <img src="../media/sponsor/sponsor-google.png" alt="Google Korea">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-2">
+      <a href="../about/sponsor/devsisters.html">
+        <img src="../media/sponsor/sponsor-devsisters.png" alt="Devsisters">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-2">
+      <a href="../about/sponsor/spoqa.html">
+        <img src="../media/sponsor/sponsor-spoqa_8elxbPM.png" alt="Spoqa, Inc.">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-2">
+      <a href="../about/sponsor/beatpacking.html">
+        <img src="../media/sponsor/sponsor-beatpacking.png" alt="THE BEATPACKING COMPANY">
+        
+      </a>
+    </li>
+    
+  </ul>
+  
+  <hr>
+  <h4>Venue</h4>
+  <ul>
+    
+    <li class="sponsor-2">
+      <a href="../about/sponsor/nipa.html">
+        <img src="../media/sponsor/sponsor-nipa.png" alt="NIPA">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-2">
+      <a href="../about/sponsor/opentechnet.html">
+        <img src="../media/sponsor/sponsor-opentechnet.png" alt="Open Technet">
+        
+      </a>
+    </li>
+    
+  </ul>
+  
+  <hr>
+  <h4>Financial Aid Sponsor</h4>
+  <ul>
+    
+    <li class="sponsor-2">
+      <a href="../about/sponsor/psf.html">
+        <img src="../media/sponsor/sponsor-psf.png" alt="Python Software Foundation">
+        
+      </a>
+    </li>
+    
+  </ul>
+  
+  <hr>
+  <h4>Gold</h4>
+  <ul>
+    
+    <li class="sponsor-3">
+      <a href="../about/sponsor/smartstudy.html">
+        <img src="../media/sponsor/smartstudy-v2.png" alt="SMARTSTUDY">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-3">
+      <a href="../about/sponsor/skplanet.html">
+        <img src="../media/sponsor/sponsor-skplanet.png" alt="SK Planet">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-3">
+      <a href="../about/sponsor/yogiyo.html">
+        <img src="../media/sponsor/sponsor-yogiyo.png" alt="Yogiyo">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-3">
+      <a href="../about/sponsor/ifunfactory.html">
+        <img src="../media/sponsor/sponsor-ifunfactory.png" alt="iFunFactory">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-3">
+      <a href="../about/sponsor/akamai.html">
+        <img src="../media/sponsor/sponsor-akamai.png" alt="AKAMAI">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-3">
+      <a href="../about/sponsor/line.html">
+        <img src="../media/sponsor/sponsor-line.png" alt="LINE Plus Corporation">
+        
+      </a>
+    </li>
+    
+  </ul>
+  
+  <hr>
+  <h4>Silver</h4>
+  <ul>
+    
+    <li class="sponsor-4">
+      <a href="../about/sponsor/jetbrains.html">
+        <img src="../media/sponsor/sponsor-jetbrains.png" alt="JetBrains">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-4">
+      <a href="../about/sponsor/cdnetworks.html">
+        <img src="../media/sponsor/sponsor-cdnetworks.png" alt="CDNetworks">
+        
+      </a>
+    </li>
+    
+  </ul>
+  
+  <hr>
+  <h4>Media</h4>
+  <ul>
+    
+    <li class="sponsor-5">
+      <a href="../about/sponsor/hanbit.html">
+        <img src="../media/sponsor/sponsor-hanbit.png" alt="hanbit-media">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-5">
+      <a href="../about/sponsor/insight.html">
+        <img src="../media/sponsor/sponsor-insight.png" alt="Insight Press">
+        
+      </a>
+    </li>
+    
+    <li class="sponsor-5">
+      <a href="../about/sponsor/olc.html">
+        <img src="../media/sponsor/sponsor-olc.png" alt="OLC">
+        
+      </a>
+    </li>
+    
+  </ul>
+  
+</div>
+
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+<div class="footer">
+    <div class="container">
+        <div class="row wrap">
+            <div class="col col-sm-2 pyconkr-badge">
+                <img src="../static/image/pyconkr-badge.png" alt="PyCon Korea badge">
+            </div>
+            <div class="col col-sm-7 credit">
+                <h4>
+                Python,
+                Together,
+                Successful.
+                </h4>
+                <p>
+                PyCon Korea 2015 is a production of the PyCon Korea Organizing Team
+                </p>
+                <p>
+                All photos courtesy of each individual contributor
+                </p>
+                <p>
+                Powered by <a href='https://www.djangoproject.com/'>Django</a>
+                </p>
+            </div>
+            <div class="col col-sm-3 info">
+                <h4>Stay connected</h4>
+                <a class="btn btn-social-icon btn-twitter" href="https://twitter.com/pyconkr">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="btn btn-social-icon btn-facebook" href="https://facebook.com/pyconkorea">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="btn btn-social-icon btn-github" href="https://github.com/pythonkr/pyconkr-2015">
+                    <i class="fa fa-github"></i>
+                </a>
+                <a class="btn btn-social-icon btn-flickr" href="https://www.flickr.com/photos/126829363@N08/sets/">
+                    <i class="fa fa-flickr"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-53680093-1', 'pycon.kr');
+  ga('send', 'pageview');
+
+</script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "../../../connect.facebook.net/en_US/all.js#xfbml=1&appId=194162310738860";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</body>
+
+
+</html>

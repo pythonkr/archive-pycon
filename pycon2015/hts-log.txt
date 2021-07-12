@@ -1,0 +1,21 @@
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+22:09:39	Warning: 	FOUND for https://archive.pycon.kr/2015/registration/
+22:09:39	Warning: 	File has moved from https://archive.pycon.kr/2015/registration/ to https://archive.pycon.kr/2015/login/?next=/2015/registration/
+22:09:41	Error: 	"Not Found" (404) at link https://archive.pycon.kr/programs/cfp (from https://archive.pycon.kr/2015/)
+22:09:41	Error: 	"Not Found" (404) at link https://archive.pycon.kr/about/sponsor/info (from https://archive.pycon.kr/2015/)
+22:11:27	Error: 	"NOT FOUND" (404) at link https://archive.pycon.kr/2015/programs/speakers/himskim/ (from https://archive.pycon.kr/2015/programs/speakers/)
+22:11:27	Error: 	"Not Found" (404) at link https://archive.pycon.kr/static/image/map.png (from https://archive.pycon.kr/2015/venue/map/)
+22:11:27	Warning: 	FOUND for https://archive.pycon.kr/2015/accounts/github/login/
+22:11:27	Warning: 	File has moved from https://archive.pycon.kr/2015/accounts/github/login/ to https://github.com/login/oauth/authorize?scope=&state=Q3m5btIMmJd5&redirect_uri=http%3A%2F%2Farchive.pycon.kr%2F2015%2Faccounts%2Fgithub%2Flogin%2Fcallback%2F&response_type=code&client_id=3768e53cefd8ea0f3ea7
+22:11:27	Error: 	"Not Found" (404) at link https://archive.pycon.kr/programs/cfp/ (from https://archive.pycon.kr/2015/about/announcement/2)
+22:11:27	Error: 	"Not Found" (404) at link https://archive.pycon.kr/programs/lightningtalks/ (from https://archive.pycon.kr/2015/about/announcement/2)
+22:11:27	Error: 	"NOT FOUND" (404) at link https://archive.pycon.kr/2015/programs/speaker/himskim (from https://archive.pycon.kr/2015/programs/speaker/myungkim)
+22:11:29	Warning: 	FOUND for https://archive.pycon.kr/2015/accounts/github/login/?next=%2F2015%2Fregistration%2F
+22:11:29	Warning: 	File has moved from https://archive.pycon.kr/2015/accounts/github/login/?next=%2F2015%2Fregistration%2F to https://github.com/login/oauth/authorize?scope=&state=ouPz2gaEs3V2&redirect_uri=http%3A%2F%2Farchive.pycon.kr%2F2015%2Faccounts%2Fgithub%2Flogin%2Fcallback%2F&response_type=code&client_id=3768e53cefd8ea0f3ea7
+
+(7 errors, 6 warnings, 0 messages)

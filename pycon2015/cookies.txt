@@ -1,0 +1,6 @@
+# This file format is compatible with Netscape cookies
+.google.com	TRUE	/	FALSE	1999999999	NID	219=hJSGPuV1JZwX-y6091dJqbIswhBN8Nkq2Ir29QjIekOqvMpCZDa4TwDUrO6ePwQQq3fjw_UsAeNyNkA_a6IVkcwMhK-d2GjiHfdnAbBfsDpBCT4w49JEN8V9wgesI8SwwUiPzNIBWRPQTAhuQqsrzdUGtw7hPOLgmrMm9qvMSFo
+nuri.nipa.kr	TRUE	/	FALSE	1999999999	SCOUTER	z2b0aa5n6btdgl
+archive.pycon.kr	TRUE	/	FALSE	1999999999	csrftoken	L3UVhiXDMrE6IocOme2HywUWuNY9aA6c
+archive.pycon.kr	TRUE	/	FALSE	1999999999	sessionid	rm5fiex8eq339qrz6tnfppygzvcd8zkc
+

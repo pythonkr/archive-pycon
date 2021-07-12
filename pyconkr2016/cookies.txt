@@ -1,0 +1,4 @@
+# This file format is compatible with Netscape cookies
+.google.com	TRUE	/	FALSE	1999999999	NID	219=GAEZ-qemeuEIBMkkxxzHcMPccAYPh8t0Y02FbAMrtlfObgN9gOvzDaIgy3K6xw56GNW0svZp14bFbs6fMKG1NU1_hxsE3aJAQO3DdDunUpzELNXsbH4w0np34XdMDonmQ3INgcftDfsuB_lvKJmJuJx94_MBaB9Ssduut9Wt3C0
+archive.pycon.kr	TRUE	/	FALSE	1999999999	csrftoken	whNLgna2o4ZauHTnpnSPnsboHyVsDpex
+
