@@ -1,0 +1,6 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+.google.com	TRUE	/	FALSE	1999999999	NID	219=X0XSOlg8jv0yIi2c7oqlh-5ZlmozHyvsj5i79UCar0JgiYUDrFi6FxzD4F_hUBtsobnPDSuvF9fYC0kATd-AnRSCfpIPOLXvoifgpchcePB8Z-Y3f7epz68Ba2UOZ_LCcDTXAFdEefQMbDO2KH9KMKZUZu9pI960reUbKdsa98g
+archive.pycon.kr	TRUE	/	FALSE	1999999999	csrftoken	SfMr9o6FFa2vFN2JW9XDRWGPmRIH1Ai6
+archive.pycon.kr	TRUE	/	FALSE	1999999999	sessionid	kectbkvf8p7kbpxozfq4k34wbz50mmkg
+

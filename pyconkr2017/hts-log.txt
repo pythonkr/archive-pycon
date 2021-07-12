@@ -1,0 +1,43 @@
+HTTrack3.49-2+htsswf+htsjava launched on Mon, 12 Jul 2021 22:12:05 at http://archive.pycon.kr/2017 +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" http://archive.pycon.kr/2017 -O1 "C:\pycon2017\pyconkr2017" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+22:15:28	Error: 	"Not Found" (404) at link https://archive.pycon.kr/about/pyconkr/ (from https://archive.pycon.kr/2017/about/pyconkr/)
+22:15:28	Error: 	"Not Found" (404) at link https://archive.pycon.kr/about/coc/ (from https://archive.pycon.kr/2017/about/pyconkr/)
+22:15:28	Error: 	"Not Found" (404) at link https://archive.pycon.kr/about/blog/ (from https://archive.pycon.kr/2017/about/pyconkr/)
+22:15:28	Error: 	"Not Found" (404) at link https://archive.pycon.kr/about/announcements/ (from https://archive.pycon.kr/2017/about/pyconkr/)
+22:15:28	Error: 	"Not Found" (404) at link https://archive.pycon.kr/about/sponsor/ (from https://archive.pycon.kr/2017/about/pyconkr/)
+22:15:28	Error: 	"Not Found" (404) at link https://archive.pycon.kr/about/patron/ (from https://archive.pycon.kr/2017/about/pyconkr/)
+22:15:28	Error: 	"Not Found" (404) at link https://archive.pycon.kr/about/sponsorship/ (from https://archive.pycon.kr/2017/about/pyconkr/)
+22:15:28	Error: 	"Not Found" (404) at link https://archive.pycon.kr/about/staff/ (from https://archive.pycon.kr/2017/about/pyconkr/)
+22:15:28	Error: 	"Not Found" (404) at link https://archive.pycon.kr/about/contact/ (from https://archive.pycon.kr/2017/about/pyconkr/)
+22:15:54	Error: 	"Not Found" (404) at link https://archive.pycon.kr/program/schedule/ (from https://archive.pycon.kr/2017/program/list/)
+22:15:54	Error: 	"Not Found" (404) at link https://archive.pycon.kr/program/list/ (from https://archive.pycon.kr/2017/program/list/)
+22:15:54	Error: 	"Not Found" (404) at link https://archive.pycon.kr/program/keynote/ (from https://archive.pycon.kr/2017/program/list/)
+22:15:54	Error: 	"Not Found" (404) at link https://archive.pycon.kr/program/speaker/ (from https://archive.pycon.kr/2017/program/list/)
+22:15:54	Error: 	"Not Found" (404) at link https://archive.pycon.kr/program/tutorials/ (from https://archive.pycon.kr/2017/program/list/)
+22:15:54	Error: 	"Not Found" (404) at link https://archive.pycon.kr/program/young_coder/ (from https://archive.pycon.kr/2017/program/list/)
+22:15:54	Error: 	"Not Found" (404) at link https://archive.pycon.kr/program/child_care/ (from https://archive.pycon.kr/2017/program/list/)
+22:15:54	Error: 	"Not Found" (404) at link https://archive.pycon.kr/program/lightning_talk/ (from https://archive.pycon.kr/2017/program/list/)
+22:15:54	Error: 	"Not Found" (404) at link https://archive.pycon.kr/program/ost/ (from https://archive.pycon.kr/2017/program/list/)
+22:15:54	Error: 	"Not Found" (404) at link https://archive.pycon.kr/2017/program/speaker/facebook.com/haje01/ (from https://archive.pycon.kr/2017/program/speaker/)
+22:15:54	Error: 	"Not Found" (404) at link https://archive.pycon.kr/2017/program/speaker/isi.cho@gmail.com/ (from https://archive.pycon.kr/2017/program/speaker/)
+22:15:55	Error: 	"Not Found" (404) at link https://archive.pycon.kr/venue/map/ (from https://archive.pycon.kr/2017/venue/map/)
+22:15:55	Error: 	"Not Found" (404) at link https://archive.pycon.kr/venue/transportation/ (from https://archive.pycon.kr/2017/venue/map/)
+22:15:55	Error: 	"Not Found" (404) at link https://archive.pycon.kr/cfp/howto (from https://archive.pycon.kr/2017/cfp/cfp/)
+22:15:55	Error: 	"Not Found" (404) at link https://archive.pycon.kr/cfp/cfp/ (from https://archive.pycon.kr/2017/cfp/cfp/)
+22:15:55	Error: 	"Not Found" (404) at link https://archive.pycon.kr/cfp/howto/ (from https://archive.pycon.kr/2017/cfp/cfp/)
+22:15:55	Error: 	"Not Found" (404) at link https://archive.pycon.kr/registration/finacial-aid/ (from https://archive.pycon.kr/2017/cfp/howto/)
+22:15:55	Error: 	"Not Found" (404) at link https://archive.pycon.kr/registration/information/ (from https://archive.pycon.kr/2017/cfp/howto/)
+22:15:55	Error: 	"Not Found" (404) at link https://archive.pycon.kr/registration/purchase/ (from https://archive.pycon.kr/2017/registration/information/)
+22:15:55	Error: 	"Not Found" (404) at link https://archive.pycon.kr/finacial-aid/ (from https://archive.pycon.kr/2017/registration/finacial-aid/)
+22:16:45	Error: 	"Not Found" (404) at link https://archive.pycon.kr/en/cfp/cfp/ (from https://archive.pycon.kr/2017/en/)
+22:16:55	Error: 	"Not Found" (404) at link https://archive.pycon.kr/2017/en/program/speaker/isi.cho@gmail.com/ (from https://archive.pycon.kr/2017/en/program/speaker/)
+22:16:55	Error: 	"Not Found" (404) at link https://archive.pycon.kr/2017/en/program/speaker/facebook.com/haje01/ (from https://archive.pycon.kr/2017/en/program/speaker/)
+
+HTTrack Website Copier/3.49-2 mirror complete in 4 minutes 50 seconds : 655 links scanned, 622 files written (28597591 bytes overall) [20767141 bytes received at 71610 bytes/sec], 28489938 bytes transferred using HTTP compression in 618 files, ratio 71%, 21.6 requests per connection
+(32 errors, 0 warnings, 0 messages)
