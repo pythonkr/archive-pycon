@@ -1,9 +1,0 @@
-# This file format is compatible with Netscape cookies
-.google.com	TRUE	/	FALSE	1999999999	NID	219=ONmSvFZCh9-TgcT_izta8MPzjoZeKozzyi0UxXf-FzdCtAvkbxMoHuKA6d5JzNjHLor1F1QEADrL0wTZeX_snUNCjESrZ8nDu3H2CQlpjyeQc8GCUsfi9IdE3yokl1F6tlpxUyKdRYm4yAk9S49ImwEg9Diy0db6XmrQPe7d040
-archive.pycon.kr	TRUE	/	FALSE	1999999999	csrftoken	gISIHoQhabfPOIxOPIjWIqhOWo5eOsoUlNC5gFTPMjUruY1yQKbk828kKRasIBSB
-dropbox.com	TRUE	/	FALSE	1999999999	locale	en
-www.dropbox.com	TRUE	/	FALSE	1999999999	gvc	MTU3NjA1NjUwNjgzNzMzMTMyODM1NDg1MjYzNzk5NTU4NjAzNDU0
-dropbox.com	TRUE	/	FALSE	1999999999	t	3QfMAhApC-xs8p_rwLR09xX5
-www.dropbox.com	TRUE	/	FALSE	1999999999	__Host-js_csrf	3QfMAhApC-xs8p_rwLR09xX5
-www.dropbox.com	TRUE	/	FALSE	1999999999	__Host-logged-out-session	ChDXNEsolo6Aqy91v+5cQdHVEIKBsYcGGi5BQWlnVmw2OG00UGZldWNqWm9BSHZjWmVxM2NoVEJGakU4eTVRYjZrOFF1UWJR
-

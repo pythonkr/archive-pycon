@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+
+
+
+<html lang="kr">
+
+
+<!-- Mirrored from archive.pycon.kr/2018/program/41 by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Jul 2021 13:16:26 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <title>파이콘 한국 2018 프로그램 | Callosum: An RPC Tranport Library</title>
+    <meta property="og:site_name" content="파이콘 한국 2018">
+    <meta property="og:title" content="Callosum: An RPC Tranport Library">
+    <meta property="og:url" content="/2018/program/41">
+    <meta property="og:image" content="../static/image/pyconkr-2018-cover.png">
+    <meta property="og:description" content="저는 Backend.AI를 개발하면서 2017년 파이콘에서 aiotools 라이브러리를 공개한 바 있습니다.
+이번에는 그 연장선에서 aiozmq를 대체할 새로운 asyncio 기반 RPC Transport 라이브러리인 Callosum을 소개하고자 합니다.
+Callosum은 단순함을 목표로 설계되었고 암호화된 통신을 기반으로 대용량 스트리밍과 사용자가 선택한 IDL 기반의 메시징을 동시에 지원합니다. (GitHub : https://github.com/lablup/callosum)
+aiozmq는 공식 ZeroMQ 바인딩 라이브러리인 pyzmq가 asyncio를 정식 지원하기 전까지 많이 사용되었던 asyncio용 ZeroMQ 바인딩 라이브러리입니다.
+기본적인 read/write API 외에도 Python 클래스의 메소드를 자동으로 원격에서 별도의 프로토콜 선언 없이 일반 Python 함수처럼 호출할 수 있는 간단한 RPC 기능을 aiozmq.rpc라는 하위 패키지로 함께 제공합니다.
+본 발표에서는 더 강력한 기능과 함께 이를 대체하고자 직접 개발한 Callosum RPC Transport 라이브러리를 소개합니다.
+대상 청중
+이 발표는 Python 언어에 대해서는 잘 알고, asyncio에 대해서는 기본 개념을 알고, HTTP/RPC 라이브러리를 사용해봤거나 직접 만들어본 경우 또는 네트워킹 프로그래밍을 해본 중급~고급 청중들을 대상으로 합니다.
+프로젝트 이름에 대하여
+Corpus Callosum은 “뇌량” 또는 “뇌들보”라고 불리는 뇌 조직의 명칭입니다.
+좌뇌와 우뇌 반구를 연결하는 신경 축삭 다발로, 좌뇌와 우뇌의 서로 다르게 특화된 기능 영역들이 정보를 주고받는 데 필수적인 구조물입니다.
+(예: 왼쪽 눈으로 본 글자 영상을 우뇌의 시각 중추에서 처리 후 좌뇌의 언어 중추로 보내 의미 해석)
+대용량 스트리밍과 RPC가 모두 가능하다는 점과 단일 통신 채널을 멀티플렉싱하여 활용한다는 점에서 뇌량의 이름을 따오게 되었습니다.
+그리고 IDL과 같이 인자 검사·변환·직렬화와 관련한 계층은 사용자가 선택할 수 있도록 남겨두었다는 점에서 그냥 RPC가 아닌 “RPC Transport” 라이브러리라고 이름을 붙였습니다.
+개발 동기
+Backend.AI 개발 초기부터 aiozmq.rpc를 활용해왔는데, 2018년 들어 asyncio 공식지원이 포함된 pyzmq v17이 발표되면서 현재 aiozmq는 개발이 중단되었습니다.
+따라서 이를 대체할 RPC 라이브러리가 필요한 상황이 되었습니다.
+가장 간단한 방법은 이미 존재하는 asyncio 호환 RPC 라이브러리를 활용하여 기능을 확장하는 것인데, 다음과 같은 이유로 이를 선택하지 않았습니다.
+ Transport 계층 확장의 어려움 : gRPC, Thrift, Nirum 모두 별도의 서비스 정의를 작성하는 IDL이 있는데, 코드 생성기를 통해 만들어진 모듈이 내가 원하는 transport 계층의 특성을 만족하지 않는 경우 이를 수정하기가 어렵습니다.Backend.AI의 개발 로드맵에 따르면 다중 클라우드 또는 사용자의 로컬 PC와 클라우드를 직접 연동하는 기능이 예정되어 있는데, 이를 위해서는 다음과 같은 transport 계층의 추가 기능들이 필요합니다:
+    사전 발급된 공개키·비밀키 쌍에 의한 클라이언트 인증과 end-to-end 암호화 통신 RPC 클라이언트가 여러 쓰레드 또는 서버에서 나눠서 실행되더라도 같은 API를 호출할 때 동일 ephemeral key에 대해서 실행 및 응답 순서 보장 대용량 데이터의 업로드·다운로드를 위한 스트리밍 지원과 선택적 메시지 및 스트림 압축이 가능해야 함  서버-클라이언트 역할 뒤집기 또는 양방향 RPC의 미지원 : 일반적인 RPC 라이브러리에서는 네트워크 관점에서의 서버-클라이언트가 RPC 서비스 관점에서의 서버-클라이언트와 동일합니다.
+  하지만 Backend.AI에서는 네트워크 관점에서는 Agent가 Manager로 연결을 맺지만, RPC 관점에서는 Manager와 Agent가 상호 서비스 호출을 할 수 있어야 합니다.
+  (예: Manager는 Agent에게 컨테이너 생성 요청, Agent는 Manager에게 자신의 상태 변화에 대한 이벤트 통지) 기존 RPC 라이브러리들은 이러한 양방향 서비스를 지원하지 않거나 서버-클라이언트를 이중으로 개발해야 합니다.
+  
+
+API나 RPC의 Transport 계층으로 현재 가장 많이 사용되는 것은 HTTPS일 것입니다.
+하지만 역시 몇 가지 이유로 이를 선택하지 않았습니다.
+ 보안 계층인 SSL의 인증서 관리의 복잡함 : 서버와 클라이언트 상호 인증이 가능한 가장 강력한 보안 기능을 제공하지만, 미리 등록된 public key에 의한 클라이언트 인증만 하면 되는 상황에서 CA 관리까지 할 필요는 없었습니다. ephemeral key를 공유하는 서로 다른 요청에 대한 응답 순서 보장 기능의 미비 : 어차피 이건 새로 짜야 합니다. RPC와 스트리밍 맥락을 구분하면서 상위 계층과 상호작용하려면 직접 많은 코드를 짜야 합니다.즉, HTTP와 RPC의 매개자 역할을 하는 라이브러리가 필요한데, 바로 그것이 Callosum의 역할입니다.
+
+개발 지향점
+ 단순함 : aiozmq.rpc보다 단순할 것 네트워킹에 집중 : 스트리밍, 보안인증, 메시지 순서보장 등을 중점적으로 다루고, Callosum 본체 자체는 별도 IDL 없이도 사용 가능할 것 확장성 : 필요하다면 사용자가 Protobuf, Nirum, Thrift, MessagePack, JSON 등 임의의 IDL 컴파일러 및 직렬화 방식을 자유롭게 선택할 수 있도록 할 것 오류 전파 : asyncio는 취소 및 타임아웃 오류에 대한 별도 처리가 필요한데, 이를 고려한 정확한 오류 전파 메커니즘 내장 MVP (minimum-viable product) : 최초 API 구현부터 바로 기존 코드에 적용 가능한 상태로 유지하며 확장 기능들을 하나씩 붙여나가는 방식으로 개발
+
+특징
+ ZeroMQ 백엔드 : pyzmq + 클라이언트 인증 및 암호화 통신은 CurveZMQ 활용 flat namespace 기반 API 라우팅 메시지 헤더와 메타데이터 처리는 내장하되, 메시지 본문에 대한 IDL/직렬화는 사용자 정의 가능 메시지 본문 및 스트리밍 데이터의 snappy 압축 지원 단일 채널의 멀티플렉싱을 통한 RPC 및 대용량 스트리밍 동시 지원
+">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
+    <link rel="icon" type="image/png" href="../static/image/favicon2018.ico">
+
+    <link href="../static/components/slick-carousel/slick/slick.css" rel="stylesheet">
+    <link href="../static/components/slick-carousel/slick/slick-theme.css" rel="stylesheet">
+    <link href="../../../cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="../static/components/datatables.net-bs/css/dataTables.bootstrap.css" rel="stylesheet">
+
+    <script src="../static/components/jquery/dist/jquery.min.js"></script>
+    <script src="../static/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../static/components/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="../static/components/datatables.net-bs/js/dataTables.bootstrap.js"></script>
+
+    <link href="../static/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../static/css/pyconkr.css" rel="stylesheet">
+    <link href="../static/css/pyconkr-media.css" rel="stylesheet">
+
+    <link href="../static/css/pyconkr-teaser.css" rel="stylesheet" type="text/css">
+
+    
+    
+</head>
+<body>
+
+
+<nav class="navbar navbar-translucent gradient-bg" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">툴바 토글</span>
+        <span class="glyphicon glyphicon-python"></span>
+      </button>
+      
+      <a class="navbar-logo" href="../index.html">
+        <img src="../static/image/pycon2018-logo.png" alt="PyCon Korea">
+      </a>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            파이콘 한국 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../about/pyconkr/index.html">파이콘 한국 2018</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/coc/index.html">파이콘 성명서</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/blog/index.html">파이콘 한국 블로그</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/announcements/index.html">알림</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/sponsor/index.html">후원사 목록</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/patron/index.html">개인 후원자</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/sponsorship/index.html">후원 안내</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/staff/index.html">준비위원회 및 자원봉사자</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/contact/index.html">연락처</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            프로그램 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="schedule/index.html">세부 일정</a>
+            </li>
+          
+            <li class="">
+              <a href="list/index.html">프로그램 목록</a>
+            </li>
+          
+            <li class="">
+              <a href="keynote/index.html">키노트</a>
+            </li>
+          
+            <li class="">
+              <a href="speaker/index.html">발표자</a>
+            </li>
+          
+            <li class="">
+              <a href="tutorial/index.html">튜토리얼</a>
+            </li>
+          
+            <li class="">
+              <a href="sprint/index.html">스프린트</a>
+            </li>
+          
+            <li class="">
+              <a href="youngcoder/index.html">영코더</a>
+            </li>
+          
+            <li class="">
+              <a href="child_care/index.html">아이돌봄</a>
+            </li>
+          
+            <li class="">
+              <a href="lightning_talk/index.html">라이트닝 토크</a>
+            </li>
+          
+            <li class="">
+              <a href="ost/index.html">열린 공간</a>
+            </li>
+          
+            <li class="">
+              <a href="health/index.html">체육 시간</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            장소 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../venue/map/index.html">지도</a>
+            </li>
+          
+            <li class="">
+              <a href="../venue/transportation/index.html">교통 수단</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            발표안 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../cfp/cfp/index.html">발표자 모집</a>
+            </li>
+          
+            <li class="">
+              <a href="../cfp/howto/index.html">발표안 제안하기</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            등록 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../registration/information/index.html">정보</a>
+            </li>
+          
+            <li class="">
+              <a href="../registration/purchase/index.html">티켓 구입</a>
+            </li>
+          
+            <li class="">
+              <a href="../registration/finacial-aid/index.html">재정 지원</a>
+            </li>
+          
+            <li class="">
+              <a href="../registration/visa/index.html">Visa Sponsing</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+      </ul>
+      <!-- Right menu -->
+      <ul class="nav navbar-nav navbar-right">
+      <!-- Authenticate -->
+      
+        <li class="">
+          <a href="../login/index.html">로그인</a>
+        </li>
+      
+      <!-- Language -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            언어 <span class="caret"></span></a>
+          <ul id="language-menu" class="dropdown-menu" role="menu">
+            
+            
+            
+            <li><a href="../index.html">한국어</a></li>
+            
+            
+            
+            <li><a href="../en/index.html">English</a></li>
+            
+            
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<main>
+    <div class="container">
+    
+        <h1>Callosum: An RPC Tranport Library</h1>
+    
+        
+        
+<div class="social-badges">
+  <span>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </span>
+  <span>
+    <script>
+    var s = '<div class="fb-like" data-href="'+document.location+'" data-width="450" data-layout="button_count"></div>';
+    document.write(s);
+</script>
+
+  </span>
+  <span>
+    <script type="text/javascript" src="../../../apis.google.com/js/plusone.js"></script>
+<div class="g-plusone" data-size="medium"></div>
+
+  </span>
+  <div class="clear"></div>
+</div>
+
+<ul class="list-group">
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-tag"></span> Web Service
+  </li>
+  
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-pencil"></span>
+      상급
+      
+  </li>
+  
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-time"></span> 2018-08-19 (일) 15:40 - 16:20
+  </li>
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-volume-up"></span> 한국어
+  </li>
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-map-marker"></span> 101
+  </li>
+  
+  
+  <li class="list-group-item">
+    
+    <div class="speaker-small">
+    <a href="speaker/joongi.html">
+        <img class="image" src="../media/speaker/201705-01-800x800.jpg" alt="photo of joongi">
+        <span class="name">김준기 / joongi</span>
+    </a>
+    </div>
+    
+  </li>
+  
+  <li class="list-group-item">
+  
+    <span class="glyphicon glyphicon-eye-open"></span> 촬영, 녹화가 가능합니다.
+  
+  </li>
+</ul>
+
+<h3>슬라이드</h3><br>
+<a href="https://speakerdeck.com/achimnol/pycon-kr-2018-callosum-an-rpc-transport-library" rel="nofollow">https://speakerdeck.com/achimnol/pycon-kr-2018-callosum-an-rpc-transport-library</a><br>
+
+
+<h3>발표 동영상</h3><br>
+<a href="https://www.youtube.com/watch?v=3V4-9JfQEvg" rel="nofollow">https://www.youtube.com/watch?v=3V4-9JfQEvg</a><br>
+
+
+
+<h3>설명</h3><br>
+<p>저는 Backend.AI를 개발하면서 2017년 파이콘에서 aiotools 라이브러리를 공개한 바 있습니다.
+이번에는 그 연장선에서 aiozmq를 대체할 새로운 asyncio 기반 RPC Transport 라이브러리인 Callosum을 소개하고자 합니다.</p>
+<p><b>Callosum</b>은 단순함을 목표로 설계되었고 암호화된 통신을 기반으로 대용량 스트리밍과 사용자가 선택한 IDL 기반의 메시징을 동시에 지원합니다. <b>(<span style="font-size: 1rem;">GitHub : </span><a href="https://github.com/lablup/callosum" style="background-color: rgb(255, 255, 255); font-size: 1rem;">https://github.com/lablup/callosum</a>)</b></p>
+<p>aiozmq는 공식 ZeroMQ 바인딩 라이브러리인 pyzmq가 asyncio를 정식 지원하기 전까지 많이 사용되었던 asyncio용 ZeroMQ 바인딩 라이브러리입니다.
+기본적인 read/write API 외에도 Python 클래스의 메소드를 자동으로 원격에서 별도의 프로토콜 선언 없이 일반 Python 함수처럼 호출할 수 있는 간단한 RPC 기능을 aiozmq.rpc라는 하위 패키지로 함께 제공합니다.
+본 발표에서는 더 강력한 기능과 함께 이를 대체하고자 직접 개발한 Callosum RPC Transport 라이브러리를 소개합니다.</p>
+<h3>대상 청중</h3>
+<p>이 발표는 Python 언어에 대해서는 잘 알고, asyncio에 대해서는 기본 개념을 알고, HTTP/RPC 라이브러리를 사용해봤거나 직접 만들어본 경우 또는 네트워킹 프로그래밍을 해본 중급~고급 청중들을 대상으로 합니다.</p>
+<h3>프로젝트 이름에 대하여</h3>
+<p>Corpus Callosum은 “뇌량” 또는 “뇌들보”라고 불리는 뇌 조직의 명칭입니다.
+좌뇌와 우뇌 반구를 연결하는 신경 축삭 다발로, 좌뇌와 우뇌의 서로 다르게 특화된 기능 영역들이 정보를 주고받는 데 필수적인 구조물입니다.
+(예: 왼쪽 눈으로 본 글자 영상을 우뇌의 시각 중추에서 처리 후 좌뇌의 언어 중추로 보내 의미 해석)</p>
+<p>대용량 스트리밍과 RPC가 모두 가능하다는 점과 단일 통신 채널을 멀티플렉싱하여 활용한다는 점에서 뇌량의 이름을 따오게 되었습니다.
+그리고 IDL과 같이 인자 검사·변환·직렬화와 관련한 계층은 사용자가 선택할 수 있도록 남겨두었다는 점에서 그냥 RPC가 아닌 “RPC Transport” 라이브러리라고 이름을 붙였습니다.</p>
+<h3>개발 동기</h3>
+<p>Backend.AI 개발 초기부터 aiozmq.rpc를 활용해왔는데, 2018년 들어 asyncio 공식지원이 포함된 pyzmq v17이 발표되면서 현재 aiozmq는 개발이 중단되었습니다.
+따라서 이를 대체할 RPC 라이브러리가 필요한 상황이 되었습니다.</p>
+<p>가장 간단한 방법은 이미 존재하는 asyncio 호환 RPC 라이브러리를 활용하여 기능을 확장하는 것인데, 다음과 같은 이유로 이를 선택하지 않았습니다.</p>
+<ol> <li>Transport 계층 확장의 어려움 : gRPC, Thrift, Nirum 모두 별도의 서비스 정의를 작성하는 IDL이 있는데, 코드 생성기를 통해 만들어진 모듈이 내가 원하는 transport 계층의 특성을 만족하지 않는 경우 이를 수정하기가 어렵습니다.<br>Backend.AI의 개발 로드맵에 따르면 다중 클라우드 또는 사용자의 로컬 PC와 클라우드를 직접 연동하는 기능이 예정되어 있는데, 이를 위해서는 다음과 같은 transport 계층의 추가 기능들이 필요합니다:
+  </li> <ul> <li>사전 발급된 공개키·비밀키 쌍에 의한 클라이언트 인증과 end-to-end 암호화 통신</li> <li>RPC 클라이언트가 여러 쓰레드 또는 서버에서 나눠서 실행되더라도 같은 API를 호출할 때 동일 ephemeral key에 대해서 실행 및 응답 순서 보장</li> <li>대용량 데이터의 업로드·다운로드를 위한 스트리밍 지원과 선택적 메시지 및 스트림 압축이 가능해야 함</li> </ul> <li>서버-클라이언트 역할 뒤집기 또는 양방향 RPC의 미지원 : 일반적인 RPC 라이브러리에서는 네트워크 관점에서의 서버-클라이언트가 RPC 서비스 관점에서의 서버-클라이언트와 동일합니다.
+  하지만 Backend.AI에서는 네트워크 관점에서는 Agent가 Manager로 연결을 맺지만, RPC 관점에서는 Manager와 Agent가 상호 서비스 호출을 할 수 있어야 합니다.
+  (예: Manager는 Agent에게 컨테이너 생성 요청, Agent는 Manager에게 자신의 상태 변화에 대한 이벤트 통지) 기존 RPC 라이브러리들은 이러한 양방향 서비스를 지원하지 않거나 서버-클라이언트를 이중으로 개발해야 합니다.
+  </li>
+</ol>
+<p>API나 RPC의 Transport 계층으로 현재 가장 많이 사용되는 것은 HTTPS일 것입니다.
+하지만 역시 몇 가지 이유로 이를 선택하지 않았습니다.</p>
+<ol> <li>보안 계층인 SSL의 인증서 관리의 복잡함 : 서버와 클라이언트 상호 인증이 가능한 가장 강력한 보안 기능을 제공하지만, 미리 등록된 public key에 의한 클라이언트 인증만 하면 되는 상황에서 CA 관리까지 할 필요는 없었습니다.</li> <li>ephemeral key를 공유하는 서로 다른 요청에 대한 응답 순서 보장 기능의 미비 : 어차피 이건 새로 짜야 합니다.</li> <li>RPC와 스트리밍 맥락을 구분하면서 상위 계층과 상호작용하려면 직접 많은 코드를 짜야 합니다.<br>즉, HTTP와 RPC의 매개자 역할을 하는 라이브러리가 필요한데, 바로 그것이 Callosum의 역할입니다.</li>
+</ol>
+<h3>개발 지향점</h3>
+<ul> <li>단순함 : aiozmq.rpc보다 단순할 것</li> <li>네트워킹에 집중 : 스트리밍, 보안인증, 메시지 순서보장 등을 중점적으로 다루고, Callosum 본체 자체는 별도 IDL 없이도 사용 가능할 것</li> <li>확장성 : 필요하다면 사용자가 Protobuf, Nirum, Thrift, MessagePack, JSON 등 임의의 IDL 컴파일러 및 직렬화 방식을 자유롭게 선택할 수 있도록 할 것</li> <li>오류 전파 : asyncio는 취소 및 타임아웃 오류에 대한 별도 처리가 필요한데, 이를 고려한 정확한 오류 전파 메커니즘 내장</li> <li>MVP (minimum-viable product) : 최초 API 구현부터 바로 기존 코드에 적용 가능한 상태로 유지하며 확장 기능들을 하나씩 붙여나가는 방식으로 개발</li>
+</ul>
+<h3>특징</h3>
+<ul> <li>ZeroMQ 백엔드 : pyzmq + 클라이언트 인증 및 암호화 통신은 CurveZMQ 활용</li> <li>flat namespace 기반 API 라우팅</li> <li>메시지 헤더와 메타데이터 처리는 내장하되, 메시지 본문에 대한 IDL/직렬화는 사용자 정의 가능</li> <li>메시지 본문 및 스트리밍 데이터의 snappy 압축 지원</li> <li>단일 채널의 멀티플렉싱을 통한 RPC 및 대용량 스트리밍 동시 지원</li>
+</ul><br>
+
+
+
+<h3>댓글</h3>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'pycon-korea';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+
+    
+    <div class="container">
+        <div class="sponsors">
+        <h2>후원사 목록</h2>
+        
+<div class="sponsors">
+    
+        <h3>다이아몬드</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-2">
+                        <a href="../about/sponsor/banksalad.html">
+                            <img src="../media/sponsor/Banksalad_%e1%84%80%e1%85%a1%e1%84%85%e1%85%a9_4.png" alt="뱅크샐러드">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-2">
+                        <a href="../about/sponsor/hyperconnect.html">
+                            <img src="../media/sponsor/HYPERCONNECT_LOGO_l9HiZNL.png" alt="하이퍼커넥트">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>사파이어</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-3">
+                        <a href="../about/sponsor/lunit.html">
+                            <img src="../media/sponsor/lunit-logo-3-940px.png" alt="루닛">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>플래티넘</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-4">
+                        <a href="../about/sponsor/rgpkorea.html">
+                            <img src="../media/sponsor/rgpkorea_logo_940px.png" alt="알지피코리아">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-4">
+                        <a href="../about/sponsor/fast_campus.html">
+                            <img src="../media/sponsor/fastcampus_logo_940px.png" alt="패스트캠퍼스">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-4">
+                        <a href="../about/sponsor/google.html">
+                            <img src="../media/sponsor/google_logo_940px_2.png" alt="구글">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-4">
+                        <a href="../about/sponsor/asannanum.html">
+                            <img src="../media/sponsor/%ec%95%84%ec%82%b0%eb%82%98%eb%88%94%ec%9e%ac%eb%8b%a8Logo_square.jpg" alt="아산나눔재단">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>골드</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/icon.html">
+                            <img src="../media/sponsor/icon-logo-2-940px_WhVohvL.png" alt="ICON">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/ridi_corporation.html">
+                            <img src="../media/sponsor/ridibooks_logo_940px.png" alt="리디 주식회사">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/sendbird.html">
+                            <img src="../media/sponsor/Logo-Horizontal-Color-940px.png" alt="센드버드">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/line.html">
+                            <img src="../media/sponsor/line-logo-940px-s.png" alt="라인">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/spoqa.html">
+                            <img src="../media/sponsor/spoqa_logo_940px.png" alt="스포카">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/coinone.html">
+                            <img src="../media/sponsor/coinone_logo_940px.png" alt="코인원">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/jetbrains.html">
+                            <img src="../media/sponsor/logo_JetBrains_crop.png" alt="JetBrains">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/lablup.html">
+                            <img src="../media/sponsor/Lablup.png" alt="래블업">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/odkmedia.html">
+                            <img src="../media/sponsor/odkmedia_logo_940px_eTiE9ZD.png" alt="ODK Media, Inc.">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/elastic.html">
+                            <img src="../media/sponsor/elastic_logo_940px.png" alt="elastic">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>실버</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/peoplefund.html">
+                            <img src="../media/sponsor/pf-logo-940px.png" alt="피플펀드">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/bunjang.html">
+                            <img src="../media/sponsor/bunjang_logo_940px.png" alt="번개장터">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/hbsmith.html">
+                            <img src="../media/sponsor/hbsmith-logo-940px_yQwaBTW-s.png" alt="HBSmith">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/mymusictaste.html">
+                            <img src="../media/sponsor/mymusictaste_logo_940px_YUMdSMp.png" alt="MyMusicTaste">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/startlink.html">
+                            <img src="../media/sponsor/Startlink_logo_940px.png" alt="스타트링크">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/glowdayz.html">
+                            <img src="../media/sponsor/glowpick_logo_940px_qMg7yUD.png" alt="글로우데이즈">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/wishket.html">
+                            <img src="../media/sponsor/wishket_logo_940px.png" alt="위시켓">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/miraeassetdaewoo.html">
+                            <img src="../media/sponsor/miraeasset-logo-940px-s.png" alt="미래에셋대우">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>커뮤니티</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-7">
+                        <a href="../about/sponsor/womenwhocode.html">
+                            <img src="../media/sponsor/womenwhocode_logo_940px.png" alt="위민 후 코드">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>미디어</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-8">
+                        <a href="../about/sponsor/gilbut.html">
+                            <img src="../media/sponsor/gilbut_logo_940px.png" alt="길벗">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-8">
+                        <a href="../about/sponsor/jpub.html">
+                            <img src="../media/sponsor/jpub_logo_940px.png" alt="제이펍">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-8">
+                        <a href="../about/sponsor/hanbit.html">
+                            <img src="../media/sponsor/hanbit-logo-940px.png" alt="한빛미디어">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-8">
+                        <a href="../about/sponsor/insight.html">
+                            <img src="../media/sponsor/insight-logo-940px-s.png" alt="인사이트">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+</div>
+
+        </div>
+    </div>
+    
+</main>
+
+ 
+
+
+
+
+
+
+<footer class="text-center">
+    <div class="container">
+        <h3>Dive into Diversity, 파이콘 한국 2018</h3>
+        <p>파이콘 한국 2018은 파이콘 한국 준비위원회가 만들고 있습니다.</p>
+        <p>
+            파이썬 웹 프레임워크 <a href='https://www.djangoproject.com/'>Django</a>로 만들었습니다. | 홈페이지 호스팅은 <a href="http://d2.naver.com/">Naver D2</a>의 지원을 받고 있습니다.
+          <img class="hosting" src="../static/image/naver-d2.png" alt="Hosted on Naver D2">
+        </p>
+        <div>
+            <p>
+                더 알아보기
+                <a class="btn-twitter" href="https://twitter.com/pyconkr">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="btn-facebook" href="https://facebook.com/pyconkorea">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="btn-github" href="https://github.com/pythonkr/pyconkr-2018">
+                    <i class="fa fa-github"></i>
+                </a>
+                <a class="btn-flickr" href="https://www.flickr.com/photos/126829363@N08/sets/">
+                    <i class="fa fa-flickr"></i>
+                </a>
+            </p>
+        </div>
+
+    </div>
+</footer>
+
+
+
+</body>
+
+<!-- Mirrored from archive.pycon.kr/2018/program/41 by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Jul 2021 13:16:26 GMT -->
+</html>

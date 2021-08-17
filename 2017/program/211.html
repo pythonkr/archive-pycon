@@ -1,0 +1,701 @@
+
+
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from archive.pycon.kr/2017/program/211 by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Jul 2021 13:15:34 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <title>파이콘 한국 2017 프로그램 | 구름(Cloud)아래엔 어떤 일이 있을까요?       (시스템/네트워크 엔지니어가 사용하는 파이썬)</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=0.85">
+
+  <!-- Opengraph tag -->
+  <meta property="og:site_name" content="파이콘 한국 2017">
+  <meta property="og:title" content="구름(Cloud)아래엔 어떤 일이 있을까요?       (시스템/네트워크 엔지니어가 사용하는 파이썬)">
+  <meta property="og:image" content="../static/image/pyconkr-2017-cover.png">
+  <meta property="og:url" content="211.html">
+  <meta property="og:description" content="대상청중&nbsp;
+클라우드가 나오게 된 배경을 비유적으로 표현하는게 궁금하신 분&nbsp;Prezi 발표를 보고 싶으신 분&nbsp;구름 아래에 엔지니어들이 다루는 것들에 대해서 간단한 소개를 듣고 싶은 분&nbsp;(메인) 엔지니어들의 업무가 파이썬을 통해서 어떻게 개선될 수 있는지 궁금하신 분레벨&nbsp;초반은 가족이 다함께 즐겁게 들을 수 있는 완전 정말 초급&nbsp;중후반은 개발언어로서는 초급이고, 시스템/네트워크 엔지니어가 다루는 것에 대한 소개도 엔지니어의 &nbsp;관점에서는 초급하지만 쌍방(개발자 &lt;-&gt; 엔지니어) 간에는 초급이 아닐수 있습니다....발표 구성  &nbsp; 1) 구름 전 세상 &nbsp; 2) 구름 이후 세상 &nbsp; 3) 구름 아래에 살고 있는 그들!!!&nbsp; 4) 파이썬으로 구름 아래에 있는 그들에게 어떤 변화를 줄수 있을까요?&nbsp; 5) 패킷 캡처 및 분석툴 (ethanalyzer)를 똑똑하게!&nbsp; 6) 네트워크 장비의 구성 정보를 자동으로 백업 및 비교하자!!&nbsp; 7) 서버(랙/블레이드) 접속 단계를 줄이자!!! 편하게!!!&nbsp;&nbsp; 8) 파이썬으로 변화를!!">
+
+  <!-- Include basic items -->
+  <link href="../static/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/components/bootstrap-social/bootstrap-social.css" rel="stylesheet">
+  <link href="../static/components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../static/components/montserrat-webfont/css/montserrat-webfont.min.css" rel="stylesheet">
+
+  <!-- Override bootstrap css -->
+  <link href="../static/css/pyconkr.css" rel="stylesheet">
+  <link href="../static/css/pyconkr-media.css" rel="stylesheet">
+
+  <!-- Google fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='../../../fonts.googleapis.com/earlyaccess/nanumgothic.css' rel='stylesheet' type='text/css'>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../static/image/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../static/image/favicon.ico" type="image/x-icon">
+
+  <!-- Scripts -->
+  <!--[if lt IE 9]>
+    <script src="/2017/static/components/html5shiv/dist/html5shiv.min.js"></script>
+    <script src="/2017/static/components/respond/dest/respond.min.js"></script>
+  <![endif]-->
+  <script src="../static/components/jquery/dist/jquery.min.js"></script>
+  <script src="../static/components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="../static/js/rgb-hsv.js"></script>
+  <script src="../static/components/js-cookie/src/js.cookie.js" charset="utf-8"></script>
+  <script src="../static/components/handlebars/handlebars.min.js" charset="utf-8"></script>
+  <script>
+  function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+  </script>
+  
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-translucent" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">툴바 토글</span>
+        <span class="glyphicon glyphicon-python"></span>
+      </button>
+      
+      <a class="navbar-logo" href="../index.html">
+        <img src="../static/image/pycon2017-logo-yellow.png" alt="PyCon Korea">
+      </a>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-python"></span> 파이콘 한국 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../about/pyconkr/index.html">파이콘 한국 2017</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/coc/index.html">파이콘 성명서</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/blog/index.html">파이콘 한국 2017 블로그</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/announcements/index.html">알림</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/sponsor/index.html">후원사 목록</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/patron/index.html">개인 후원자</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/sponsorship/index.html">후원 안내</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/staff/index.html">준비위원회 및 자원봉사자</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/contact/index.html">연락처</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-calendar"></span> 프로그램 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="schedule/index.html">세부 일정</a>
+            </li>
+          
+            <li class="">
+              <a href="list/index.html">프로그램 목록</a>
+            </li>
+          
+            <li class="">
+              <a href="keynote/index.html">키노트</a>
+            </li>
+          
+            <li class="">
+              <a href="speaker/index.html">발표자</a>
+            </li>
+          
+            <li class="">
+              <a href="tutorials/index.html">스프린트와 튜토리얼</a>
+            </li>
+          
+            <li class="">
+              <a href="young_coder/index.html">영코더</a>
+            </li>
+          
+            <li class="">
+              <a href="child_care/index.html">아이돌봄</a>
+            </li>
+          
+            <li class="">
+              <a href="lightning_talk/index.html">라이트닝 토크</a>
+            </li>
+          
+            <li class="">
+              <a href="ost/index.html">열린 공간</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-map-marker"></span> 장소 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../venue/map/index.html">지도</a>
+            </li>
+          
+            <li class="">
+              <a href="../venue/transportation/index.html">교통 수단</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-edit"></span> 발표안 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../cfp/cfp/index.html">발표자 모집</a>
+            </li>
+          
+            <li class="">
+              <a href="../cfp/howto/index.html">발표안 제안하기</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-book"></span> 등록 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../registration/information/index.html">정보</a>
+            </li>
+          
+            <li class="">
+              <a href="../registration/purchase/index.html">티켓 구입</a>
+            </li>
+          
+            <li class="">
+              <a href="../registration/finacial-aid/index.html">자금 지원</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+      </ul>
+      <!-- Right menu -->
+      <ul class="nav navbar-nav navbar-right">
+      <!-- Authenticate -->
+      
+        <li class="">
+          <a href="../login/index.html"><span class="glyphicon glyphicon-user"></span> 로그인</a>
+        </li>
+      
+      <!-- Language -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-globe"></span>
+            언어 <span class="caret"></span></a>
+          <ul id="language-menu" class="dropdown-menu" role="menu">
+            
+            
+            
+            <li><a href="../index.html">한국어</a></li>
+            
+            
+            
+            <li><a href="../en/index.html">English</a></li>
+            
+            
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+    
+    <div class="row wrap">
+        <div class="col-md-9 content">
+            <h1>구름(Cloud)아래엔 어떤 일이 있을까요?       (시스템/네트워크 엔지니어가 사용하는 파이썬)</h1>
+            
+            
+            
+<div class="social-badges">
+  <span>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </span>
+  <span>
+    <script>
+    var s = '<div class="fb-like" data-href="'+document.location+'" data-width="450" data-layout="button_count"></div>';
+    document.write(s);
+</script>
+
+  </span>
+  <span>
+    <script type="text/javascript" src="../../../apis.google.com/js/plusone.js"></script>
+<div class="g-plusone" data-size="medium"></div>
+
+  </span>
+  <div class="clear"></div>
+</div>
+
+<ul class="list-group">
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-tag"></span> Environment and DevOps
+  </li>
+  
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-pencil"></span>
+      초급
+      
+  </li>
+  
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-time"></span> 2017-08-12 (토요일) 13:40 - 14:20
+  </li>
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-volume-up"></span> 한국어
+  </li>
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-map-marker"></span> 104
+  </li>
+  
+  
+  <li class="list-group-item">
+    
+    <div class="speaker-small">
+    <a href="speaker/pagaia.html">
+        <img class="image" src="../media/speaker/HoonJo.png" alt="photo of pagaia">
+        <span class="name">조훈 / pagaia</span>
+    </a>
+    </div>
+    
+  </li>
+  
+  <li class="list-group-item">
+  
+    <span class="glyphicon glyphicon-eye-open"></span> 촬영, 녹화가 가능합니다.
+  
+  </li>
+</ul>
+
+<h3>슬라이드</h3>
+<a href="http://prezi.com/wnhoobowxodl/?utm_campaign=share&amp;utm_medium=copy&amp;rc=ex0share" rel="nofollow">http://prezi.com/wnhoobowxodl/?utm_campaign=share&amp;utm_medium=copy&amp;rc=ex0share</a>
+
+
+<h3>발표 동영상</h3>
+<a href="https://www.youtube.com/watch?v=yAVOdaarXRo" rel="nofollow">https://www.youtube.com/watch?v=yAVOdaarXRo</a>
+
+
+
+<h3>설명</h3>
+<h1 style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;"><span style="font-size: 24px;"><b>대상청중&nbsp;
+</b></span><br class="Apple-interchange-newline"></h1><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;">클라우드가 나오게 된 배경을 비유적으로 표현하는게 궁금하신 분&nbsp;</div><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;">Prezi 발표를 보고 싶으신 분&nbsp;</div><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;">구름 아래에 엔지니어들이 다루는 것들에 대해서 간단한 소개를 듣고 싶은 분&nbsp;</div><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;">(메인) 엔지니어들의 업무가 파이썬을 통해서 어떻게 개선될 수 있는지 궁금하신 분</div><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;"><br></div><h1 style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;"><span style="font-size: 24px;"><b>레벨&nbsp;</b></span></h1><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;"><b>초반은</b> 가족이 다함께 즐겁게 들을 수 있는 완전 정말 초급&nbsp;</div><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;"><b>중후반은</b> 개발언어로서는 초급이고, 시스템/네트워크 엔지니어가 다루는 것에 대한 소개도 엔지니어의 &nbsp;관점에서는 초급</div><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;">하지만 쌍방(개발자 &lt;-&gt; 엔지니어) 간에는 초급이 아닐수 있습니다....</div><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;"><br></div><h1 style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;"><span style="font-size: 24px;"><b>발표 구성</b></span> <span style="font-size: 24px;"></span></h1><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;"> </div><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;">&nbsp; 1) 구름 전 세상 </div><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;">&nbsp; 2) 구름 이후 세상 </div><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;">&nbsp; <span style="background-color: rgb(255, 255, 0);">3) 구름 아래에 살고 있는 그들!!!</span></div><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;">&nbsp; 4) 파이썬으로 구름 아래에 있는 그들에게 어떤 변화를 줄수 있을까요?</div><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;">&nbsp; 5) 패킷 캡처 및 분석툴 (ethanalyzer)를 똑똑하게!</div><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;"><span style="font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont;">&nbsp; 6) 네트워크 장비의 구성 정보를 자동으로 백업 및 비교하자!!</span><br></div><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;"><span style="font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont;">&nbsp; 7) 서버(랙/블레이드) 접속 단계를 줄이자!!! 편하게!!!&nbsp;</span></div><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;">&nbsp; <span style="background-color: rgb(255, 255, 0);">8) 파이썬으로 변화를!!</span></div><div style="color: rgb(33, 33, 33); font-family: &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Gulim, 굴림, sans-serif, serif, EmojiFont; font-size: 15px;"><br></div>
+
+
+
+<h3>댓글</h3>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'pycon-korea-2017';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </div>
+        <div class="col-md-3">
+            <div class="submenu list-group hidden-xs hidden-sm">
+
+<a href="../../program/schedule/index.html" class="list-group-item">세부 일정</a>
+
+<a href="../../program/list/index.html" class="list-group-item">프로그램 목록</a>
+
+<a href="../../program/keynote/index.html" class="list-group-item">키노트</a>
+
+<a href="../../program/speaker/index.html" class="list-group-item">발표자</a>
+
+<a href="../../program/tutorials/index.html" class="list-group-item">스프린트와 튜토리얼</a>
+
+<a href="../../program/young_coder/index.html" class="list-group-item">영코더</a>
+
+<a href="../../program/child_care/index.html" class="list-group-item">아이돌봄</a>
+
+<a href="../../program/lightning_talk/index.html" class="list-group-item">라이트닝 토크</a>
+
+<a href="../../program/ost/index.html" class="list-group-item">열린 공간</a>
+
+</div>
+
+            <ul class="banners">
+
+</ul>
+
+        </div>
+    </div>
+    
+    
+    <hr>
+    <div class="row wrap">
+        <div class="col-md-12 sponsors">
+        <h2>후원사 목록</h2>
+        
+<div class="sponsors">
+  
+  <h3>플래티넘</h3>
+  <ul>
+    
+      
+      <li class="sponsor-3">
+        <a href="../about/sponsor/psf.html">
+          <img src="../media/sponsor/psf-crop_mfeUXJT.png" alt="Python Software Foundation">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-3">
+        <a href="../about/sponsor/asan.html">
+          <img src="../media/sponsor/asan-logo.png" alt="아산나눔재단">
+          
+        </a>
+      </li>
+      
+    
+  </ul>
+  
+  <h3>골드</h3>
+  <ul>
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/whatap.html">
+          <img src="../media/sponsor/Logo_a4_rearrange_iMjtz0i.png" alt="WhaTap">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/lezhin.html">
+          <img src="../media/sponsor/The_red_tag_logo_SgqoF3m.png" alt="레진엔터테인먼트">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/smartstudy.html">
+          <img src="../media/sponsor/smartstudy_ci_J2inMmh.png" alt="스마트스터디">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/ifunfactory.html">
+          <img src="../media/sponsor/ifun_logo_crop.png" alt="아이펀팩토리">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/elastic.html">
+          <img src="../media/sponsor/elastic-logo-crop.png" alt="elastic">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/buzzvil.html">
+          <img src="../media/sponsor/buzzvil_logo_crop_IU1NjTv.png" alt="버즈빌">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/codigm.html">
+          <img src="../media/sponsor/logo_codigm.png" alt="코다임">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/jetbrains.html">
+          <img src="../media/sponsor/logo_JetBrains_crop.png" alt="JetBrains">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/nhnent.html">
+          <img src="../media/sponsor/nhnent.png" alt="NHN Entertainment">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/line.html">
+          <img src="../media/sponsor/LINE_Text_Logo_TypeA.png" alt="LINE">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/coupang.html">
+          <img src="../media/sponsor/COUPANG-CROP.png" alt="쿠팡">
+          
+        </a>
+      </li>
+      
+    
+  </ul>
+  
+  <h3>실버</h3>
+  <ul>
+    
+      
+      <li class="sponsor-5">
+        <a href="../about/sponsor/lablup.html">
+          <img src="../media/sponsor/Lablup-logo-crop_zSIfV7U.png" alt="래블업">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-5">
+        <a href="../about/sponsor/intake.html">
+          <img src="../media/sponsor/intake_ci-crop.png" alt="인테이크">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-5">
+        <a href="../about/sponsor/ab180.html">
+          <img src="../media/sponsor/ab180_logo.png" alt="에이비일팔공">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-5">
+        <a href="../about/sponsor/ibm.html">
+          <img src="../media/sponsor/ibm-logo.png" alt="IBM">
+          
+        </a>
+      </li>
+      
+    
+  </ul>
+  
+  <h3>브론즈</h3>
+  <ul>
+    
+      
+      <li class="sponsor-6">
+        <a href="../about/sponsor/skplanet.html">
+          <img src="../media/sponsor/skplanet.png" alt="SK플래닛">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-6">
+        <a href="../about/sponsor/haezoom.html">
+          <img src="../media/sponsor/haezoom_crop.png" alt="해줌">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-6">
+        <a href="../about/sponsor/peoplefund.html">
+          <img src="../media/sponsor/pf_logo.png" alt="피플펀드컴퍼니">
+          
+        </a>
+      </li>
+      
+    
+  </ul>
+  
+</div>
+
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+<div class="footer">
+    <div class="container">
+        <div class="row wrap">
+            <div class="col col-sm-2 pyconkr-badge">
+                <img src="../static/image/pyconkr-badge.png" alt="PyCon Korea badge">
+            </div>
+            <div class="col col-sm-7 credit">
+                <h4>
+                파이콘 한국 2017
+                </h4>
+                <p>
+                파이콘 한국 2017은 파이콘 한국 준비위원회가 만들고 있습니다.
+                </p>
+                <p>
+                파이썬 웹 프레임워크 <a href='https://www.djangoproject.com/'>Django</a>로 만들었습니다.
+                </p>
+                <p>
+                  홈페이지 호스팅은 <a href="http://d2.naver.com/">Naver D2</a>의 지원을 받고 있습니다.
+                  <img class="hosting" src="../static/image/naver-d2.png" alt="Hosted on Naver D2">
+                </p>
+            </div>
+            <div class="col col-sm-3 info">
+                <h4>더 알아보기</h4>
+                <a class="btn btn-social-icon btn-twitter" href="https://twitter.com/pyconkr">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="btn btn-social-icon btn-facebook" href="https://facebook.com/pyconkorea">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="btn btn-social-icon btn-github" href="https://github.com/pythonkr/pyconkr-2017">
+                    <i class="fa fa-github"></i>
+                </a>
+                <a class="btn btn-social-icon btn-flickr" href="https://www.flickr.com/photos/126829363@N08/sets/">
+                    <i class="fa fa-flickr"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75675713-1', 'pycon.kr');
+  ga('send', 'pageview');
+
+</script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "../../../connect.facebook.net/en_US/all.js#xfbml=1&appId=194162310738860";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</body>
+
+
+<!-- Mirrored from archive.pycon.kr/2017/program/211 by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Jul 2021 13:15:34 GMT -->
+</html>

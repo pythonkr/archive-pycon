@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+
+
+<!-- Mirrored from archive.pycon.kr/2018/en/program/sprint/6 by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Jul 2021 13:20:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <title>Backend.AI &mdash; PyCon Korea 2018</title>
+    <meta property="og:site_name" content="PyCon Korea 2018">
+    <meta property="og:title" content="Backend.AI/index.html">
+    <meta property="og:url" content="/2018/en/program/sprint/6">
+    <meta property="og:image" content="../../../static/image/pyconkr-2018-cover.png">
+    <meta property="og:description" content="A remote computing API service backed by GPU-sharing container orchestration">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
+    <link rel="icon" type="image/png" href="../../../static/image/favicon2018.ico">
+
+    <link href="../../../static/components/slick-carousel/slick/slick.css" rel="stylesheet">
+    <link href="../../../static/components/slick-carousel/slick/slick-theme.css" rel="stylesheet">
+    <link href="../../../../../cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="../../../static/components/datatables.net-bs/css/dataTables.bootstrap.css" rel="stylesheet">
+
+    <script src="../../../static/components/jquery/dist/jquery.min.js"></script>
+    <script src="../../../static/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../../static/components/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="../../../static/components/datatables.net-bs/js/dataTables.bootstrap.js"></script>
+
+    <link href="../../../static/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../static/components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../../static/css/pyconkr.css" rel="stylesheet">
+    <link href="../../../static/css/pyconkr-media.css" rel="stylesheet">
+
+    <link href="../../../static/css/pyconkr-teaser.css" rel="stylesheet" type="text/css">
+
+    
+    
+</head>
+<body>
+
+
+<nav class="navbar navbar-translucent gradient-bg" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="glyphicon glyphicon-python"></span>
+      </button>
+      
+      <a class="navbar-logo" href="../../index.html">
+        <img src="../../../static/image/pycon2018-logo.png" alt="PyCon Korea">
+      </a>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            About <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../../about/pyconkr/index.html">About PyCon Korea 2018</a>
+            </li>
+          
+            <li class="">
+              <a href="../../about/coc/index.html">Code of Conduct</a>
+            </li>
+          
+            <li class="">
+              <a href="../../about/blog/index.html">PyCon Korea Blog</a>
+            </li>
+          
+            <li class="">
+              <a href="../../about/announcements/index.html">Announcements</a>
+            </li>
+          
+            <li class="">
+              <a href="../../about/sponsor/index.html">Sponsors</a>
+            </li>
+          
+            <li class="">
+              <a href="../../about/patron/index.html">Patrons</a>
+            </li>
+          
+            <li class="">
+              <a href="../../about/sponsorship/index.html">Sponsorship</a>
+            </li>
+          
+            <li class="">
+              <a href="../../about/staff/index.html">Staff</a>
+            </li>
+          
+            <li class="">
+              <a href="../../about/contact/index.html">Contact</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Programs <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../schedule/index.html">Schedule</a>
+            </li>
+          
+            <li class="">
+              <a href="../list/index.html">Program list</a>
+            </li>
+          
+            <li class="">
+              <a href="../keynote/index.html">Keynotes</a>
+            </li>
+          
+            <li class="">
+              <a href="../speaker/index.html">Speakers</a>
+            </li>
+          
+            <li class="">
+              <a href="../tutorial/index.html">Tutorial</a>
+            </li>
+          
+            <li class="">
+              <a href="index.html">Sprint</a>
+            </li>
+          
+            <li class="">
+              <a href="../youngcoder/index.html">Young Coder</a>
+            </li>
+          
+            <li class="">
+              <a href="../child_care/index.html">Child Care</a>
+            </li>
+          
+            <li class="">
+              <a href="../lightning_talk/index.html">Lightning talk</a>
+            </li>
+          
+            <li class="">
+              <a href="../ost/index.html">Open Spaces</a>
+            </li>
+          
+            <li class="">
+              <a href="../health/index.html">Health</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Venue <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../../venue/map/index.html">Venue Map</a>
+            </li>
+          
+            <li class="">
+              <a href="../../venue/transportation/index.html">Transportation</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Proposal <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../../cfp/cfp/index.html">Call for proposals</a>
+            </li>
+          
+            <li class="">
+              <a href="../../cfp/howto/index.html">How to propose</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Registration <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../../registration/information/index.html">Information</a>
+            </li>
+          
+            <li class="">
+              <a href="../../registration/purchase/index.html">Purchase a ticket</a>
+            </li>
+          
+            <li class="">
+              <a href="../../registration/finacial-aid/index.html">Financial Aid</a>
+            </li>
+          
+            <li class="">
+              <a href="../../registration/visa/index.html">Visa Sponsing</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+      </ul>
+      <!-- Right menu -->
+      <ul class="nav navbar-nav navbar-right">
+      <!-- Authenticate -->
+      
+        <li class="">
+          <a href="../../login/index.html">Login</a>
+        </li>
+      
+      <!-- Language -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Language <span class="caret"></span></a>
+          <ul id="language-menu" class="dropdown-menu" role="menu">
+            
+            
+            
+            <li><a href="../../../index.html">한국어</a></li>
+            
+            
+            
+            <li><a href="../../index.html">English</a></li>
+            
+            
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<main>
+    <div class="container">
+    
+        <h1>
+<h1>
+    Backend.AI
+    
+</h1>
+</h1>
+    
+        
+        
+<div class="row proposal-detail">
+    <h3>Sprint Leader</h3>
+    <h4>
+        김준기
+        
+            <small>래블업</small>
+        
+    </h4>
+    <div>
+        <p>
+현재&nbsp;<a href="http://www.lablup.com/">Lablup</a>&nbsp;("래블업") CTO를 맡아 <a href="https://backend.ai/" style="">Backend.AI</a>를 개발하고 있습니다.
+Python, C/C++을 주력 언어로 쓰고 Go와 Rust에도 관심이 있습니다.
+특히 고성능 비동기 프로그래밍에 관심이 많습니다.</p>
+<p>80 Gbps급 GPU 가속 패킷 처리 프레임워크를 개발하여 KAIST에서 전산학과 박사학위를 받았고, Microsoft Research
+Cambridge와 NexR (KT 인수)에서의 연구·엔지니어링 인턴십을 통해 다양한 규모의 백엔드 시스템에 대한 분석 및 구현 경험을 가지고
+있습니다. 오픈소스 활동을 통해 Textcube, iPuTTY, Python, DPDK, pyzmq, aiodocker, aiohttp 등의
+프로젝트에 기여해왔으며 KOSSLAB 글로벌 오픈프론티어 4, 5기로도 활동하고 있습니다.</p>
+<p>취미로 바흐, 모차르트, 슈베르트, 쇼팽, 유키구라모토 등의 피아노 곡을 연주합니다. 요즘은 바로크 음악에 빠져있고, 좋아하는 게임은 마인크래프트입니다. 운동은 자전거와 케틀벨을 합니다.</p>
+    </div>
+    <hr>
+    <div>
+        <h3>Date and Venue</h3>
+        <p style="letter-spacing: -0.32px;">장소 : 코엑스 그랜드볼룸 2층 206호</p><p style="letter-spacing: -0.32px;">시간 : 오전 10시 ~ 오후 6시</p><p style="letter-spacing: -0.32px;">(17일은 오후 2시부터 시작)</p>
+    </div>
+    <hr>
+    <div>
+        <h3>Language</h3>
+        <div><p>Python with asyncio</p></div>
+        <h3>Brief about project</h3>
+        <div><p>A remote computing API service backed by GPU-sharing container orchestration</p></div>
+        <h3>Detailed description (required)</h3>
+        <div><p>2015년 PyCon KR에서 <a href="https://www.pycon.kr/2015/program/44">"연구자 및 교육자들을 위한 파이썬 기반의 계산 및 분석 플랫폼 설계" 발표</a>로 기본 설계안을 공개한 이후 Sorna 프로젝트로 시작하여 2016년 말 오픈소스 첫 공개 및 2017년 말 v1.0 버전 출시까지 진행된 프로젝트입니다.</p>
+<p>다만 Backend.AI가 다수의 분산 데몬 서비스로 이뤄져있다보니 초기 설치 및 설정이 어려운 편이고, 이슈 하나를 해결하기 위해서는 2~3개의 저장소 코드를 함께 봐야 하는 등 난이도가 높아 주 개발사인 래블업 소속 인원을 제외한 외부 기여자가 거의 없는 상황입니다.</p>
+<p>따라서 이번 스프린트에서는 최소한의 코드 기여를 하기 위한 <a href="https://github.com/lablup/backend.ai/wiki/Development-Setup">개발환경 설치 방법을 안내</a>하고 GitHub에 등록되어 있는 다양한 이슈들 중 작은 것들을 추려 참가자들이 직접 기여하는 과정을 경험해볼 수 있도록 코드베이스에 대한 익숙함을 확보하는 데 촛점을 맞추고자 합니다.</p>
+<h4>진행 일정</h4>
+<ul>
+<li>8월 15일 오전/오후</li><li>8월 17일 오후
+</li></ul>
+<h4>준비물</h4>
+<ul><li>Docker 최신 버전 (18.03 이상 권장)</li><li>Python 3.6 버전</li><li>Git 최신 버전</li><li>자신이 좋아하는 텍스트편집기 또는 IDE 환경</li><li>위 소프트웨어들이 설치되어 있고 root 권한이 포함된 Linux 환경<br>또는 위 소프트웨어들이 설치되어 있는 macOS 환경</li><ul><li>가상머신이어도 상관 없지만 docker 실행이 가능해야 함</li><li>Linux의 경우 GUI 및 데스크톱 환경 설치되지 않아도 됨</li><li>(Linux 선택사항) NVIDIA GPU 및 CUDA 드라이버와 런타임 설치</li></ul></ul></div>
+    </div>
+    <hr>
+    <hr>
+    <div>
+        <h3>Official URL for project</h3>
+        <div><p><a href="http://github.com/lablup/backend.ai" rel="nofollow">http://github.com/lablup/backend.ai</a></p></div>
+    </div>
+    <hr>
+</div>
+<br>
+
+<a href="index.html" class="btn btn-default">
+    <span class="glyphicon glyphicon-chevron-left"></span> Back to list
+</a>
+
+<a href="6/join/index.html" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus"></span> Join this event
+</a>
+
+<hr>
+
+<h3>Attendees</h3>
+
+<ul class="attendees">
+
+    <li>
+        
+        <span class="glyphicon glyphicon-user"></span>
+        
+        <span class="name">이병우</span>
+
+	
+	<span class="label label-success">Checked in</span>
+	
+    </li>
+
+    <li>
+        
+        <span class="glyphicon glyphicon-user"></span>
+        
+        <span class="name">lovecraft</span>
+
+	
+	<span class="label label-success">Checked in</span>
+	
+    </li>
+
+    <li>
+        
+        <span class="glyphicon glyphicon-user"></span>
+        
+        <span class="name">서지암</span>
+
+	
+	<span class="label label-success">Checked in</span>
+	
+    </li>
+
+    <li>
+        
+        <span class="glyphicon glyphicon-user"></span>
+        
+        <span class="name">seonghwa.yun</span>
+
+	
+	<span class="label label-success">Checked in</span>
+	
+    </li>
+
+    <li>
+        
+        <span class="glyphicon glyphicon-user"></span>
+        
+        <span class="name">김민현</span>
+
+	
+	<span class="label label-success">Checked in</span>
+	
+    </li>
+
+    <li>
+        
+        <span class="glyphicon glyphicon-user"></span>
+        
+        <span class="name">seo</span>
+
+	
+	<span class="label label-success">Checked in</span>
+	
+    </li>
+
+    <li>
+        
+        <span class="glyphicon glyphicon-user"></span>
+        
+        <span class="name">Lia Yoo</span>
+
+	
+	<span class="label label-success">Checked in</span>
+	
+    </li>
+
+    <li>
+        
+        <span class="glyphicon glyphicon-user"></span>
+        
+        <span class="name">jamanvo</span>
+
+	
+	<span class="label label-success">Checked in</span>
+	
+    </li>
+
+    <li>
+        
+        <span class="glyphicon glyphicon-user"></span>
+        
+        <span class="name">신정규</span>
+
+	
+	<span class="label label-success">Checked in</span>
+	
+    </li>
+
+    <li>
+        
+        <span class="glyphicon glyphicon-user"></span>
+        
+        <span class="name">atx6419</span>
+
+	
+	<span class="label label-success">Checked in</span>
+	
+    </li>
+
+    <li>
+        
+        <span class="glyphicon glyphicon-user"></span>
+        
+        <span class="name">이형구</span>
+
+	
+	<span class="label label-success">Checked in</span>
+	
+    </li>
+
+    <li>
+        
+        <span class="glyphicon glyphicon-user"></span>
+        
+        <span class="name">inho</span>
+
+	
+	<span class="label label-success">Checked in</span>
+	
+    </li>
+
+    <li>
+        
+        <span class="glyphicon glyphicon-user"></span>
+        
+        <span class="name">조만석</span>
+
+	
+	<span class="label label-success">Checked in</span>
+	
+    </li>
+
+    <li>
+        
+        <span class="glyphicon glyphicon-user"></span>
+        
+        <span class="name">Junwoo Park</span>
+
+	
+	<span class="label label-success">Checked in</span>
+	
+    </li>
+
+</ul>
+<div class="clear"></div>
+
+
+    </div>
+
+    
+    <div class="container">
+        <div class="sponsors">
+        <h2>Sponsors</h2>
+        
+<div class="sponsors">
+    
+        <h3>Diamond</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-2">
+                        <a href="../../about/sponsor/banksalad.html">
+                            <img src="../../../media/sponsor/Banksalad_%e1%84%80%e1%85%a1%e1%84%85%e1%85%a9_4.png" alt="banksalad">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-2">
+                        <a href="../../about/sponsor/hyperconnect/index.html">
+                            <img src="../../../media/sponsor/HYPERCONNECT_LOGO_l9HiZNL.png" alt="HYPERCONNECT">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>Sappire</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-3">
+                        <a href="../../about/sponsor/lunit.html">
+                            <img src="../../../media/sponsor/lunit-logo-3-940px.png" alt="Lunit">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>Platinum</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-4">
+                        <a href="../../about/sponsor/rgpkorea/index.html">
+                            <img src="../../../media/sponsor/rgpkorea_logo_940px.png" alt="RGP Korea">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-4">
+                        <a href="../../about/sponsor/fast_campus.html">
+                            <img src="../../../media/sponsor/fastcampus_logo_940px.png" alt="Fast campus">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-4">
+                        <a href="../../about/sponsor/google/index.html">
+                            <img src="../../../media/sponsor/google_logo_940px_2.png" alt="Google">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-4">
+                        <a href="../../about/sponsor/asannanum.html">
+                            <img src="../../../media/sponsor/%ec%95%84%ec%82%b0%eb%82%98%eb%88%94%ec%9e%ac%eb%8b%a8Logo_square.jpg" alt="The Asan Nanum Foundation">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>Gold</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../../about/sponsor/icon.html">
+                            <img src="../../../media/sponsor/icon-logo-2-940px_WhVohvL.png" alt="ICON">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../../about/sponsor/ridi_corporation.html">
+                            <img src="../../../media/sponsor/ridibooks_logo_940px.png" alt="RIDI Corporation">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../../about/sponsor/sendbird.html">
+                            <img src="../../../media/sponsor/Logo-Horizontal-Color-940px.png" alt="sendbird">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../../about/sponsor/line.html">
+                            <img src="../../../media/sponsor/line-logo-940px-s.png" alt="LINE">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../../about/sponsor/spoqa.html">
+                            <img src="../../../media/sponsor/spoqa_logo_940px.png" alt="spoqa">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../../about/sponsor/coinone.html">
+                            <img src="../../../media/sponsor/coinone_logo_940px.png" alt="Coinone">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../../about/sponsor/jetbrains.html">
+                            <img src="../../../media/sponsor/logo_JetBrains_crop.png" alt="JetBrains">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../../about/sponsor/lablup.html">
+                            <img src="../../../media/sponsor/Lablup.png" alt="Lablup Inc">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../../about/sponsor/odkmedia.html">
+                            <img src="../../../media/sponsor/odkmedia_logo_940px_eTiE9ZD.png" alt="ODK Media, Inc.">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../../about/sponsor/elastic.html">
+                            <img src="../../../media/sponsor/elastic_logo_940px.png" alt="elastic">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>Silver</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../../about/sponsor/peoplefund.html">
+                            <img src="../../../media/sponsor/pf-logo-940px.png" alt="peoplefund">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../../about/sponsor/bunjang.html">
+                            <img src="../../../media/sponsor/bunjang_logo_940px.png" alt="bunjang">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../../about/sponsor/hbsmith.html">
+                            <img src="../../../media/sponsor/hbsmith-logo-940px_yQwaBTW-s.png" alt="HBSmith">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../../about/sponsor/mymusictaste.html">
+                            <img src="../../../media/sponsor/mymusictaste_logo_940px_YUMdSMp.png" alt="MyMusicTaste">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../../about/sponsor/startlink.html">
+                            <img src="../../../media/sponsor/Startlink_logo_940px.png" alt="Startlink">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../../about/sponsor/glowdayz.html">
+                            <img src="../../../media/sponsor/glowpick_logo_940px_qMg7yUD.png" alt="glowdayz">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../../about/sponsor/wishket.html">
+                            <img src="../../../media/sponsor/wishket_logo_940px.png" alt="wishket">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../../about/sponsor/miraeassetdaewoo.html">
+                            <img src="../../../media/sponsor/miraeasset-logo-940px-s.png" alt="Mirae Asset Daewoo">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>Community</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-7">
+                        <a href="../../about/sponsor/womenwhocode.html">
+                            <img src="../../../media/sponsor/womenwhocode_logo_940px.png" alt="Women Who Code">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>Media</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-8">
+                        <a href="../../about/sponsor/gilbut.html">
+                            <img src="../../../media/sponsor/gilbut_logo_940px.png" alt="Gilbut">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-8">
+                        <a href="../../about/sponsor/jpub.html">
+                            <img src="../../../media/sponsor/jpub_logo_940px.png" alt="Jpub">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-8">
+                        <a href="../../about/sponsor/hanbit.html">
+                            <img src="../../../media/sponsor/hanbit-logo-940px.png" alt="Hanbit Media">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-8">
+                        <a href="../../about/sponsor/insight.html">
+                            <img src="../../../media/sponsor/insight-logo-940px-s.png" alt="insight">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+</div>
+
+        </div>
+    </div>
+    
+</main>
+
+ 
+
+
+
+
+
+
+<footer class="text-center">
+    <div class="container">
+        <h3>Dive into Diversity, PyCon Korea 2018</h3>
+        <p>PyCon Korea 2018 is a product of PyCon Korea Organizing Team</p>
+        <p>
+            Powered by Django | Hosted on <a href="http://d2.naver.com/">Naver D2</a>
+          <img class="hosting" src="../../../static/image/naver-d2.png" alt="Hosted on Naver D2">
+        </p>
+        <div>
+            <p>
+                Stay connected
+                <a class="btn-twitter" href="https://twitter.com/pyconkr">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="btn-facebook" href="https://facebook.com/pyconkorea">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="btn-github" href="https://github.com/pythonkr/pyconkr-2018">
+                    <i class="fa fa-github"></i>
+                </a>
+                <a class="btn-flickr" href="https://www.flickr.com/photos/126829363@N08/sets/">
+                    <i class="fa fa-flickr"></i>
+                </a>
+            </p>
+        </div>
+
+    </div>
+</footer>
+
+
+
+</body>
+
+<!-- Mirrored from archive.pycon.kr/2018/en/program/sprint/6 by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Jul 2021 13:21:00 GMT -->
+</html>

@@ -1,0 +1,736 @@
+
+
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from archive.pycon.kr/2014/programs/speakers/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Jul 2021 12:59:19 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+<title>Pycon Korea 2014</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=0.85">
+
+  <!-- Opengraph tag -->
+  <meta property="og:site_name" content="파이콘 한국 2014">
+  <meta property="og:title" content="PyCon Korea 2014">
+  <meta property="og:image" content="../../2014/static/image/pyconkr-badge.png/index.html">
+  <meta property="og:url" content="../../2014/programs/speakers/index.html">
+  <meta property="og:description" content="파이콘은 오픈소스 프로그래밍 언어인 파이썬 사용자들을 위한 행사입니다. 올해 한국에서 처음으로 열리는 파이콘 한국 2014 는 개발자들의 지식과 경험을 공유하여 한국 개발자 커뮤니티와 파이썬의 활성화에 기여하고자 합니다.">
+
+  <!-- Include basic items -->
+  <link href="../../static/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../static/components/bootstrap-social/bootstrap-social.css" rel="stylesheet">
+  <link href="../../static/components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- Override bootstrap css -->
+  <link href="../../static/css/pyconkr.css" rel="stylesheet">
+  <!--[if !IE]><!-->
+  <link href="../../static/css/pyconkr-media.css" rel="stylesheet">
+  <!--<![endif]-->
+
+  <!-- Google fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link href='../../../../fonts.googleapis.com/earlyaccess/nanumgothic.css' rel='stylesheet' type='text/css'>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../../static/image/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../../static/image/favicon.ico" type="image/x-icon">
+
+  <!-- Scripts -->
+  <script src="../../static/components/jquery/jquery.min.js"></script>
+  <script src="../../static/components/html5shiv/dist/html5shiv.min.js"></script>
+  <script src="../../static/components/bootstrap/dist/js/bootstrap.min.js"></script>
+  
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../../index.html">
+        <img src="../../static/image/pyconkr-logo-small.png" alt="Pycon Korea">
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-python"></span> About <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../../about/pyconkr/index.html">About PyCon Korea 2014</a>
+            </li>
+          
+            <li class="">
+              <a href="../../about/coc/index.html">Code of Conduct</a>
+            </li>
+          
+            <li class="">
+              <a href="../../about/detail/index.html">Conference detail</a>
+            </li>
+          
+            <li class="">
+              <a href="../../about/announcements/index.html">Announcements</a>
+            </li>
+          
+            <li class="">
+              <a href="../../about/sponsors/index.html">Sponsors</a>
+            </li>
+          
+            <li class="">
+              <a href="../../about/staff/index.html">Staff</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-calendar"></span> Programs <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../cfp/index.html">Call for proposal</a>
+            </li>
+          
+            <li class="">
+              <a href="../schedule/index.html">Schedule</a>
+            </li>
+          
+            <li class="">
+              <a href="../list/index.html">Program list</a>
+            </li>
+          
+            <li class="active">
+              <a href="index.html">Speakers</a>
+            </li>
+          
+            <li class="">
+              <a href="../jobfair/index.html">Jobfair</a>
+            </li>
+          
+            <li class="">
+              <a href="../bof/index.html">BOF</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="">
+          <a href="../../registration/index.html"><span class="glyphicon glyphicon-pencil"></span> Registration</a>
+        </li>
+        
+        
+        
+        <li class="">
+          <a href="../../venue/index.html"><span class="glyphicon glyphicon-map-marker"></span> Venue</a>
+        </li>
+        
+        
+        
+        <li class="">
+          <a href="../../contact/index.html"><span class="glyphicon glyphicon-info-sign"></span> Contact</a>
+        </li>
+        
+        
+      </ul>
+      <!-- Right menu -->
+      <ul class="nav navbar-nav navbar-right">
+      <!-- Authenticate -->
+      
+        <li class="">
+          <a href="../../login/index.html"><span class="glyphicon glyphicon-user"></span> Login</a>
+        </li>
+      
+      <!-- Language -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Language <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            
+            
+            <li>
+                <a href="../../lang/ko/index.html">한국어</a>
+            </li>
+            
+            <li>
+                <a href="../../lang/en/index.html">English</a>
+            </li>
+            
+          </ul>
+        </li>
+      </ul>
+      <!--
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+      </form>
+      -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+
+
+
+<table class="seoul-color" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="background:#941E34">SC0908</td>
+      <td style="background:#BC6F25">SC1956</td>
+      <td style="background:#E5B560">SC1944</td>
+      <td style="background:#455F54">SC4907</td>
+      <td style="background:#6789CA">SC7909</td>
+      <td style="background:#594743">SC0916</td>
+      <td style="background:#A4A199">SC2920</td>
+      <td style="background:#504E49">SC2940</td>
+      <td style="background:#D8CCAD">SC1941</td>
+      <td style="background:#DFDFDD">SCN902</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="titlebar">
+  <img class="building" src="../../static/image/bg-building-tiny.png">
+  <div class="background">
+    <img class="mountain" src="../../static/image/bg-mountain.png">  
+    <img class="tower-1" src="../../static/image/bg-ntower.png">
+    <img class="tower-2" src="../../static/image/bg-tower.png">
+    <img class="tower-3" src="../../static/image/bg-tower.png">
+  </div>
+  <div class="container">
+    <h1>
+      Speakers
+    </h1>
+  </div>
+</div>
+
+
+<div class="container wrap">
+    
+    <div class="row">
+        <div class="col-md-9 content">
+            
+<ul class="speakers media-list">
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/ryusuke_kajiyama.html">
+      <img class="media-speakerect" src="../../static/image/anonymous.png" alt="photo of Kajiyama Ryusuke">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/ryusuke_kajiyama.html">Kajiyama Ryusuke / ryusuke_kajiyama</a>
+        <span class="badges hidden-xs"><div class="badges"></div></span>
+      </h4>
+      <!--Ryusuke Kajiyama is Open Source Specialist with 10+ years of experience of systems design using MySQL and open source solutions. He originally joined MySQL AB, and is currently managing MySQL Sales...-->
+      
+      <a href="../../program/13.html">Python기반의 MySQL Fabric을 이용한 샤딩 및 확장</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/daesung_kang.html">
+      <img class="media-speakerect" src="../../media/speaker/daesung_kang.jpg" alt="photo of 강대성">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/daesung_kang.html">강대성 / daesung_kang</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-linkedin" href="http://kr.linkedin.com/in/daesungkang" target="_blank"><i class="fa fa-linkedin"></i>Linkedin</a></div></span>
+      </h4>
+      <!--8년동안 대기업에 있다가 이제야 진짜 일을 하고 있습니다.-->
+      
+      <a href="../../program/19.html">국민내비 김기사와 Python</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/kang.html">
+      <img class="media-speakerect" src="../../media/speaker/kang.jpg" alt="photo of 강철">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/kang.html">강철 / kang</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-twitter" href="https://twitter.com/cornchz" target="_blank"><i class="fa fa-twitter"></i>Twitter</a> <a class="btn btn-social btn-xs btn-homepage" href="http://cheol.net/" target="_blank"><i class="fa fa-home"></i>Homepage</a> <a class="btn btn-social btn-xs btn-linkedin" href="http://kr.linkedin.com/in/kcheol" target="_blank"><i class="fa fa-linkedin"></i>Linkedin</a></div></span>
+      </h4>
+      <!--강철은 기술이 사회에 기여할 수 있다고 믿는 소프트웨어 엔지니어입니다.KAIST 전산학과에서 공부했으며 팀포퐁에서 대한민국 역대 모든 국회의원 및 의안 정보를 제공하는 "대한민국 정치의 모든 것"을 만들고 있습니다.
+
+'내가 가장 잘할 수 있는 방법으로 사회에 기여하고 싶다'는 생각으로 2010년에 팀포퐁을 시작해 최고의 멤버들과 함께 사회적 가치...-->
+      
+      <a href="../../program/15.html">30분만에 따라하는 동시성 웹 스크래퍼</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/jongman.html">
+      <img class="media-speakerect" src="../../media/speaker/jongman.jpg" alt="photo of 구종만">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/jongman.html">구종만 / jongman</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-github" href="https://github.com/jongman" target="_blank"><i class="fa fa-github"></i>Github</a> <a class="btn btn-social btn-xs btn-homepage" href="http://theyearlyprophet.com/" target="_blank"><i class="fa fa-home"></i>Homepage</a> <a class="btn btn-social btn-xs btn-linkedin" href="http://linkedin.com/in/jongman" target="_blank"><i class="fa fa-linkedin"></i>Linkedin</a></div></span>
+      </h4>
+      <!--파이썬을 본격적으로 사용한 지는 6년 정도 되었습니다.HFT 회사에서 퀀트 개발자로 일하고 있습니다.http://algospot.com/을 운영하고 있으며, http://book.algospot.com/을 썼습니다.-->
+      
+      <a href="../../program/2.html">위대한 dict 이해하고 사용하기</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/kakung_kim.html">
+      <img class="media-speakerect" src="../../media/speaker/kakung_kim.jpg" alt="photo of 김가경">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/kakung_kim.html">김가경 / kakung_kim</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-blog" href="http://blog.naver.com/irobii" target="_blank"><i class="fa fa-pencil"></i>Blog</a> <a class="btn btn-social btn-xs btn-github" href="http://github.com/irobii" target="_blank"><i class="fa fa-github"></i>Github</a> <a class="btn btn-social btn-xs btn-facebook" href="https://www.facebook.com/irobii" target="_blank"><i class="fa fa-facebook"></i>Facebook</a></div></span>
+      </h4>
+      <!--성균관대학교 삼성융합의과학원 포스트닥으로 있습니다.-->
+      
+      <a href="../../program/18.html">IPython으로 상호적, 재현 가능한 생물정보학 연구하기</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/kyunghoon.html">
+      <img class="media-speakerect" src="../../media/speaker/kyunghoon.jpg" alt="photo of 김경훈">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/kyunghoon.html">김경훈 / kyunghoon</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-linkedin" href="http://kr.linkedin.com/in/koorukuroo" target="_blank"><i class="fa fa-linkedin"></i>Linkedin</a></div></span>
+      </h4>
+      <!--UNIST(울산과학기술대학교) 자연과학부 수리과학과에 대학원생으로 재학 중입니다.소셜 네트워크 분석(SNA) 등 여러 가지 네트워크 연구들이 인기를 끌고 있는데 여러분은 어떠세요?본 발표에서 특별한 프로그램 없이 파이썬으로 네트워크 분석을 간단히 코딩할 수 있는,&nbsp;파이썬의 매력을 보여드리고자 합니다.http://www.slideshare.ne...-->
+      
+      <a href="../../program/7.html">NetworkX를 이용한 네트워크 분석</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/seungjin.html">
+      <img class="media-speakerect" src="../../media/speaker/seungjin.jpg" alt="photo of 김승진">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/seungjin.html">김승진 / seungjin</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-twitter" href="https://twitter.com/seungjin" target="_blank"><i class="fa fa-twitter"></i>Twitter</a> <a class="btn btn-social btn-xs btn-google-plus" href="https://plus.google.com/u/1/107455610014187457900" target="_blank"><i class="fa fa-google-plus"></i>Google-plus</a> <a class="btn btn-social btn-xs btn-linkedin" href="http://linkedin.com/in/seungjin" target="_blank"><i class="fa fa-linkedin"></i>Linkedin</a></div></span>
+      </h4>
+      <!--Cloud Architect at Thing Daemon (fancy.com)Integrator, Infrastructure Services at iPlant Collaborative, BIO5 InstituteSenior Application Analyst at Arizona Research Laboratorieswww.fancy.com/seungj...-->
+      
+      <a href="../../program/1.html">Scalable Infrastructure Build on Cloud with Python</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/haje01.html">
+      <img class="media-speakerect" src="../../media/speaker/haje01.png" alt="photo of 김정주">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/haje01.html">김정주 / haje01</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-blog" href="http://blog.naver.com/haje01" target="_blank"><i class="fa fa-pencil"></i>Blog</a> <a class="btn btn-social btn-xs btn-twitter" href="https://twitter.com/haje01" target="_blank"><i class="fa fa-twitter"></i>Twitter</a> <a class="btn btn-social btn-xs btn-github" href="https://github.com/haje01" target="_blank"><i class="fa fa-github"></i>Github</a></div></span>
+      </h4>
+      <!--&nbsp;직장Webzen (TD, 현재)NPlutoNHN GamesNHN관심사Python, 웹, 데이터 분석, 오픈소스, AWS, XML, 게임-->
+      
+      <a href="../../program/14.html">IPython과 Pandas를 활용한 게임데이터 분석</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/charleskim.html">
+      <img class="media-speakerect" src="../../media/speaker/charleskim.jpg" alt="photo of 김창민">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/charleskim.html">김창민 / charleskim</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-facebook" href="https://facebook.com/charleskim75" target="_blank"><i class="fa fa-facebook"></i>Facebook</a> <a class="btn btn-social btn-xs btn-linkedin" href="https://www.linkedin.com/profile/view?id=104717657&amp;authType=OUT_OF_NETWORK&amp;authToken=PIFD&amp;locale=en_US&amp;trk=tyah2&amp;trkInfo=tarId%3A1403835818797%2Ctas%3Acharles%2Cidx%3A1-1-1" target="_blank"><i class="fa fa-linkedin"></i>Linkedin</a></div></span>
+      </h4>
+      <!--현재 아리스타 네트웍스 한국지사의 시스템 엔지니어로 일하고 있으며 국내 통신 사업자들과 Web 2.0 사업자들을 포함하여 대규모 엔터프라이즈 사업자들에 대해 클라우드 컴퓨팅 및 빅 데이터 하둡과 관련된 네트웍 분야의 기술 컨설팅 및 기술 지원 업무를 하고 있습니다.KrDAG(Korea Datacenter Architect Group), OpenFlow...-->
+      
+      <a href="../../program/16.html">네트워크 엔지니어들을 위한 Python</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/kdog.html">
+      <img class="media-speakerect" src="../../media/speaker/oraora82.jpg" alt="photo of 김태웅">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/kdog.html">김태웅 / kdog</a>
+        <span class="badges hidden-xs"><div class="badges"></div></span>
+      </h4>
+      <!--파이썬을 2003년경 부터 실무에 쓰기 시작했고, 아직 열심히 공부중인 개발자KT/SK Broadband/Tbroad 등 ISP 쪽 컨설팅/개발을 수행본진 파이콘(pycon 2009 chicago) 참여GDG google I/O extended 에서 go 언어 관련 세션 발표macbook, python, golang 강제 에반젤리스트-->
+      
+      <a href="../../program/11.html">Big data with 0% java</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/yong27.html">
+      <img class="media-speakerect" src="../../media/speaker/yong27.jpg" alt="photo of 김형용">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/yong27.html">김형용 / yong27</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-blog" href="http://e.biohackers.net/" target="_blank"><i class="fa fa-pencil"></i>Blog</a> <a class="btn btn-social btn-xs btn-twitter" href="https://twitter.com/yong27" target="_blank"><i class="fa fa-twitter"></i>Twitter</a> <a class="btn btn-social btn-xs btn-facebook" href="https://www.facebook.com/hyungyong.kim" target="_blank"><i class="fa fa-facebook"></i>Facebook</a> <a class="btn btn-social btn-xs btn-linkedin" href="https://www.linkedin.com/in/yong27" target="_blank"><i class="fa fa-linkedin"></i>Linkedin</a></div></span>
+      </h4>
+      <!--(주)인실리코젠에서 생물정보분석 및 개발업무를 하고 있습니다.-->
+      
+      <a href="../../program/9.html">DNA 데이터로 가족찾기</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/lucypark.html">
+      <img class="media-speakerect" src="../../media/speaker/lucypark.jpg" alt="photo of 박은정">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/lucypark.html">박은정 / lucypark</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-twitter" href="http://twitter.com/echojuliett" target="_blank"><i class="fa fa-twitter"></i>Twitter</a> <a class="btn btn-social btn-xs btn-github" href="http://github.com/e9t" target="_blank"><i class="fa fa-github"></i>Github</a> <a class="btn btn-social btn-xs btn-homepage" href="http://lucypark.kr/" target="_blank"><i class="fa fa-home"></i>Homepage</a></div></span>
+      </h4>
+      <!--박은정은 서울대학교에서 데이터마이닝을 전공하고 있으며, 마케팅, 반도체, 영화 등의 영역에서 데이터 분석 프로젝트를 진행했다.기술을 이용해 지식의 장벽을 낮추는 것에 관심이 있어, 여가 시간에는 팀포퐁에서 "대한민국 정치의 모든 것(http://pokr.kr)"을 만들며 입법 정보의 확산에 노력을 기울이고 있다.-->
+      
+      <a href="../../program/10.html">자바, 미안하다! 파이썬 한국어 NLP</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/lqez.html">
+      <img class="media-speakerect" src="../../media/speaker/lqez.jpg" alt="photo of 박현우">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/lqez.html">박현우 / lqez</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-blog" href="http://lqez.github.io/blog" target="_blank"><i class="fa fa-pencil"></i>Blog</a> <a class="btn btn-social btn-xs btn-twitter" href="https://twitter.com/lqez" target="_blank"><i class="fa fa-twitter"></i>Twitter</a> <a class="btn btn-social btn-xs btn-github" href="https://github.com/lqez" target="_blank"><i class="fa fa-github"></i>Github</a> <a class="btn btn-social btn-xs btn-soundcloud" href="https://soundcloud.com/lqez" target="_blank"><i class="fa fa-soundcloud"></i>Soundcloud</a> <a class="btn btn-social btn-xs btn-linkedin" href="https://www.linkedin.com/in/hyunwoopark" target="_blank"><i class="fa fa-linkedin"></i>Linkedin</a></div></span>
+      </h4>
+      <!--윈도우즈에서 DirectX 로 게임을 만들며 업계로 들어와 10년간 우물안 개구리로 살다, 파이썬을 사용하며 우물 밖으로 나왔습니다. 작은 경험도 나누면 커진다는 것을 믿고 사소한 오픈소스 프로젝트들을 꾸준히 해보려 노력하고 있습니다.django-summernoteIntegrate summernote wysiwyg editor into Djangonp...-->
+      
+      <a href="../../program/26.html">그릇된 팬심의 어긋난 결말</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/darjeeling.html">
+      <img class="media-speakerect" src="../../media/speaker/daejeeling.jpg" alt="photo of 배권한">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/darjeeling.html">배권한 / darjeeling</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-twitter" href="https://twitter.com/darjeelingt" target="_blank"><i class="fa fa-twitter"></i>Twitter</a> <a class="btn btn-social btn-xs btn-github" href="https://github.com/darjeeling" target="_blank"><i class="fa fa-github"></i>Github</a></div></span>
+      </h4>
+      <!---->
+      
+      <a href="../../program/28.html">파이콘 한국 2014 점철된 행운, 그리고 미래</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/devunt.html">
+      <img class="media-speakerect" src="../../media/speaker/devunt.jpg" alt="photo of 배준현">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/devunt.html">배준현 / devunt</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-blog" href="http://g.devunt.kr/" target="_blank"><i class="fa fa-pencil"></i>Blog</a> <a class="btn btn-social btn-xs btn-twitter" href="https://twitter.com/devunt" target="_blank"><i class="fa fa-twitter"></i>Twitter</a> <a class="btn btn-social btn-xs btn-github" href="https://github.com/devunt" target="_blank"><i class="fa fa-github"></i>Github</a></div></span>
+      </h4>
+      <!--"기술은 쓰라고 있는거지" 라는 생각으로 여러 기술을 탐구하고 있습니다.파이썬을 사용한지는 이제 3년 가량 되었습니다.MediaWiki, Django, Flask-RESTful 등의 오픈소스 프로젝트에 참여하고 있습니다.오픈소스 파이썬 프로젝트로 ImgTL, warp 등을 만들었습니다.파이썬 세미나에서 'php에서 python으로 갈아타기' 등을 발표...-->
+      
+      <a href="../../program/4.html">Python 3.4: AsyncIO</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/seojiwon.html">
+      <img class="media-speakerect" src="../../static/image/anonymous.png" alt="photo of 서지원">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/seojiwon.html">서지원 / seojiwon</a>
+        <span class="badges hidden-xs"><div class="badges"></div></span>
+      </h4>
+      <!--저는 현재 스탠포드 대학에 박사과정 학생으로 있습니다. 파이썬 관련한 contribution으로는 Generator Expressions (PEP 289) 와 Keyword-Only Arguments (PEP 3102) 를 구현하였습니다. 또한 2011 APAC PyCon 에서 reviewer 로 활동했고, 2014 APAC PyCon 에서 Poste...-->
+      
+      <a href="../../program/6.html">SociaLite: 빅 데이터 분석을 위한 파이썬 통합 쿼리 언어</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/sgonv.html">
+      <img class="media-speakerect" src="../../media/speaker/sgonv.jpg" alt="photo of 이상곤">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/sgonv.html">이상곤 / sgonv</a>
+        <span class="badges hidden-xs"><div class="badges"></div></span>
+      </h4>
+      <!--2009. 02 ~ 현재 :&nbsp;KAIST 전산학과 학사과정2013. 07 ~ 2013. 08 : 네이버 비즈니스 플랫폼 인턴2013. 09 ~ 현재 : 데브시스터즈 서버개발팀-->
+      
+      <a href="../../program/5.html">Python으로 쿠키런 운영하기</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/plusjune.html">
+      <img class="media-speakerect" src="../../media/speaker/plusjune.jpg" alt="photo of 이승준">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/plusjune.html">이승준 / plusjune</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-facebook" href="https://www.facebook.com/plusjune" target="_blank"><i class="fa fa-facebook"></i>Facebook</a> <a class="btn btn-social btn-xs btn-linkedin" href="https://linkedin.com/in/plusjune" target="_blank"><i class="fa fa-linkedin"></i>Linkedin</a></div></span>
+      </h4>
+      <!--현, KB투자증권 IT센터에 근무하고 있습니다.금융과 IT를 접목하는 작업과&nbsp;파이썬을 이용한 금융 데이터 분석과 자동화 등에 관심을 가지고 있습니다.-->
+      
+      <a href="../../program/8.html">금융 데이터 이해와 분석</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/perky.html">
+      <img class="media-speakerect" src="../../media/speaker/perky.jpg" alt="photo of 장혜식">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/perky.html">장혜식 / perky</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-blog" href="http://openlook.org/" target="_blank"><i class="fa fa-pencil"></i>Blog</a></div></span>
+      </h4>
+      <!--초대 파이썬 아이돌파이썬 마을을 15년째 운영하고 있습니다.코덱, 유니코드, 이터레이터, 유닉스 플랫폼 지원 등과 관련해서 2002년부터 파이썬 커미터로 활동을 해왔으며, 2003년부터는 파이썬 소프트웨어 재단 회원으로 투표권을 행사하고 있습니다. 파이썬을 이용한 과학 연산과 시각화에 관심이 많습니다. 지금은 서울대학교 RNA연구단에서 분자생물학을 연...-->
+      
+      <a href="../../program/20.html">개회사</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/kkung.html">
+      <img class="media-speakerect" src="../../media/speaker/kkung.jpg" alt="photo of 정민영">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/kkung.html">정민영 / kkung</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-blog" href="http://kkung.net/" target="_blank"><i class="fa fa-pencil"></i>Blog</a> <a class="btn btn-social btn-xs btn-twitter" href="https://twitter.com/kkung" target="_blank"><i class="fa fa-twitter"></i>Twitter</a> <a class="btn btn-social btn-xs btn-github" href="https://github.com/kkung" target="_blank"><i class="fa fa-github"></i>Github</a> <a class="btn btn-social btn-xs btn-linkedin" href="https://www.linkedin.com/profile/view?id=81560839" target="_blank"><i class="fa fa-linkedin"></i>Linkedin</a></div></span>
+      </h4>
+      <!--현재 `the beatpacking comapny` 에서 s/w 개발자로 일하며, `BEAT` 를 만들고 있습니다.-->
+      
+      <a href="../../program/3.html">제약을 넘어 : Gevent</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/sigmadream.html">
+      <img class="media-speakerect" src="../../media/speaker/sigmadream.jpg" alt="photo of 한상곤">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/sigmadream.html">한상곤 / sigmadream</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-blog" href="http://hansangkon.tistory.com/" target="_blank"><i class="fa fa-pencil"></i>Blog</a> <a class="btn btn-social btn-xs btn-homepage" href="http://sigmadream.wordpress.com/" target="_blank"><i class="fa fa-home"></i>Homepage</a></div></span>
+      </h4>
+      <!--부산에서 웹기반의 데이터기반 관리 서비스를 제공하는 작은 스타트업인 '닉스곤(Nixgon)'에서 개발자로 일하고 있습니다. &nbsp;구글(Google)에서 지원하는 구글 디벨로퍼 그룹 부산(GDG Busan)의 스타트 멤버로 커뮤니티 활동하고 있으며, 우분투 코리아(Ubunto Ko)에서 비정기 매거진 '고군분투' 매거진의 편집장을 역임하고 있는 소...-->
+      
+      <a href="../../program/12.html">Python with Cloud For Startup</a>
+      
+    </div>
+  </li>
+
+  <li class="media">
+    <a class="pull-left" href="../speaker/hongminhee.html">
+      <img class="media-speakerect" src="../../media/speaker/hongminhee.jpg" alt="photo of 홍민희">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="../speaker/hongminhee.html">홍민희 / hongminhee</a>
+        <span class="badges hidden-xs"><div class="badges"><a class="btn btn-social btn-xs btn-bitbucket" href="https://bitbucket.org/dahlia" target="_blank"><i class="fa fa-bitbucket"></i>Bitbucket</a> <a class="btn btn-social btn-xs btn-github" href="https://github.com/dahlia" target="_blank"><i class="fa fa-github"></i>Github</a> <a class="btn btn-social btn-xs btn-twitter" href="https://twitter.com/hongminhee" target="_blank"><i class="fa fa-twitter"></i>Twitter</a> <a class="btn btn-social btn-xs btn-blog" href="http://blog.dahlia.kr/" target="_blank"><i class="fa fa-pencil"></i>Blog</a> <a class="btn btn-social btn-xs btn-facebook" href="https://www.facebook.com/hongminhee" target="_blank"><i class="fa fa-facebook"></i>Facebook</a> <a class="btn btn-social btn-xs btn-homepage" href="http://hongminhee.org/" target="_blank"><i class="fa fa-home"></i>Homepage</a></div></span>
+      </h4>
+      <!--주식회사 스포카에서 포인트 적립 서비스인 도도를 개발하고 있습니다.파이썬을 쓴지는 만 9년 되었습니다.주로 파이썬으로는 웹 개발, 서버 개발 등을 합니다.오픈 소스 파이썬 프로젝트로 Wand, Earth Reader, Geofront, libsass-python 등을 만들었습니다.-->
+      
+      <a href="../../program/25.html">Geofront 개발 후기: Python 2와 작별하고 Python 3로 개발하기</a>
+      
+    </div>
+  </li>
+
+</ul>
+
+        </div>
+        <div class="col-md-3 sponsors">
+            
+<h3>Sponsor list</h3>
+<div class="sponsors content">
+
+<hr>
+<h4>플래티넘</h4>
+<ul>
+  
+  <li class="sponsor-platinum">
+    <a href="../../about/sponsor/google.html">
+      <img src="../../media/sponsor/sponsor-google.png" alt="구글">
+    </a>
+  </li>
+  
+  <li class="sponsor-platinum">
+    <a href="../../about/sponsor/nipa.html">
+      <img src="../../media/sponsor/sponsor-nipa.png" alt="NIPA">
+    </a>
+  </li>
+  
+  <li class="sponsor-platinum">
+    <a href="../../about/sponsor/opentechnet.html">
+      <img src="../../media/sponsor/sponsor-opentechnet.png" alt="Open Technet">
+    </a>
+  </li>
+  
+</ul>
+
+<hr>
+<h4>골드</h4>
+<ul>
+  
+  <li class="sponsor-gold">
+    <a href="../../about/sponsor/naverd2.html">
+      <img src="../../media/sponsor/sponsor-naverd2.png" alt="NAVER D2">
+    </a>
+  </li>
+  
+  <li class="sponsor-gold">
+    <a href="../../about/sponsor/github.html">
+      <img src="../../media/sponsor/sponsor-github.png" alt="Github">
+    </a>
+  </li>
+  
+</ul>
+
+<hr>
+<h4>실버</h4>
+<ul>
+  
+  <li class="sponsor-silver">
+    <a href="../../about/sponsor/smartstudy.html">
+      <img src="../../media/sponsor/sponsor-smartstudy.png" alt="스마트스터디">
+    </a>
+  </li>
+  
+  <li class="sponsor-silver">
+    <a href="../../about/sponsor/yogiyo.html">
+      <img src="../../media/sponsor/sponsor-yogiyo.png" alt="요기요">
+    </a>
+  </li>
+  
+  <li class="sponsor-silver">
+    <a href="../../about/sponsor/insilicogen.html">
+      <img src="../../media/sponsor/sponsor-insilicogen.png" alt="인실리코젠">
+    </a>
+  </li>
+  
+</ul>
+
+<hr>
+<h4>출판 및 미디어</h4>
+<ul>
+  
+  <li class="sponsor-media">
+    <a href="../../about/sponsor/hanbit.html">
+      <img src="../../media/sponsor/sponsor-hanbit.png" alt="한빛미디어">
+    </a>
+  </li>
+  
+  <li class="sponsor-media">
+    <a href="../../about/sponsor/insight.html">
+      <img src="../../media/sponsor/sponsor-insight.png" alt="도서출판 인사이트">
+    </a>
+  </li>
+  
+  <li class="sponsor-media">
+    <a href="../../about/sponsor/olc.html">
+      <img src="../../media/sponsor/sponsor-olc.png" alt="olc center">
+    </a>
+  </li>
+  
+</ul>
+
+</div>
+
+        </div>
+    </div>
+    
+</div>
+
+
+<div class="footer">
+  <div class="container">
+    <img class="pyconkr-badge" src="../../static/image/pyconkr-badge.png" alt="PyCon Korea badge">
+    <p>
+      PyCon Korea 2014 is a production of the PyCon Korea Organizing Team
+    </p>
+    <p>
+      Powered by Django
+      /
+      <a href="../../../about/coc/index.html">Code of Conduct</a>
+    </p>
+  </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../../www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-53680093-1', 'pycon.kr');
+  ga('send', 'pageview');
+
+</script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "../../../../connect.facebook.net/en_US/all.js#xfbml=1&appId=194162310738860";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</body>
+
+
+<!-- Mirrored from archive.pycon.kr/2014/programs/speakers/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Jul 2021 12:59:20 GMT -->
+</html>

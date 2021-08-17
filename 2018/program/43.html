@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+
+
+<html lang="kr">
+
+
+<!-- Mirrored from archive.pycon.kr/2018/program/43 by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Jul 2021 13:16:14 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <title>파이콘 한국 2018 프로그램 | 2to3 converter를 활용한 django 프로젝트 python 버전업 삽질기</title>
+    <meta property="og:site_name" content="파이콘 한국 2018">
+    <meta property="og:title" content="2to3 converter를 활용한 django 프로젝트 python 버전업 삽질기">
+    <meta property="og:url" content="/2018/program/43">
+    <meta property="og:image" content="../static/image/pyconkr-2018-cover.png">
+    <meta property="og:description" content="대상 청중Python의 버전별 인코딩 문제에 대해 깔끔히 이해되지 않은 개발자Python2로 개발하다가 버전 문제 때문에 더 이상 원활한 개발이 힘들어진 개발자여러 버전의 Python을 사용하면서 생긴 기술부채 및 관리 코스트를 정리해야 하는 팀장님하이퍼커넥트에서는 회사 전체 서비스들의 data infra와 back office를 django를 통해 구현하고 관리해오고 있습니다. 이 django 프로젝트는 python 2.7로 개발을 시작했고 초기에는 문제가 없었으나 최근들어 python3만 지원하는 라이브러리를 사용하고 싶은 상황을 심심찮게 마주하고 있습니다. 또한 기존에 사용하던 모듈들조차 최신버전에 이르러서는 python 2.7에 대한 지원이 끊기기 시작하면서 언제 어디서 version dependent한 문제가 발생할지 모르는 상황이 되었습니다. 좀 더 구체적으로 이야기 하자면 python3으로 업데이트를 해야 하는 이유는 다음과 같습니다.django 2.0부터는 python 2.7을 지원하지 않는다. 따라서 django 2.0으로 올려야 하는 상황에 직면하기 전에 우선 python부터 버전업을 해야 한다.현재 사용중인 command들 중에서 crontab으로 돌리고 있는 일부 command는 python2에서는 에러가 나서 python3로만 돌리고 있었다. 앞으로 추가될 기능중에도 점점 python3로만 만들 수 있는 것들이 늘어날 것이다.현재 사용하는 라이브러리들이 최신버전에서 python3 밖에 지원하지 않는 경우가 생겼다.python 2.7을 계속 사용하는 것은 개발자 구인과 유지에 있어서 매우 좋지 않다.그래서 일부는 python2로 일부 코드는 python3로 돌리던 기존의 상황에서 벗어나, django의 모든 코드를 Python 3.6.3 interpreter로 돌리는 것을 목표로 코드를 대대적으로 수정하는 작업을 진행하였습니다.python3로의 버전업 과정의 요점은 다음의 13가지 이슈로 분류할 수 있겠습니다.(코드 수정) 2to3 converter를 사용해서 무작정 갈아엎기(코드 수정) 새로운 migration 생성하고 fake 처리할 것과 적용할 것 구분하기(코드 수정) urllib, unirest 라이브러리 관련 에러 처리(코드 수정) Unicode와 Bytes간 encode, decode 에러 처리(코드 수정) 기타 python2와 python3에서 차이가 나는 feature들에 의해 발생하는 에러 처리(스택 변경) uwsgi 대신 gunicorn으로 django 돌리기(스택 변경) supervisord 대신 circusd로 django 돌리기(라이브러리) python manage.py runserver를 하지 못하게 만드는 각종 library 버전업(라이브러리) 손수 테스트해보며 에러를 발생시키는 각종 library 버전업(시스템 관리) 위 과정들을 각 단계별로 git branch 잘 나누어서 관리하는 방법(시스템 관리) 테스트용으로 새로운 서버를 띄워 놓고 live 작업 (master 브랜치가 아닌 branch로 돌리고 + 새로운 migration 적용해 보고 + live 테스트)(시스템 관리) 배포 과정 python3에 맞게 수정하고 배포하기(시스템 관리) 모니터링 및 트러블 슈팅에서 주의 깊게 볼 점들이 13가지 작업의 경위를 상세히 정리하였고 시행착오 끝에 best practice라고 생각할만한 부분들을 여러가지 제안합니다. 이 과정에서 파이썬의 encoding과 urllib에 대한 개념과 그의 python 버전별 차이에 대해서 자세하게 이해하게 되었고 이를 정리하여 전달할 계획입니다. 그리고 django와 관련된 python 버전 문제(장고 내의 library문제, migration 문제)에 대해서도 설명하고, 이와 관련된 django의 기능에 대해 소개합니다. 또 2to3 케이스 경험을 토대로 python2와 python3의 지엽적인 차이점들도 추가적으로 정리해보고자 합니다. 마지막으로 처음부터 python2와 python3를 호환가능하게 만들기 위해서 상황별로 숙지해야할 점들과 future, six 등 라이브러리에 대한 사용법을 소개하고자 합니다.">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
+    <link rel="icon" type="image/png" href="../static/image/favicon2018.ico">
+
+    <link href="../static/components/slick-carousel/slick/slick.css" rel="stylesheet">
+    <link href="../static/components/slick-carousel/slick/slick-theme.css" rel="stylesheet">
+    <link href="../../../cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="../static/components/datatables.net-bs/css/dataTables.bootstrap.css" rel="stylesheet">
+
+    <script src="../static/components/jquery/dist/jquery.min.js"></script>
+    <script src="../static/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../static/components/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="../static/components/datatables.net-bs/js/dataTables.bootstrap.js"></script>
+
+    <link href="../static/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../static/css/pyconkr.css" rel="stylesheet">
+    <link href="../static/css/pyconkr-media.css" rel="stylesheet">
+
+    <link href="../static/css/pyconkr-teaser.css" rel="stylesheet" type="text/css">
+
+    
+    
+</head>
+<body>
+
+
+<nav class="navbar navbar-translucent gradient-bg" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">툴바 토글</span>
+        <span class="glyphicon glyphicon-python"></span>
+      </button>
+      
+      <a class="navbar-logo" href="../index.html">
+        <img src="../static/image/pycon2018-logo.png" alt="PyCon Korea">
+      </a>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            파이콘 한국 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../about/pyconkr/index.html">파이콘 한국 2018</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/coc/index.html">파이콘 성명서</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/blog/index.html">파이콘 한국 블로그</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/announcements/index.html">알림</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/sponsor/index.html">후원사 목록</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/patron/index.html">개인 후원자</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/sponsorship/index.html">후원 안내</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/staff/index.html">준비위원회 및 자원봉사자</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/contact/index.html">연락처</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            프로그램 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="schedule/index.html">세부 일정</a>
+            </li>
+          
+            <li class="">
+              <a href="list/index.html">프로그램 목록</a>
+            </li>
+          
+            <li class="">
+              <a href="keynote/index.html">키노트</a>
+            </li>
+          
+            <li class="">
+              <a href="speaker/index.html">발표자</a>
+            </li>
+          
+            <li class="">
+              <a href="tutorial/index.html">튜토리얼</a>
+            </li>
+          
+            <li class="">
+              <a href="sprint/index.html">스프린트</a>
+            </li>
+          
+            <li class="">
+              <a href="youngcoder/index.html">영코더</a>
+            </li>
+          
+            <li class="">
+              <a href="child_care/index.html">아이돌봄</a>
+            </li>
+          
+            <li class="">
+              <a href="lightning_talk/index.html">라이트닝 토크</a>
+            </li>
+          
+            <li class="">
+              <a href="ost/index.html">열린 공간</a>
+            </li>
+          
+            <li class="">
+              <a href="health/index.html">체육 시간</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            장소 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../venue/map/index.html">지도</a>
+            </li>
+          
+            <li class="">
+              <a href="../venue/transportation/index.html">교통 수단</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            발표안 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../cfp/cfp/index.html">발표자 모집</a>
+            </li>
+          
+            <li class="">
+              <a href="../cfp/howto/index.html">발표안 제안하기</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            등록 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../registration/information/index.html">정보</a>
+            </li>
+          
+            <li class="">
+              <a href="../registration/purchase/index.html">티켓 구입</a>
+            </li>
+          
+            <li class="">
+              <a href="../registration/finacial-aid/index.html">재정 지원</a>
+            </li>
+          
+            <li class="">
+              <a href="../registration/visa/index.html">Visa Sponsing</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+      </ul>
+      <!-- Right menu -->
+      <ul class="nav navbar-nav navbar-right">
+      <!-- Authenticate -->
+      
+        <li class="">
+          <a href="../login/index.html">로그인</a>
+        </li>
+      
+      <!-- Language -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            언어 <span class="caret"></span></a>
+          <ul id="language-menu" class="dropdown-menu" role="menu">
+            
+            
+            
+            <li><a href="../index.html">한국어</a></li>
+            
+            
+            
+            <li><a href="../en/index.html">English</a></li>
+            
+            
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<main>
+    <div class="container">
+    
+        <h1>2to3 converter를 활용한 django 프로젝트 python 버전업 삽질기</h1>
+    
+        
+        
+<div class="social-badges">
+  <span>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </span>
+  <span>
+    <script>
+    var s = '<div class="fb-like" data-href="'+document.location+'" data-width="450" data-layout="button_count"></div>';
+    document.write(s);
+</script>
+
+  </span>
+  <span>
+    <script type="text/javascript" src="../../../apis.google.com/js/plusone.js"></script>
+<div class="g-plusone" data-size="medium"></div>
+
+  </span>
+  <div class="clear"></div>
+</div>
+
+<ul class="list-group">
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-tag"></span> Web Service
+  </li>
+  
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-pencil"></span>
+      중급
+      
+  </li>
+  
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-time"></span> 2018-08-18 (토) 14:40 - 15:20
+  </li>
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-volume-up"></span> 한국어
+  </li>
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-map-marker"></span> 202
+  </li>
+  
+  
+  <li class="list-group-item">
+    
+    <div class="speaker-small">
+    <a href="speaker/royce.html">
+        <img class="image" src="../static/image/anonymous.png" alt="photo of royce">
+        <span class="name">남형걸 / royce</span>
+    </a>
+    </div>
+    
+  </li>
+  
+  <li class="list-group-item">
+  
+    <span class="glyphicon glyphicon-eye-open"></span> 촬영, 녹화가 가능합니다.
+  
+  </li>
+</ul>
+
+<h3>슬라이드</h3><br>
+<a href="https://www.slideshare.net/ssuser6fe086/pycon-korea-2018-2to3-converter-django-python-110386412" rel="nofollow">https://www.slideshare.net/ssuser6fe086/pycon-korea-2018-2to3-converter-django-python-110386412</a><br>
+
+
+<h3>발표 동영상</h3><br>
+<a href="https://www.youtube.com/watch?v=ODcdWWfj9cc" rel="nofollow">https://www.youtube.com/watch?v=ODcdWWfj9cc</a><br>
+
+
+
+<h3>설명</h3><br>
+<p><style type="text/css"><!--td {border: 1px solid #ccc;}br {mso-data-placement:same-cell;}--></style><span style="font-size: 10pt; font-family: Arial; text-align: center;" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;대상 청중\nPython의 버전별 인코딩 문제에 대해 깔끔히 이해되지 않은 개발자\nPython2로 개발하다가 버전 문제 때문에 더 이상 원활한 개발이 힘들어진 개발자\n여러 버전의 Python을 사용하면서 생긴 기술부채 및 관리 코스트를 정리해야 하는 팀장님\n\n하이퍼커넥트에서는 회사 전체 서비스들의 data infra와 back office를 django를 통해 구현하고 관리해오고 있습니다. 이 django 프로젝트는 python 2.7로 개발을 시작했고 초기에는 문제가 없었으나 최근들어 python3만 지원하는 라이브러리를 사용하고 싶은 상황을 심심찮게 마주하고 있습니다. 또한 기존에 사용하던 모듈들조차 최신버전에 이르러서는 python 2.7에 대한 지원이 끊기기 시작하면서 언제 어디서 version dependent한 문제가 발생할지 모르는 상황이 되었습니다. \n\n좀 더 구체적으로 이야기 하자면 python3으로 업데이트를 해야 하는 이유는 다음과 같습니다.\ndjango 2.0부터는 python 2.7을 지원하지 않는다. 따라서 django 2.0으로 올려야 하는 상황에 직면하기 전에 우선 python부터 버전업을 해야 한다.\n현재 사용중인 command들 중에서 crontab으로 돌리고 있는 일부 command는 python2에서는 에러가 나서 python3로만 돌리고 있었다. 앞으로 추가될 기능중에도 점점 python3로만 만들 수 있는 것들이 늘어날 것이다.\n현재 사용하는 라이브러리들이 최신버전에서 python3 밖에 지원하지 않는 경우가 생겼다.\npython 2.7을 계속 사용하는 것은 개발자 구인과 유지에 있어서 매우 좋지 않다.\n\n그래서 일부는 python2로 일부 코드는 python3로 돌리던 기존의 상황에서 벗어나, django의 모든 코드를 Python 3.6.3 interpreter로 돌리는 것을 목표로 코드를 대대적으로 수정하는 작업을 진행하였습니다.\n\n\npython3로의 버전업 과정의 요점은 다음의 13가지 이슈로 분류할 수 있겠습니다.\n(코드 수정) 2to3 converter를 사용해서 무작정 갈아엎기\n(코드 수정) 새로운 migration 생성하고 fake 처리할 것과 적용할 것 구분하기\n(코드 수정) urllib, unirest 라이브러리 관련 에러 처리\n(코드 수정) Unicode와 Bytes간 encode, decode 에러 처리\n(코드 수정) 기타 python2와 python3에서 차이가 나는 feature들에 의해 발생하는 에러 처리\n(스택 변경) uwsgi 대신 gunicorn으로 django 돌리기\n(스택 변경) supervisord 대신 circusd로 django 돌리기\n(라이브러리) python manage.py runserver를 하지 못하게 만드는 각종 library 버전업\n(라이브러리) 손수 테스트해보며 에러를 발생시키는 각종 library 버전업\n(시스템 관리) 위 과정들을 각 단계별로 git branch 잘 나누어서 관리하는 방법\n(시스템 관리) 테스트용으로 새로운 서버를 띄워 놓고 live 작업 (master 브랜치가 아닌 branch로 돌리고 + 새로운 migration 적용해 보고 + live 테스트)\n(시스템 관리) 배포 과정 python3에 맞게 수정하고 배포하기\n(시스템 관리) 모니터링 및 트러블 슈팅에서 주의 깊게 볼 점들\n\n이 13가지 작업의 경위를 상세히 정리하였고 시행착오 끝에 best practice라고 생각할만한 부분들을 여러가지 제안합니다. 이 과정에서 파이썬의 encoding과 urllib에 대한 개념과 그의 python 버전별 차이에 대해서 자세하게 이해하게 되었고 이를 정리하여 전달할 계획입니다. 그리고 django와 관련된 python 버전 문제(장고 내의 library문제, migration 문제)에 대해서도 설명하고, 이와 관련된 django의 기능에 대해 소개합니다. 또 2to3 케이스 경험을 토대로 python2와 python3의 지엽적인 차이점들도 추가적으로 정리해보고자 합니다. 마지막으로 처음부터 python2와 python3를 호환가능하게 만들기 위해서 상황별로 숙지해야할 점들과 future, six 등 라이브러리에 대한 사용법을 소개하고자 합니다.&quot;}" data-sheets-userformat="{&quot;2&quot;:961,&quot;3&quot;:[null,0],&quot;9&quot;:1,&quot;10&quot;:1,&quot;11&quot;:4,&quot;12&quot;:0}">대상 청중<br>Python의 버전별 인코딩 문제에 대해 깔끔히 이해되지 않은 개발자<br>Python2로 개발하다가 버전 문제 때문에 더 이상 원활한 개발이 힘들어진 개발자<br>여러 버전의 Python을 사용하면서 생긴 기술부채 및 관리 코스트를 정리해야 하는 팀장님<br><br>하이퍼커넥트에서는 회사 전체 서비스들의 data infra와 back office를 django를 통해 구현하고 관리해오고 있습니다. 이 django 프로젝트는 python 2.7로 개발을 시작했고 초기에는 문제가 없었으나 최근들어 python3만 지원하는 라이브러리를 사용하고 싶은 상황을 심심찮게 마주하고 있습니다. 또한 기존에 사용하던 모듈들조차 최신버전에 이르러서는 python 2.7에 대한 지원이 끊기기 시작하면서 언제 어디서 version dependent한 문제가 발생할지 모르는 상황이 되었습니다. <br><br>좀 더 구체적으로 이야기 하자면 python3으로 업데이트를 해야 하는 이유는 다음과 같습니다.<br>django 2.0부터는 python 2.7을 지원하지 않는다. 따라서 django 2.0으로 올려야 하는 상황에 직면하기 전에 우선 python부터 버전업을 해야 한다.<br>현재 사용중인 command들 중에서 crontab으로 돌리고 있는 일부 command는 python2에서는 에러가 나서 python3로만 돌리고 있었다. 앞으로 추가될 기능중에도 점점 python3로만 만들 수 있는 것들이 늘어날 것이다.<br>현재 사용하는 라이브러리들이 최신버전에서 python3 밖에 지원하지 않는 경우가 생겼다.<br>python 2.7을 계속 사용하는 것은 개발자 구인과 유지에 있어서 매우 좋지 않다.<br><br>그래서 일부는 python2로 일부 코드는 python3로 돌리던 기존의 상황에서 벗어나, django의 모든 코드를 Python 3.6.3 interpreter로 돌리는 것을 목표로 코드를 대대적으로 수정하는 작업을 진행하였습니다.<br><br><br>python3로의 버전업 과정의 요점은 다음의 13가지 이슈로 분류할 수 있겠습니다.<br>(코드 수정) 2to3 converter를 사용해서 무작정 갈아엎기<br>(코드 수정) 새로운 migration 생성하고 fake 처리할 것과 적용할 것 구분하기<br>(코드 수정) urllib, unirest 라이브러리 관련 에러 처리<br>(코드 수정) Unicode와 Bytes간 encode, decode 에러 처리<br>(코드 수정) 기타 python2와 python3에서 차이가 나는 feature들에 의해 발생하는 에러 처리<br>(스택 변경) uwsgi 대신 gunicorn으로 django 돌리기<br>(스택 변경) supervisord 대신 circusd로 django 돌리기<br>(라이브러리) python manage.py runserver를 하지 못하게 만드는 각종 library 버전업<br>(라이브러리) 손수 테스트해보며 에러를 발생시키는 각종 library 버전업<br>(시스템 관리) 위 과정들을 각 단계별로 git branch 잘 나누어서 관리하는 방법<br>(시스템 관리) 테스트용으로 새로운 서버를 띄워 놓고 live 작업 (master 브랜치가 아닌 branch로 돌리고 + 새로운 migration 적용해 보고 + live 테스트)<br>(시스템 관리) 배포 과정 python3에 맞게 수정하고 배포하기<br>(시스템 관리) 모니터링 및 트러블 슈팅에서 주의 깊게 볼 점들<br><br>이 13가지 작업의 경위를 상세히 정리하였고 시행착오 끝에 best practice라고 생각할만한 부분들을 여러가지 제안합니다. 이 과정에서 파이썬의 encoding과 urllib에 대한 개념과 그의 python 버전별 차이에 대해서 자세하게 이해하게 되었고 이를 정리하여 전달할 계획입니다. 그리고 django와 관련된 python 버전 문제(장고 내의 library문제, migration 문제)에 대해서도 설명하고, 이와 관련된 django의 기능에 대해 소개합니다. 또 2to3 케이스 경험을 토대로 python2와 python3의 지엽적인 차이점들도 추가적으로 정리해보고자 합니다. 마지막으로 처음부터 python2와 python3를 호환가능하게 만들기 위해서 상황별로 숙지해야할 점들과 future, six 등 라이브러리에 대한 사용법을 소개하고자 합니다.</span><br></p><br>
+
+
+
+<h3>댓글</h3>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'pycon-korea';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+
+    
+    <div class="container">
+        <div class="sponsors">
+        <h2>후원사 목록</h2>
+        
+<div class="sponsors">
+    
+        <h3>다이아몬드</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-2">
+                        <a href="../about/sponsor/banksalad.html">
+                            <img src="../media/sponsor/Banksalad_%e1%84%80%e1%85%a1%e1%84%85%e1%85%a9_4.png" alt="뱅크샐러드">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-2">
+                        <a href="../about/sponsor/hyperconnect.html">
+                            <img src="../media/sponsor/HYPERCONNECT_LOGO_l9HiZNL.png" alt="하이퍼커넥트">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>사파이어</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-3">
+                        <a href="../about/sponsor/lunit.html">
+                            <img src="../media/sponsor/lunit-logo-3-940px.png" alt="루닛">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>플래티넘</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-4">
+                        <a href="../about/sponsor/rgpkorea.html">
+                            <img src="../media/sponsor/rgpkorea_logo_940px.png" alt="알지피코리아">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-4">
+                        <a href="../about/sponsor/fast_campus.html">
+                            <img src="../media/sponsor/fastcampus_logo_940px.png" alt="패스트캠퍼스">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-4">
+                        <a href="../about/sponsor/google.html">
+                            <img src="../media/sponsor/google_logo_940px_2.png" alt="구글">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-4">
+                        <a href="../about/sponsor/asannanum.html">
+                            <img src="../media/sponsor/%ec%95%84%ec%82%b0%eb%82%98%eb%88%94%ec%9e%ac%eb%8b%a8Logo_square.jpg" alt="아산나눔재단">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>골드</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/icon.html">
+                            <img src="../media/sponsor/icon-logo-2-940px_WhVohvL.png" alt="ICON">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/ridi_corporation.html">
+                            <img src="../media/sponsor/ridibooks_logo_940px.png" alt="리디 주식회사">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/sendbird.html">
+                            <img src="../media/sponsor/Logo-Horizontal-Color-940px.png" alt="센드버드">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/line.html">
+                            <img src="../media/sponsor/line-logo-940px-s.png" alt="라인">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/spoqa.html">
+                            <img src="../media/sponsor/spoqa_logo_940px.png" alt="스포카">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/coinone.html">
+                            <img src="../media/sponsor/coinone_logo_940px.png" alt="코인원">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/jetbrains.html">
+                            <img src="../media/sponsor/logo_JetBrains_crop.png" alt="JetBrains">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/lablup.html">
+                            <img src="../media/sponsor/Lablup.png" alt="래블업">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/odkmedia.html">
+                            <img src="../media/sponsor/odkmedia_logo_940px_eTiE9ZD.png" alt="ODK Media, Inc.">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/elastic.html">
+                            <img src="../media/sponsor/elastic_logo_940px.png" alt="elastic">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>실버</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/peoplefund.html">
+                            <img src="../media/sponsor/pf-logo-940px.png" alt="피플펀드">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/bunjang.html">
+                            <img src="../media/sponsor/bunjang_logo_940px.png" alt="번개장터">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/hbsmith.html">
+                            <img src="../media/sponsor/hbsmith-logo-940px_yQwaBTW-s.png" alt="HBSmith">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/mymusictaste.html">
+                            <img src="../media/sponsor/mymusictaste_logo_940px_YUMdSMp.png" alt="MyMusicTaste">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/startlink.html">
+                            <img src="../media/sponsor/Startlink_logo_940px.png" alt="스타트링크">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/glowdayz.html">
+                            <img src="../media/sponsor/glowpick_logo_940px_qMg7yUD.png" alt="글로우데이즈">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/wishket.html">
+                            <img src="../media/sponsor/wishket_logo_940px.png" alt="위시켓">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/miraeassetdaewoo.html">
+                            <img src="../media/sponsor/miraeasset-logo-940px-s.png" alt="미래에셋대우">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>커뮤니티</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-7">
+                        <a href="../about/sponsor/womenwhocode.html">
+                            <img src="../media/sponsor/womenwhocode_logo_940px.png" alt="위민 후 코드">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>미디어</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-8">
+                        <a href="../about/sponsor/gilbut.html">
+                            <img src="../media/sponsor/gilbut_logo_940px.png" alt="길벗">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-8">
+                        <a href="../about/sponsor/jpub.html">
+                            <img src="../media/sponsor/jpub_logo_940px.png" alt="제이펍">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-8">
+                        <a href="../about/sponsor/hanbit.html">
+                            <img src="../media/sponsor/hanbit-logo-940px.png" alt="한빛미디어">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-8">
+                        <a href="../about/sponsor/insight.html">
+                            <img src="../media/sponsor/insight-logo-940px-s.png" alt="인사이트">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+</div>
+
+        </div>
+    </div>
+    
+</main>
+
+ 
+
+
+
+
+
+
+<footer class="text-center">
+    <div class="container">
+        <h3>Dive into Diversity, 파이콘 한국 2018</h3>
+        <p>파이콘 한국 2018은 파이콘 한국 준비위원회가 만들고 있습니다.</p>
+        <p>
+            파이썬 웹 프레임워크 <a href='https://www.djangoproject.com/'>Django</a>로 만들었습니다. | 홈페이지 호스팅은 <a href="http://d2.naver.com/">Naver D2</a>의 지원을 받고 있습니다.
+          <img class="hosting" src="../static/image/naver-d2.png" alt="Hosted on Naver D2">
+        </p>
+        <div>
+            <p>
+                더 알아보기
+                <a class="btn-twitter" href="https://twitter.com/pyconkr">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="btn-facebook" href="https://facebook.com/pyconkorea">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="btn-github" href="https://github.com/pythonkr/pyconkr-2018">
+                    <i class="fa fa-github"></i>
+                </a>
+                <a class="btn-flickr" href="https://www.flickr.com/photos/126829363@N08/sets/">
+                    <i class="fa fa-flickr"></i>
+                </a>
+            </p>
+        </div>
+
+    </div>
+</footer>
+
+
+
+</body>
+
+<!-- Mirrored from archive.pycon.kr/2018/program/43 by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Jul 2021 13:16:14 GMT -->
+</html>

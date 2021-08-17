@@ -1,0 +1,724 @@
+
+
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from archive.pycon.kr/2017/en/program/156 by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Jul 2021 13:16:48 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <title>PyCon Korea 2017  Program | 2017 대선후보 TV토론 쪼개기 (Who Spoke When?)</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=0.85">
+
+  <!-- Opengraph tag -->
+  <meta property="og:site_name" content="PyCon Korea 2017 ">
+  <meta property="og:title" content="2017 대선후보 TV토론 쪼개기 (Who Spoke When?)">
+  <meta property="og:image" content="../../static/image/pyconkr-2017-cover.png">
+  <meta property="og:url" content="156.html">
+  <meta property="og:description" content="머신러닝 기술들이 대중화 되면서 개발자들이 다양한 종류의 데이터를 다루고 있습니다. 특히 딥러닝 기술이 큰 관심을 불러 모으자 텍스트 데이터는 물론 이미지 또는 영상 등 미디어 데이터와 관련된 연구개발이 더 일반화 되었습니다. 
+
+그런데 상대적으로 오디오 데이터를 다루는 내용은 그리 흔하지 않습니다. 자연어처리 기술들도 문자화된 데이터 위주로 전파되고 있고, 자연어처리를 위해 오디오 스트림에 적용해야 하는 음성인식 기술들은 그리 많이 알려져있질 않습니다. 가령 긴 오디오 스트림에 음성인식 기술을 적용하기 위해 데이터를 필요한 단위로 나누어 분류하는 전처리가 필요한데, 여기에도 머신러닝 기술이 활용됩니다.
+
+이 발표는 일반적으로 알려진 통계 또는 클러스터링 알고리즘으로 대선후보 TV토론의 오디오 스트림을 후보자별로 나누는(Who Spoke When?) 과정을 다룹니다. 전체 과정은 Feature Extraction, Segmentation, 그리고 Clustering 의 세 단계로 나뉘며, 각각에서 이런 내용들을 다룹니다.
+
+첫번째 단계에서 대선후보 TV토론 방송 음원을 음성인식(Speech Recognition) 또는 음악정보검색에(Music Information Retrieval) 흔히 사용되는 데이터 형식으로 변환합니다. (feature extraction; 10분) 
+
+두번째로 노이즈로 작용할 수 있는 침묵 구간을 제거하고 후보간 발언이 겹치는 구간을 구분하면서 동일한 후보의 유효한 발언 단위로 나눕니다. (segmentation; 15분) 
+
+마지막으로 나뉘어진 발언들을 클러스터링 하여 동일한 대선후보의 발언 묶음으로 분류하므로써 어떤 구간에 어떤 후보가 발언했는지 알 수 있게 합니다.(clustering; 20분)
+
+
+다음은 각각의 단계에서 사용된 기술들로 이것들의 개념 또는 구현이 소개되어질 예정입니다. (Take-away items)
+- Mel-Frequency Cepstral Coefficient
+- Bayesian Information Criterion
+- Gaussian Mixture Model
+- Agglomerative Hierarchical Clustering
+- K-means clustering
+
+개념 위주로 얕고 넓은 설명을 하기에 반드시 필요하진 않지만 아래 선수 지식들이 도움이 됩니다. (Pre-requisites)
+- Python 문법에 대한 익숙한 이해. 
+- Pandas 또는 Numpy 의 기초적 사용법.
+- 통계 기초, 머신러닝 개념">
+
+  <!-- Include basic items -->
+  <link href="../../static/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../static/components/bootstrap-social/bootstrap-social.css" rel="stylesheet">
+  <link href="../../static/components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../../static/components/montserrat-webfont/css/montserrat-webfont.min.css" rel="stylesheet">
+
+  <!-- Override bootstrap css -->
+  <link href="../../static/css/pyconkr.css" rel="stylesheet">
+  <link href="../../static/css/pyconkr-media.css" rel="stylesheet">
+
+  <!-- Google fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='../../../../fonts.googleapis.com/earlyaccess/nanumgothic.css' rel='stylesheet' type='text/css'>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../../static/image/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../../static/image/favicon.ico" type="image/x-icon">
+
+  <!-- Scripts -->
+  <!--[if lt IE 9]>
+    <script src="/2017/static/components/html5shiv/dist/html5shiv.min.js"></script>
+    <script src="/2017/static/components/respond/dest/respond.min.js"></script>
+  <![endif]-->
+  <script src="../../static/components/jquery/dist/jquery.min.js"></script>
+  <script src="../../static/components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="../../static/js/rgb-hsv.js"></script>
+  <script src="../../static/components/js-cookie/src/js.cookie.js" charset="utf-8"></script>
+  <script src="../../static/components/handlebars/handlebars.min.js" charset="utf-8"></script>
+  <script>
+  function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+  </script>
+  
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-translucent" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="glyphicon glyphicon-python"></span>
+      </button>
+      
+      <a class="navbar-logo" href="../index.html">
+        <img src="../../static/image/pycon2017-logo-yellow.png" alt="PyCon Korea">
+      </a>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-python"></span> About <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../about/pyconkr/index.html">About PyCon Korea 2017</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/coc/index.html">Code of Conduct</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/blog/index.html">PyCon.KR 2017 Blog</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/announcements/index.html">Announcements</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/sponsor/index.html">Sponsors</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/patron/index.html">Patrons</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/sponsorship/index.html">Sponsorship</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/staff/index.html">Staff</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/contact/index.html">Contact</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-calendar"></span> Programs <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="schedule/index.html">Schedule</a>
+            </li>
+          
+            <li class="">
+              <a href="list/index.html">Program list</a>
+            </li>
+          
+            <li class="">
+              <a href="keynote/index.html">Keynotes</a>
+            </li>
+          
+            <li class="">
+              <a href="speaker/index.html">Speakers</a>
+            </li>
+          
+            <li class="">
+              <a href="tutorials/index.html">Sprint and Tutorial</a>
+            </li>
+          
+            <li class="">
+              <a href="young_coder/index.html">Young Coder</a>
+            </li>
+          
+            <li class="">
+              <a href="child_care/index.html">Child Care</a>
+            </li>
+          
+            <li class="">
+              <a href="lightning_talk/index.html">Lightning talk</a>
+            </li>
+          
+            <li class="">
+              <a href="ost/index.html">Open Spaces</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-map-marker"></span> Venue <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../venue/map/index.html">Venue Map</a>
+            </li>
+          
+            <li class="">
+              <a href="../venue/transportation/index.html">Transportation</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-edit"></span> Proposal <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../cfp/cfp/index.html">Call for proposals</a>
+            </li>
+          
+            <li class="">
+              <a href="../cfp/howto/index.html">How to propose</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-book"></span> Registration <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../registration/information/index.html">Information</a>
+            </li>
+          
+            <li class="">
+              <a href="../registration/purchase/index.html">Purchase a ticket</a>
+            </li>
+          
+            <li class="">
+              <a href="../registration/finacial-aid/index.html">Financial Aid</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+      </ul>
+      <!-- Right menu -->
+      <ul class="nav navbar-nav navbar-right">
+      <!-- Authenticate -->
+      
+        <li class="">
+          <a href="../login/index.html"><span class="glyphicon glyphicon-user"></span> Login</a>
+        </li>
+      
+      <!-- Language -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-globe"></span>
+            Language <span class="caret"></span></a>
+          <ul id="language-menu" class="dropdown-menu" role="menu">
+            
+            
+            
+            <li><a href="../../index.html">한국어</a></li>
+            
+            
+            
+            <li><a href="../index.html">English</a></li>
+            
+            
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+    
+    <div class="row wrap">
+        <div class="col-md-9 content">
+            <h1>2017 대선후보 TV토론 쪼개기 (Who Spoke When?)</h1>
+            
+            
+            
+<div class="social-badges">
+  <span>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </span>
+  <span>
+    <script>
+    var s = '<div class="fb-like" data-href="'+document.location+'" data-width="450" data-layout="button_count"></div>';
+    document.write(s);
+</script>
+
+  </span>
+  <span>
+    <script type="text/javascript" src="../../../../apis.google.com/js/plusone.js"></script>
+<div class="g-plusone" data-size="medium"></div>
+
+  </span>
+  <div class="clear"></div>
+</div>
+
+<ul class="list-group">
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-tag"></span> Science / Data
+  </li>
+  
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-pencil"></span>
+      Intermediate
+      
+  </li>
+  
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-time"></span> 2017-08-13 (Sun) 11:20 - 12:00
+  </li>
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-volume-up"></span> Korean
+  </li>
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-map-marker"></span> 104
+  </li>
+  
+  
+  <li class="list-group-item">
+    
+    <div class="speaker-small">
+    <a href="speaker/leehongjoo.html">
+        <img class="image" src="../../media/speaker/1498060_704473299585671_1724315282_o_retouched.jpg" alt="photo of leehongjoo">
+        <span class="name">이홍주 / leehongjoo</span>
+    </a>
+    </div>
+    
+  </li>
+  
+  <li class="list-group-item">
+  
+    <span class="glyphicon glyphicon-eye-open"></span> Photography and recording is allowed
+  
+  </li>
+</ul>
+
+<h3>Slides</h3>
+<a href="https://www.slideshare.net/hongjoo/speaker-diarization" rel="nofollow">https://www.slideshare.net/hongjoo/speaker-diarization</a>
+
+
+
+
+<h3>Description</h3>
+머신러닝 기술들이 대중화 되면서 개발자들이 다양한 종류의 데이터를 다루고 있습니다. 특히 딥러닝 기술이 큰 관심을 불러 모으자 텍스트 데이터는 물론 이미지 또는 영상 등 미디어 데이터와 관련된 연구개발이 더 일반화 되었습니다. 
+
+그런데 상대적으로 오디오 데이터를 다루는 내용은 그리 흔하지 않습니다. 자연어처리 기술들도 문자화된 데이터 위주로 전파되고 있고, 자연어처리를 위해 오디오 스트림에 적용해야 하는 음성인식 기술들은 그리 많이 알려져있질 않습니다. 가령 긴 오디오 스트림에 음성인식 기술을 적용하기 위해 데이터를 필요한 단위로 나누어 분류하는 전처리가 필요한데, 여기에도 머신러닝 기술이 활용됩니다.
+
+이 발표는 일반적으로 알려진 통계 또는 클러스터링 알고리즘으로 대선후보 TV토론의 오디오 스트림을 후보자별로 나누는(Who Spoke When?) 과정을 다룹니다. 전체 과정은 Feature Extraction, Segmentation, 그리고 Clustering 의 세 단계로 나뉘며, 각각에서 이런 내용들을 다룹니다.
+
+첫번째 단계에서 대선후보 TV토론 방송 음원을 음성인식(Speech Recognition) 또는 음악정보검색에(Music Information Retrieval) 흔히 사용되는 데이터 형식으로 변환합니다. (feature extraction; 10분) 
+
+두번째로 노이즈로 작용할 수 있는 침묵 구간을 제거하고 후보간 발언이 겹치는 구간을 구분하면서 동일한 후보의 유효한 발언 단위로 나눕니다. (segmentation; 15분) 
+
+마지막으로 나뉘어진 발언들을 클러스터링 하여 동일한 대선후보의 발언 묶음으로 분류하므로써 어떤 구간에 어떤 후보가 발언했는지 알 수 있게 합니다.(clustering; 20분)
+
+
+다음은 각각의 단계에서 사용된 기술들로 이것들의 개념 또는 구현이 소개되어질 예정입니다. (Take-away items)
+- Mel-Frequency Cepstral Coefficient
+- Bayesian Information Criterion
+- Gaussian Mixture Model
+- Agglomerative Hierarchical Clustering
+- K-means clustering
+
+개념 위주로 얕고 넓은 설명을 하기에 반드시 필요하진 않지만 아래 선수 지식들이 도움이 됩니다. (Pre-requisites)
+- Python 문법에 대한 익숙한 이해. 
+- Pandas 또는 Numpy 의 기초적 사용법.
+- 통계 기초, 머신러닝 개념
+
+
+
+<h3>Comments</h3>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'pycon-korea-2017';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </div>
+        <div class="col-md-3">
+            <div class="submenu list-group hidden-xs hidden-sm">
+
+</div>
+
+            <ul class="banners">
+
+</ul>
+
+        </div>
+    </div>
+    
+    
+    <hr>
+    <div class="row wrap">
+        <div class="col-md-12 sponsors">
+        <h2>Sponsors</h2>
+        
+<div class="sponsors">
+  
+  <h3>Platinum</h3>
+  <ul>
+    
+      
+      <li class="sponsor-3">
+        <a href="../about/sponsor/psf.html">
+          <img src="../../media/sponsor/psf-crop_mfeUXJT.png" alt="Python Software Foundation">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-3">
+        <a href="../about/sponsor/asan.html">
+          <img src="../../media/sponsor/asan-logo.png" alt="The Asan Nanum Foundation">
+          
+        </a>
+      </li>
+      
+    
+  </ul>
+  
+  <h3>Gold</h3>
+  <ul>
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/whatap.html">
+          <img src="../../media/sponsor/Logo_a4_rearrange_iMjtz0i.png" alt="WhaTap">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/lezhin.html">
+          <img src="../../media/sponsor/The_red_tag_logo_SgqoF3m.png" alt="Lezhin Entertainment">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/smartstudy.html">
+          <img src="../../media/sponsor/smartstudy_ci_J2inMmh.png" alt="SMARTSTUDY">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/ifunfactory.html">
+          <img src="../../media/sponsor/ifun_logo_crop.png" alt="iFunFactory">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/elastic.html">
+          <img src="../../media/sponsor/elastic-logo-crop.png" alt="elastic">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/buzzvil.html">
+          <img src="../../media/sponsor/buzzvil_logo_crop_IU1NjTv.png" alt="Buzzvil">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/codigm.html">
+          <img src="../../media/sponsor/logo_codigm.png" alt="Codigm">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/jetbrains.html">
+          <img src="../../media/sponsor/logo_JetBrains_crop.png" alt="JetBrains">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/nhnent.html">
+          <img src="../../media/sponsor/nhnent.png" alt="NHN Entertainment">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/line.html">
+          <img src="../../media/sponsor/LINE_Text_Logo_TypeA.png" alt="LINE">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-4">
+        <a href="../about/sponsor/coupang.html">
+          <img src="../../media/sponsor/COUPANG-CROP.png" alt="Coupang">
+          
+        </a>
+      </li>
+      
+    
+  </ul>
+  
+  <h3>Silver</h3>
+  <ul>
+    
+      
+      <li class="sponsor-5">
+        <a href="../about/sponsor/lablup.html">
+          <img src="../../media/sponsor/Lablup-logo-crop_zSIfV7U.png" alt="Lablup">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-5">
+        <a href="../about/sponsor/intake.html">
+          <img src="../../media/sponsor/intake_ci-crop.png" alt="INTAKE">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-5">
+        <a href="../about/sponsor/ab180.html">
+          <img src="../../media/sponsor/ab180_logo.png" alt="ab180">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-5">
+        <a href="../about/sponsor/ibm.html">
+          <img src="../../media/sponsor/ibm-logo.png" alt="IBM">
+          
+        </a>
+      </li>
+      
+    
+  </ul>
+  
+  <h3>Bronze</h3>
+  <ul>
+    
+      
+      <li class="sponsor-6">
+        <a href="../about/sponsor/skplanet.html">
+          <img src="../../media/sponsor/skplanet.png" alt="SK Planet">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-6">
+        <a href="../about/sponsor/haezoom.html">
+          <img src="../../media/sponsor/haezoom_crop.png" alt="HAEZOOM">
+          
+        </a>
+      </li>
+      
+    
+      
+      <li class="sponsor-6">
+        <a href="../about/sponsor/peoplefund.html">
+          <img src="../../media/sponsor/pf_logo.png" alt="PEOPLEFUND">
+          
+        </a>
+      </li>
+      
+    
+  </ul>
+  
+</div>
+
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+<div class="footer">
+    <div class="container">
+        <div class="row wrap">
+            <div class="col col-sm-2 pyconkr-badge">
+                <img src="../../static/image/pyconkr-badge.png" alt="PyCon Korea badge">
+            </div>
+            <div class="col col-sm-7 credit">
+                <h4>
+                PyCon Korea 2017 
+                </h4>
+                <p>
+                PyCon Korea 2017 is a product of PyCon Korea Organizing Team
+                </p>
+                <p>
+                Powered by Django
+                </p>
+                <p>
+                  Hosted on <a href="http://d2.naver.com/">Naver D2</a>
+                  <img class="hosting" src="../../static/image/naver-d2.png" alt="Hosted on Naver D2">
+                </p>
+            </div>
+            <div class="col col-sm-3 info">
+                <h4>Stay connected</h4>
+                <a class="btn btn-social-icon btn-twitter" href="https://twitter.com/pyconkr">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="btn btn-social-icon btn-facebook" href="https://facebook.com/pyconkorea">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="btn btn-social-icon btn-github" href="https://github.com/pythonkr/pyconkr-2017">
+                    <i class="fa fa-github"></i>
+                </a>
+                <a class="btn btn-social-icon btn-flickr" href="https://www.flickr.com/photos/126829363@N08/sets/">
+                    <i class="fa fa-flickr"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../../www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75675713-1', 'pycon.kr');
+  ga('send', 'pageview');
+
+</script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "../../../../connect.facebook.net/en_US/all.js#xfbml=1&appId=194162310738860";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</body>
+
+
+<!-- Mirrored from archive.pycon.kr/2017/en/program/156 by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Jul 2021 13:16:48 GMT -->
+</html>

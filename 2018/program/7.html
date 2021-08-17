@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+
+
+<html lang="kr">
+
+
+<!-- Mirrored from archive.pycon.kr/2018/program/7 by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Jul 2021 13:16:12 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <title>파이콘 한국 2018 프로그램 | 파이썬으로 네트워크 장비 테스트 자동화 하기</title>
+    <meta property="og:site_name" content="파이콘 한국 2018">
+    <meta property="og:title" content="파이썬으로 네트워크 장비 테스트 자동화 하기">
+    <meta property="og:url" content="/2018/program/7">
+    <meta property="og:image" content="../static/image/pyconkr-2018-cover.png">
+    <meta property="og:description" content="주제는 무엇인가요?python으로 네트워크 장비 테스트 자동화 하기왜 이 발표를 계획 하게 되었나요?기존 사내에서 수동으로 테스트를 진행하던 테스트 엔지니어였습니다. 테스트 자동화에 대한 인사이트를 얻고자, 지난 PyCon 2017 각 부스와 Open Space를 돌아다녔습니다. 하지만 Web service 혹은 개발 자체에 대한 이야기들이 주를 이루었고, 테스트 혹은 테스트 프레임워크 개발, 네트워크에 대한 이야기는 전무해 아쉬웠습니다.Python은 네트워크 장비 운영 및 설정, 테스트에서도 활발히 움직임을 보이고 있고, 무엇보다 쉽게 접근 할 수 있는 언어기 때문에, 누군가 저처럼 테스트 자동화 개발 자체에 고민을 가지고 왔지만 약간 아쉬움을 느끼신 분들이 있을 것이라 생각했습니다. 그래서 제가 스스로 “우리 같은 사람도 있어요!”를 알리고 싶은 마음으로 참여하게 되었습니다.특히나 이번 PyCon의 주제도 ‘다양성’ 이기에 해당 주제도 좋은 의미가 있을 것이라 생각했습니다.대상 청중은 누구인가요?자동화를 도입하고 계신 CLI 기반 소프트웨어 테스트 엔지니어 분들아직 Python이 무서운 수동 테스트 엔지니어 분들Python을 통한 네트워크 장비 테스트 방법이 궁금하신 분들발표를 통해서 청중이 어떤 것을 얻을 수 있나요?개발 경험이 전혀 없던 제가 1년동안 네트워크 자동화 테스트 프레임워크 개발 과정을 통해 얻은 경험을 공유하고자 합니다.청중은 Python을 통한 네트워크 장비 테스트 방법, 넓게는 CLI 기반의 소프트웨어 테스트 접근 방식에 대한 인사이트를 얻을 수 있을 것으로 예상합니다.">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
+    <link rel="icon" type="image/png" href="../static/image/favicon2018.ico">
+
+    <link href="../static/components/slick-carousel/slick/slick.css" rel="stylesheet">
+    <link href="../static/components/slick-carousel/slick/slick-theme.css" rel="stylesheet">
+    <link href="../../../cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="../static/components/datatables.net-bs/css/dataTables.bootstrap.css" rel="stylesheet">
+
+    <script src="../static/components/jquery/dist/jquery.min.js"></script>
+    <script src="../static/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../static/components/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="../static/components/datatables.net-bs/js/dataTables.bootstrap.js"></script>
+
+    <link href="../static/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../static/css/pyconkr.css" rel="stylesheet">
+    <link href="../static/css/pyconkr-media.css" rel="stylesheet">
+
+    <link href="../static/css/pyconkr-teaser.css" rel="stylesheet" type="text/css">
+
+    
+    
+</head>
+<body>
+
+
+<nav class="navbar navbar-translucent gradient-bg" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">툴바 토글</span>
+        <span class="glyphicon glyphicon-python"></span>
+      </button>
+      
+      <a class="navbar-logo" href="../index.html">
+        <img src="../static/image/pycon2018-logo.png" alt="PyCon Korea">
+      </a>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            파이콘 한국 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../about/pyconkr/index.html">파이콘 한국 2018</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/coc/index.html">파이콘 성명서</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/blog/index.html">파이콘 한국 블로그</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/announcements/index.html">알림</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/sponsor/index.html">후원사 목록</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/patron/index.html">개인 후원자</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/sponsorship/index.html">후원 안내</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/staff/index.html">준비위원회 및 자원봉사자</a>
+            </li>
+          
+            <li class="">
+              <a href="../about/contact/index.html">연락처</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            프로그램 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="schedule/index.html">세부 일정</a>
+            </li>
+          
+            <li class="">
+              <a href="list/index.html">프로그램 목록</a>
+            </li>
+          
+            <li class="">
+              <a href="keynote/index.html">키노트</a>
+            </li>
+          
+            <li class="">
+              <a href="speaker/index.html">발표자</a>
+            </li>
+          
+            <li class="">
+              <a href="tutorial/index.html">튜토리얼</a>
+            </li>
+          
+            <li class="">
+              <a href="sprint/index.html">스프린트</a>
+            </li>
+          
+            <li class="">
+              <a href="youngcoder/index.html">영코더</a>
+            </li>
+          
+            <li class="">
+              <a href="child_care/index.html">아이돌봄</a>
+            </li>
+          
+            <li class="">
+              <a href="lightning_talk/index.html">라이트닝 토크</a>
+            </li>
+          
+            <li class="">
+              <a href="ost/index.html">열린 공간</a>
+            </li>
+          
+            <li class="">
+              <a href="health/index.html">체육 시간</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            장소 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../venue/map/index.html">지도</a>
+            </li>
+          
+            <li class="">
+              <a href="../venue/transportation/index.html">교통 수단</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            발표안 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../cfp/cfp/index.html">발표자 모집</a>
+            </li>
+          
+            <li class="">
+              <a href="../cfp/howto/index.html">발표안 제안하기</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            등록 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li class="">
+              <a href="../registration/information/index.html">정보</a>
+            </li>
+          
+            <li class="">
+              <a href="../registration/purchase/index.html">티켓 구입</a>
+            </li>
+          
+            <li class="">
+              <a href="../registration/finacial-aid/index.html">재정 지원</a>
+            </li>
+          
+            <li class="">
+              <a href="../registration/visa/index.html">Visa Sponsing</a>
+            </li>
+          
+          </ul>
+        </li>
+        
+        
+      </ul>
+      <!-- Right menu -->
+      <ul class="nav navbar-nav navbar-right">
+      <!-- Authenticate -->
+      
+        <li class="">
+          <a href="../login/index.html">로그인</a>
+        </li>
+      
+      <!-- Language -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            언어 <span class="caret"></span></a>
+          <ul id="language-menu" class="dropdown-menu" role="menu">
+            
+            
+            
+            <li><a href="../index.html">한국어</a></li>
+            
+            
+            
+            <li><a href="../en/index.html">English</a></li>
+            
+            
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<main>
+    <div class="container">
+    
+        <h1>파이썬으로 네트워크 장비 테스트 자동화 하기</h1>
+    
+        
+        
+<div class="social-badges">
+  <span>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </span>
+  <span>
+    <script>
+    var s = '<div class="fb-like" data-href="'+document.location+'" data-width="450" data-layout="button_count"></div>';
+    document.write(s);
+</script>
+
+  </span>
+  <span>
+    <script type="text/javascript" src="../../../apis.google.com/js/plusone.js"></script>
+<div class="g-plusone" data-size="medium"></div>
+
+  </span>
+  <div class="clear"></div>
+</div>
+
+<ul class="list-group">
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-tag"></span> Development Method with Python
+  </li>
+  
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-pencil"></span>
+      중급
+      
+  </li>
+  
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-time"></span> 2018-08-18 (토) 13:40 - 14:20
+  </li>
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-volume-up"></span> 한국어
+  </li>
+  
+  <li class="list-group-item">
+    <span class="glyphicon glyphicon-map-marker"></span> 105
+  </li>
+  
+  
+  <li class="list-group-item">
+    
+    <div class="speaker-small">
+    <a href="speaker/dongsoo_koo.html">
+        <img class="image" src="../media/speaker/IMG_7201.jpg" alt="photo of dongsoo_koo">
+        <span class="name">구동수 / dongsoo_koo</span>
+    </a>
+    </div>
+    
+  </li>
+  
+  <li class="list-group-item">
+  
+    <span class="glyphicon glyphicon-eye-open"></span> 촬영, 녹화가 가능합니다.
+  
+  </li>
+</ul>
+
+<h3>슬라이드</h3><br>
+<a href="https://www.slideshare.net/ssuserdec263/pycon-korea-2018-automating-network-device-test-with-python-dongsookoo/ssuserdec263/pycon-korea-2018-automating-network-device-test-with-python-dongsookoo" rel="nofollow">https://www.slideshare.net/ssuserdec263/pycon-korea-2018-automating-network-device-test-with-python-dongsookoo/ssuserdec263/pycon-korea-2018-automating-network-device-test-with-python-dongsookoo</a><br>
+
+
+<h3>발표 동영상</h3><br>
+<a href="https://www.youtube.com/watch?v=dqDEon49NQI" rel="nofollow">https://www.youtube.com/watch?v=dqDEon49NQI</a><br>
+
+
+
+<h3>설명</h3><br>
+<h1 dir="ltr" style="line-height:2.064;margin-top:20pt;margin-bottom:8pt;"><span style="font-size:20pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">주제는 무엇인가요?</span></h1><ul style="margin-top:0pt;margin-bottom:0pt;"><li dir="ltr" style="list-style-type:disc;font-size:12pt;font-family:Arial;color:#333333;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 36pt;"><p dir="ltr" style="line-height:2.064;margin-top:0pt;margin-bottom:8pt;"><span style="font-size:12pt;font-family:Arial;color:#333333;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">python으로 네트워크 장비 테스트 자동화 하기</span></p></li></ul><h1 dir="ltr" style="line-height:2.064;margin-top:20pt;margin-bottom:8pt;"><span style="font-size:20pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">왜 이 발표를 계획 하게 되었나요?</span></h1><ul style="margin-top:0pt;margin-bottom:0pt;"><li dir="ltr" style="list-style-type:disc;font-size:12pt;font-family:Arial;color:#000000;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 36pt;"><p dir="ltr" style="line-height:2.064;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:12pt;font-family:Arial;color:#000000;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">기존 사내에서 수동으로 테스트를 진행하던 테스트 엔지니어였습니다. 테스트 자동화에 대한 인사이트를 얻고자, 지난 PyCon 2017 각 부스와 Open Space를 돌아다녔습니다. 하지만 Web service 혹은 개발 자체에 대한 이야기들이 주를 이루었고, 테스트 혹은 테스트 프레임워크 개발, 네트워크에 대한 이야기는 전무해 아쉬웠습니다.</span></p></li><li dir="ltr" style="list-style-type:disc;font-size:12pt;font-family:Arial;color:#000000;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 36pt;"><p dir="ltr" style="line-height:2.064;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:12pt;font-family:Arial;color:#000000;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Python은 네트워크 장비 운영 및 설정, 테스트에서도 활발히 움직임을 보이고 있고, 무엇보다 쉽게 접근 할 수 있는 언어기 때문에, 누군가 저처럼 테스트 자동화 개발 자체에 고민을 가지고 왔지만 약간 아쉬움을 느끼신 분들이 있을 것이라 생각했습니다. 그래서 제가 스스로 “우리 같은 사람도 있어요!”를 알리고 싶은 마음으로 참여하게 되었습니다.</span></p></li><li dir="ltr" style="list-style-type:disc;font-size:12pt;font-family:Arial;color:#000000;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 36pt;"><p dir="ltr" style="line-height:2.064;margin-top:0pt;margin-bottom:8pt;"><span style="font-size:12pt;font-family:Arial;color:#000000;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">특히나 이번 PyCon의 주제도 ‘다양성’ 이기에 해당 주제도 좋은 의미가 있을 것이라 생각했습니다.</span></p></li></ul><h1 dir="ltr" style="line-height:2.064;margin-top:20pt;margin-bottom:8pt;"><span style="font-size:20pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">대상 청중은 누구인가요?</span></h1><ul style="margin-top:0pt;margin-bottom:0pt;"><li dir="ltr" style="list-style-type:disc;font-size:12pt;font-family:Arial;color:#333333;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 36pt;"><p dir="ltr" style="line-height:2.064;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:12pt;font-family:Arial;color:#333333;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">자동화를 도입하고 계신 CLI 기반 소프트웨어 테스트 엔지니어 분들</span></p></li><li dir="ltr" style="list-style-type:disc;font-size:12pt;font-family:Arial;color:#333333;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 36pt;"><p dir="ltr" style="line-height:2.064;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:12pt;font-family:Arial;color:#333333;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">아직 Python이 무서운 수동 테스트 엔지니어 분들</span></p></li><li dir="ltr" style="list-style-type:disc;font-size:12pt;font-family:Arial;color:#333333;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 36pt;"><p dir="ltr" style="line-height:2.064;margin-top:0pt;margin-bottom:8pt;"><span style="font-size:12pt;font-family:Arial;color:#333333;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Python을 통한 네트워크 장비 테스트 방법이 궁금하신 분들</span></p></li></ul><h1 dir="ltr" style="line-height:2.064;margin-top:20pt;margin-bottom:8pt;"><span style="font-size:20pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">발표를 통해서 청중이 어떤 것을 얻을 수 있나요?</span></h1><p><span id="docs-internal-guid-e7f42f12-7fff-cce3-cfc2-7f22651b1c17"></span></p><ul style="margin-top:0pt;margin-bottom:0pt;"><li dir="ltr" style="list-style-type:disc;font-size:12pt;font-family:Arial;color:#333333;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 36pt;"><p dir="ltr" style="line-height:2.064;margin-top:0pt;margin-bottom:8pt;"><span style="font-size:12pt;font-family:Arial;color:#333333;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">개발 경험이 전혀 없던 제가 1년동안 네트워크 자동화 테스트 프레임워크 개발 과정을 통해 얻은 경험을 공유하고자 합니다.</span></p></li><li dir="ltr" style="list-style-type:disc;font-size:12pt;font-family:Arial;color:#333333;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 36pt;"><p dir="ltr" style="line-height:2.064;margin-top:0pt;margin-bottom:8pt;"><span style="font-size:12pt;font-family:Arial;color:#333333;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">청중은 Python을 통한 네트워크 장비 테스트 방법, 넓게는 CLI 기반의 소프트웨어 테스트 접근 방식에 대한 인사이트를 얻을 수 있을 것으로 예상합니다.</span></p></li></ul><br>
+
+
+
+<h3>댓글</h3>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'pycon-korea';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+
+    
+    <div class="container">
+        <div class="sponsors">
+        <h2>후원사 목록</h2>
+        
+<div class="sponsors">
+    
+        <h3>다이아몬드</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-2">
+                        <a href="../about/sponsor/banksalad.html">
+                            <img src="../media/sponsor/Banksalad_%e1%84%80%e1%85%a1%e1%84%85%e1%85%a9_4.png" alt="뱅크샐러드">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-2">
+                        <a href="../about/sponsor/hyperconnect.html">
+                            <img src="../media/sponsor/HYPERCONNECT_LOGO_l9HiZNL.png" alt="하이퍼커넥트">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>사파이어</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-3">
+                        <a href="../about/sponsor/lunit.html">
+                            <img src="../media/sponsor/lunit-logo-3-940px.png" alt="루닛">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>플래티넘</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-4">
+                        <a href="../about/sponsor/rgpkorea.html">
+                            <img src="../media/sponsor/rgpkorea_logo_940px.png" alt="알지피코리아">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-4">
+                        <a href="../about/sponsor/fast_campus.html">
+                            <img src="../media/sponsor/fastcampus_logo_940px.png" alt="패스트캠퍼스">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-4">
+                        <a href="../about/sponsor/google.html">
+                            <img src="../media/sponsor/google_logo_940px_2.png" alt="구글">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-4">
+                        <a href="../about/sponsor/asannanum.html">
+                            <img src="../media/sponsor/%ec%95%84%ec%82%b0%eb%82%98%eb%88%94%ec%9e%ac%eb%8b%a8Logo_square.jpg" alt="아산나눔재단">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>골드</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/icon.html">
+                            <img src="../media/sponsor/icon-logo-2-940px_WhVohvL.png" alt="ICON">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/ridi_corporation.html">
+                            <img src="../media/sponsor/ridibooks_logo_940px.png" alt="리디 주식회사">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/sendbird.html">
+                            <img src="../media/sponsor/Logo-Horizontal-Color-940px.png" alt="센드버드">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/line.html">
+                            <img src="../media/sponsor/line-logo-940px-s.png" alt="라인">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/spoqa.html">
+                            <img src="../media/sponsor/spoqa_logo_940px.png" alt="스포카">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/coinone.html">
+                            <img src="../media/sponsor/coinone_logo_940px.png" alt="코인원">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/jetbrains.html">
+                            <img src="../media/sponsor/logo_JetBrains_crop.png" alt="JetBrains">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/lablup.html">
+                            <img src="../media/sponsor/Lablup.png" alt="래블업">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/odkmedia.html">
+                            <img src="../media/sponsor/odkmedia_logo_940px_eTiE9ZD.png" alt="ODK Media, Inc.">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-5">
+                        <a href="../about/sponsor/elastic.html">
+                            <img src="../media/sponsor/elastic_logo_940px.png" alt="elastic">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>실버</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/peoplefund.html">
+                            <img src="../media/sponsor/pf-logo-940px.png" alt="피플펀드">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/bunjang.html">
+                            <img src="../media/sponsor/bunjang_logo_940px.png" alt="번개장터">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/hbsmith.html">
+                            <img src="../media/sponsor/hbsmith-logo-940px_yQwaBTW-s.png" alt="HBSmith">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/mymusictaste.html">
+                            <img src="../media/sponsor/mymusictaste_logo_940px_YUMdSMp.png" alt="MyMusicTaste">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/startlink.html">
+                            <img src="../media/sponsor/Startlink_logo_940px.png" alt="스타트링크">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/glowdayz.html">
+                            <img src="../media/sponsor/glowpick_logo_940px_qMg7yUD.png" alt="글로우데이즈">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/wishket.html">
+                            <img src="../media/sponsor/wishket_logo_940px.png" alt="위시켓">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-6">
+                        <a href="../about/sponsor/miraeassetdaewoo.html">
+                            <img src="../media/sponsor/miraeasset-logo-940px-s.png" alt="미래에셋대우">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>커뮤니티</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-7">
+                        <a href="../about/sponsor/womenwhocode.html">
+                            <img src="../media/sponsor/womenwhocode_logo_940px.png" alt="위민 후 코드">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+        <h3>미디어</h3>
+        <ul>
+            
+                
+                    <li class="sponsor-8">
+                        <a href="../about/sponsor/gilbut.html">
+                            <img src="../media/sponsor/gilbut_logo_940px.png" alt="길벗">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-8">
+                        <a href="../about/sponsor/jpub.html">
+                            <img src="../media/sponsor/jpub_logo_940px.png" alt="제이펍">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-8">
+                        <a href="../about/sponsor/hanbit.html">
+                            <img src="../media/sponsor/hanbit-logo-940px.png" alt="한빛미디어">
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="sponsor-8">
+                        <a href="../about/sponsor/insight.html">
+                            <img src="../media/sponsor/insight-logo-940px-s.png" alt="인사이트">
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    
+</div>
+
+        </div>
+    </div>
+    
+</main>
+
+ 
+
+
+
+
+
+
+<footer class="text-center">
+    <div class="container">
+        <h3>Dive into Diversity, 파이콘 한국 2018</h3>
+        <p>파이콘 한국 2018은 파이콘 한국 준비위원회가 만들고 있습니다.</p>
+        <p>
+            파이썬 웹 프레임워크 <a href='https://www.djangoproject.com/'>Django</a>로 만들었습니다. | 홈페이지 호스팅은 <a href="http://d2.naver.com/">Naver D2</a>의 지원을 받고 있습니다.
+          <img class="hosting" src="../static/image/naver-d2.png" alt="Hosted on Naver D2">
+        </p>
+        <div>
+            <p>
+                더 알아보기
+                <a class="btn-twitter" href="https://twitter.com/pyconkr">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="btn-facebook" href="https://facebook.com/pyconkorea">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="btn-github" href="https://github.com/pythonkr/pyconkr-2018">
+                    <i class="fa fa-github"></i>
+                </a>
+                <a class="btn-flickr" href="https://www.flickr.com/photos/126829363@N08/sets/">
+                    <i class="fa fa-flickr"></i>
+                </a>
+            </p>
+        </div>
+
+    </div>
+</footer>
+
+
+
+</body>
+
+<!-- Mirrored from archive.pycon.kr/2018/program/7 by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Jul 2021 13:16:12 GMT -->
+</html>
